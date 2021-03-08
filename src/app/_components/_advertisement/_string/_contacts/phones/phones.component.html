@@ -1,0 +1,22 @@
+<app-phone #phone0 (phoneChanged)="onPhoneChanged()"></app-phone>
+<app-phone #phone1 (phoneChanged)="onPhoneChanged()"></app-phone>
+<app-phone #phone2 (phoneChanged)="onPhoneChanged()"></app-phone>
+<div class="d-flex flex-fill flex-nowrap">
+  <div class="d-flex flex-fill">
+    <div class="text-danger">
+      <div *ngIf="lengthError">
+        <small>Превышена максимальная длинна телефонов.</small>
+      </div>
+      <div *ngIf="submitted && requiredError">
+        <small>Не задан ни один телефон.</small>
+      </div>
+    </div>
+  </div>
+  <div style="min-width: 40pt">
+    <div class="d-flex justify-content-end">
+      <div>
+        <small>{{getTotalLength()}} / {{getMaxLength('phones')}}</small>
+      </div>
+    </div>
+  </div>
+</div>

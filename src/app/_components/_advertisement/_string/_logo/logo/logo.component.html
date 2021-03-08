@@ -1,0 +1,21 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Логотип</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <ngx-dropzone class="mt-3 mb-3" (change)="onSelect($event)">
+      <ngx-dropzone-label>
+        <div class="dz-message-text"><img class="mr-2" src="../assets/img/icons/cloud-upload.svg" width="25" alt="">Щёлкните здесь или перетащите логотип.</div>
+      </ngx-dropzone-label>
+      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let l of logos" [file]="l" (removed)="onRemove(l)" [removable] = "true">
+      </ngx-dropzone-image-preview>
+    </ngx-dropzone>
+    <div class="d-flex flex-fill flex-nowrap">
+      <div class="d-flex flex-fill">
+        <div *ngIf="logos.length === 0 && submitted" class="text-danger">
+          <small>Логотип отсутствует.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

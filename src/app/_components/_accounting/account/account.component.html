@@ -1,0 +1,47 @@
+<div *ngIf="account$ | async as account; else loading">
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-md">
+          <h5 class="mb-2 mb-md-0">Счёт № {{account.number}} от {{account.date | date: 'dd.MM.yyyy'}}</h5>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button" (click)="onDownloadAccount()"><span class="fa fa-arrow-down mr-1"></span>Скачать счёт</button>
+<!--          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button"><span class="fa fa-arrow-down mr-1"></span>Счёт с печатью</button>-->
+        </div>
+      </div>
+    </div>
+    <div class="card-body fs--1">
+      <div class="container px-0 mb-3">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="container px-0 pb-3">
+              <div class="text-primary font-weight-bold">Получатель</div>
+              <div class="mb-3">{{account.supplier.name}}</div>
+              <div>{{account.supplier.legalAddress}}</div>
+              <div class="mb-3">ИНН/КПП {{account.supplier.inn}}/{{account.supplier.kpp}}</div>
+              <div><strong>Расчетный счет: {{account.bank.settlementAccount}}</strong></div>
+              <div><strong>{{account.bank.name}}</strong></div>
+              <div><strong>БИК {{account.bank.bik}}</strong></div>
+              <div><strong>К/с {{account.bank.correspondentAccount}}</strong></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="container px-0 pb-3">
+              <div class="text-primary font-weight-bold">Плательщик</div>
+              <div class="mb-3">{{account.client.name}}</div>
+              <div>{{account.client.legalAddress}}</div>
+              <div>ИНН/КПП {{account.client.inn}}/{{account.client.kpp}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-positions [positions]="account.positions" [readOnly]="true" [nds]="account.nds"></app-positions>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Загружаю счёт...</p>
+</ng-template>
+

@@ -1,0 +1,57 @@
+<form class="form" #f="ngForm" novalidate>
+  <div class="input-group">
+    <div class="col-lg-4 d-flex flex-nowrap p-0">
+      <div class="input-group-prepend align-self-start"><span class="input-group-text" style="border-top-right-radius:0; border-bottom-right-radius:0">Оплата</span></div>
+      <select class="form-control" name="salaryTypeSelect" style="border-top-left-radius:0; border-bottom-left-radius:0"
+              [(ngModel)]="currentSalaryType" (ngModelChange)="onSalaryTypeChanged()">
+        <option disabled [ngValue]="undefinedSalaryType">Не выбрана...</option>
+        <option *ngFor="let salaryType of salaryTypes" [ngValue]="salaryType">{{salaryType.name}}</option>
+      </select>
+    </div>
+    <div class="col-lg-5 d-flex p-0">
+      <div *ngIf="currentSalaryType !== undefined" [ngSwitch]="currentSalaryType.id" class="flex-fill">
+        <div *ngSwitchCase="1" class="d-flex flex-nowrap flex-fill input-group">
+          <input class="form-control" type="number" name="salaryValue" placeholder="Сумма" [(ngModel)]="salaryFixed">
+          <ng-container *ngTemplateOutlet="salaryPercent"></ng-container>
+        </div>
+        <div *ngSwitchCase="2" class="d-flex flex-nowrap flex-fill input-group">
+          <input class="form-control" type="number" name="salaryFrom" placeholder="От" [(ngModel)]="salaryFrom">
+          <ng-container *ngTemplateOutlet="salaryPercent"></ng-container>
+        </div>
+        <div *ngSwitchCase="3" class="d-flex flex-nowrap flex-fill input-group">
+          <input class="form-control" type="number" name="salaryTo" placeholder="До" [(ngModel)]="salaryTo">
+          <ng-container *ngTemplateOutlet="salaryPercent"></ng-container>
+        </div>
+        <div *ngSwitchCase="4" class="d-flex flex-nowrap flex-fill input-group">
+          <input class="form-control" type="number" name="salaryFrom" placeholder="От" [(ngModel)]="advSalary.from">
+          <input class="form-control" type="number" name="salaryTo" placeholder="До" [(ngModel)]="advSalary.to">
+          <ng-container *ngTemplateOutlet="salaryPercent"></ng-container>
+        </div>
+        <div *ngSwitchCase="5">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 p-0">
+      <select class="form-control" name="currencySelect" #salary="ngModel"
+              required
+              [(ngModel)]="currentCurrency" (ngModelChange)="onCurrencyChanged()"
+              [ngClass]="{ 'is-invalid': submitted && salary.errors }">
+        <option disabled [ngValue]="undefinedCurrency">Валюта...</option>
+        <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency.name}}</option>
+      </select>
+      <div class="invalid-feedback">Валюта не выбрана.</div>
+    </div>
+  </div>
+</form>
+
+<ng-template #salaryPercent>
+  <div class="input-group-append">
+      <span class="input-group-text">
+        <div class="custom-control custom-checkbox mr-2">
+          <input class="custom-control-input" type="checkbox" id="isSalaryPercent" [(ngModel)]="advSalary.isSalaryPercent">
+          <label class="custom-control-label" for="isSalaryPercent"> +%</label>
+        </div>
+      </span>
+  </div>
+</ng-template>

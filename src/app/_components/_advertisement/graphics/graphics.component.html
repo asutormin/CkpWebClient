@@ -1,0 +1,52 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Выходы</h5>
+  </div>
+  <div class="card-body bg-light pb-0">
+    <div class="dashboard-data-table table-responsive">
+      <table class="table table-sm table-dashboard fs--1">
+        <thead class="bg-200 text-900">
+          <tr>
+            <th class="no-sort pr-1 align-middle data-table-row-bulk-select">
+              <div class="custom-control custom-checkbox" style="Width: 20px">
+                <input class="px-1 custom-control-input checkbox-bulk-select" id="checkbox-bulk-graphics-select" type="checkbox" data-checkbox-body="#graphics-body" data-checkbox-actions="#bulk-select-actions" data-checkbox-replaced-element="#bulk-select-replace-element"/>
+                <label class="custom-control-label" for="checkbox-bulk-graphics-select"></label>
+              </div>
+            </th>
+            <th class="sort pr-1 align-middle text-center">Номер</th>
+            <th class="sort pr-1 align-middle text-center">Выход</th>
+            <th class="sort pr-1 align-middle text-left">День недели</th>
+            <th class="sort pr-1 align-middle text-center white-space-nowrap w-auto">Завершение приёма</th>
+          </tr>
+        </thead>
+        <tbody id="graphics-body">
+          <tr class="btn-reveal-trigger" *ngFor="let graphic of graphicsToDisplay">
+            <td class="align-middle white-space-nowrap">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input checkbox-bulk-select-target" type="checkbox" id="{{ 'checkbox-' + graphic.id }}"
+                       [disabled]="(disableUnchecked && !graphic.isChecked) && (advertisement.graphics.length > 0 || !isPackageGraphicEnabled(graphic.outDate))"
+                       [(ngModel)]="graphic.isChecked" (change)="onGraphicChanged($event)"/>
+                <label class="custom-control-label" for="{{ 'checkbox-' + graphic.id }}"></label>
+              </div>
+            </td>
+            <td class="align-middle text-center">{{graphic.number}}</td>
+            <td class="align-middle text-center text-primary"><strong>{{graphic.outDate | date:'dd.MM.yyyy' }}</strong></td>
+            <td class="align-middle text-left">{{weekdays[graphic.outDate.getDay()]}}</td>
+            <td class="align-middle text-center white-space-nowrap w-auto">{{graphic.closingDate  | date:'dd.MM.yyyy HH:mm'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="advertisement.graphics.length === 0 && submitted">
+    <div class="text-danger d-flex justify-content-center mb-1">
+      <small>Не выбран ни один график.</small>
+    </div>
+  </div>
+  <div class="card-footer border-top">
+    <app-pagination [position]="'right'" [pageSize]="8" [itemsCount]="graphics.length" [data]="graphics" (getPageData)="getPageData($event)"></app-pagination>
+  </div>
+
+
+
+</div>

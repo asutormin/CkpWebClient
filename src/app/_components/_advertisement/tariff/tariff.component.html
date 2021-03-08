@@ -1,0 +1,81 @@
+<div [ngSwitch]="advertisement.format.formatTypeId">
+  <div *ngSwitchCase="0">
+    Формат не задан
+  </div>
+  <div *ngSwitchCase="1">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [advertisement]="advertisement" [disableUnchecked]="isPackage"></app-graphics>
+
+    <div *ngIf="canShowElement('region-header')">
+      <app-header #header [advertisement]="advertisement"></app-header>
+    </div>
+    <div *ngIf="canShowElement('region-requirements')">
+      <app-requirements #requirements
+        [advRequirements]="advertisement.string.requirements"
+        [advSupplierId]="advertisement.supplierId"
+        [advFormat]="advertisement.format">
+      </app-requirements>
+    </div>
+    <div *ngIf="canShowElement('region-responsibilities')">
+      <app-responsibilities #responsibilities
+        [advString]="advertisement.string"
+        [advSupplierId]="advertisement.supplierId"
+        [advFormat]="advertisement.format">
+      </app-responsibilities>
+    </div>
+    <div *ngIf="canShowElement('region-conditions')">
+      <app-conditions #conditions
+        [advConditions]="advertisement.string.conditions"
+        [advOccurrencies]="advertisement.string.occurrences"
+        [advAddresses]="advertisement.string.addresses"
+        [advSupplierId]="advertisement.supplierId"
+        [advFormat]="advertisement.format"
+        [advOrderPositionId]="advertisement.orderPositionId">
+      </app-conditions>
+    </div>
+
+    <div *ngIf="canShowElement('region-logos')">
+      <app-logo #logo [advLogo]="advertisement.string.logo"></app-logo>
+    </div>
+
+    <div *ngIf="canShowElement('region-contacts')">
+      <app-contacts #contacts
+        [advContact]="advertisement.string.contact"
+        [advPhones]="advertisement.string.phones"
+        [advEmails]="advertisement.string.emails"
+        [advSupplierId]="advertisement.supplierId"
+        [advFormat]="advertisement.format">
+      </app-contacts>
+    </div>
+
+  </div>
+
+  <div *ngSwitchCase="2">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [advertisement]="advertisement" [disableUnchecked]="isPackage"></app-graphics>
+    <app-module #module [Advertisement]="advertisement"></app-module>
+  </div>
+
+  <div *ngSwitchCase="3">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [advertisement]="advertisement"></app-graphics>
+    <app-module #module [Advertisement]="advertisement"></app-module>
+  </div>
+
+  <div *ngSwitchCase="26">
+<!--    <app-graphics #graphics [advertisement]="advertisement"></app-graphics>-->
+    <app-package #package [Advertisement]="advertisement"></app-package>
+  </div>
+
+  <div *ngSwitchDefault>
+    <ng-container *ngTemplateOutlet="UnknownFormat"></ng-container>
+  </div>
+</div>
+
+<ng-template #UnknownFormat>Неизвестный формат</ng-template>

@@ -1,0 +1,13 @@
+<div class="mt-3">
+  <app-part-builder PartName="Компания" #header TextFieldName="Название компании" TextFieldPlaceholder="Введите название компании..."
+                    [ModulePartParams]="moduleParamsStandard.header"
+                    (modulePartCahnged)="onBuildSample()"></app-part-builder>
+  <app-part-builder PartName="Вакансия" #body TextFieldName="Вакансия" TextFieldPlaceholder="Введите текст вакансии..."
+                    [ModulePartParams]="moduleParamsStandard.body"
+                    (modulePartCahnged)="onBuildSample()"></app-part-builder>
+  <app-part-builder PartName="Контакты" #footer TextFieldName="Контакты" TextFieldPlaceholder="Введите контактную информацию..."
+                    [ModulePartParams]="moduleParamsStandard.footer"
+                    (modulePartCahnged)="onBuildSample()"></app-part-builder>
+  <img class="images" *ngIf="sample" [src]="sample"/>
+</div>
+

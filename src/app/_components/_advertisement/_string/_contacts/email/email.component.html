@@ -1,0 +1,24 @@
+<form class="form" #f="ngForm" novalidate>
+  <div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text">Электронная почта</span></div>
+    <input class="form-control" name="email" #email="ngModel" type="text" placeholder="email@email.ru"
+           email
+           [(ngModel)]="emailToDisplay" (ngModelChange)="onEmailChanged()" (keypress)="onEmailChanging($event)">
+  </div>
+  <div class="d-flex flex-fill flex-nowrap">
+    <div class="d-flex flex-fill">
+      <div *ngIf="email.invalid" class="text-danger">
+        <div *ngIf="email.errors.email && submitted">
+          <small>Адрес электронной почты задан не верно.</small>
+        </div>
+      </div>
+    </div>
+    <div style="min-width: 40pt">
+      <div class="d-flex justify-content-end">
+        <div>
+          <small>{{emailToDisplay.length}} / {{getMaxLength('email')}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

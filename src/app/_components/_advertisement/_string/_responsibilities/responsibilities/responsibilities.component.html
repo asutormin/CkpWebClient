@@ -1,0 +1,30 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Обязанности</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <form class="form" #f="ngForm" novalidate>
+      <textarea class="form-control" type="text" #responsibilities="ngModel" name="vacancyResponsibilities" placeholder="Обязанности не заданы"
+                appMaxFieldLength maxFieldLength="{{getMaxLength('responsibilities')}}"
+                [(ngModel)]="advString.responsibility" [ngClass]="{ 'is-invalid': submitted && responsibilities.errors }" rows="3"
+                (keypress)="onResponsibilitiesChanging($event)">
+      </textarea>
+      <div class="d-flex flex-fill flex-nowrap">
+        <div class="d-flex flex-fill">
+          <div *ngIf="responsibilities.invalid && (responsibilities.dirty || responsibilities.touched)" class="text-danger">
+            <div *ngIf="responsibilities.errors.maxLengthInvalid">
+              <small>Превышена максимальная длинна обязанностей.</small>
+            </div>
+          </div>
+        </div>
+        <div style="min-width: 40pt">
+          <div class="d-flex justify-content-end">
+            <div>
+              <small>{{getLength()}} / {{getMaxLength('conditions')}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

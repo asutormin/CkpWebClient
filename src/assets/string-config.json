@@ -1,0 +1,861 @@
+{
+  "suppliers": [
+    {
+      "supplier": {
+        "id": 1761,
+        "name": "Rabota.ru - Москва",
+        "formats": [
+          {
+            "format": {
+              "id": 75100,
+              "name": "Вакансия выделенная на странице результатов поиска вакансии",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements" },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence" },
+                    { "name": "address" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person" },
+                    { "name": "phones" },
+                    { "name": "email" }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "supplier": {
+        "id": 1678,
+        "name": "РДВ - Москва",
+        "formats": [
+          {
+            "format": {
+              "id": 58309,
+              "name": "Простое объявление - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58310,
+              "name": "Простое объявление - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58312,
+              "name": "Выделенное объявление - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58313,
+              "name": "Выделенное объявление - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58334,
+              "name": "Простое объявление",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159470,
+              "name": "Простое объявление - Тариф \"Неделя\" Общежития",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58315,
+              "name": "Мини-модуль - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58316,
+              "name": "Мини-модуль - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58318,
+              "name": "Объявление с логотипом - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-logos",
+                  "elements": [
+                    { "name":  "logo"}
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 58319,
+              "name": "Объявление с логотипом - Тариф \"Неделя\"",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 50 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440 },
+                    { "name": "education" },
+                    { "name": "experience" }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary" },
+                    { "name": "work-graphic" },
+                    { "name": "occurrence", "count": 1 },
+                    { "name": "address", "length": 80 },
+                    { "name": "housing" },
+                    { "name": "food" }
+                  ]
+                },
+                {
+                  "name": "region-logos",
+                  "elements": [
+                    { "name":  "logo"}
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255 },
+                    { "name": "phones", "length": 32 },
+                    { "name": "email", "length": 255 }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "supplier": {
+        "id": 4671,
+        "name": "РРД - Юг",
+        "formats": [
+          {
+            "format": {
+              "id": 89083,
+              "name": "Строка минимальная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 90 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 45 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 89084,
+              "name": "Строка стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 108166,
+              "name": "Строка стандартная расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "supplier": {
+        "id": 5823,
+        "name": "РРД - Восток",
+        "formats": [
+          {
+            "format": {
+              "id": 89100,
+              "name": "Строка минимальная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 90 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 45 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 89101,
+              "name": "Строка стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 108167,
+              "name": "Строка стандартная расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "supplier":
+      {
+        "id": 6212,
+        "name": "РРД - Север",
+        "formats": [
+          {
+            "format": {
+              "id": 89118,
+              "name": "Строка минимальная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 90 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 45 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 89119,
+              "name": "Строка стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 108168,
+              "name": "Строка стандартная выделенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40 },
+                    { "name": "vacancy-additional", "length": 65 }
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 160 }
+                  ]
+                },
+                {
+                  "name": "region-responsibilities",
+                  "elements": [
+                    { "name": "responsibilities", "length": 185 }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "conditions", "length": 100 },
+                    { "name": "occurrence", "length": 28 },
+                    { "name": "address", "length": 75 }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "phones", "length": 32 }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

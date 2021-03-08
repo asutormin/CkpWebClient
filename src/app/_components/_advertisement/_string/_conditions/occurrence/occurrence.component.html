@@ -1,0 +1,41 @@
+<form class="form" #f="ngForm" novalidate>
+  <div class="input-group d-flex">
+    <div class="input-group-prepend"><span class="input-group-text">Местоположение</span></div>
+    <ng-select2 class="d-flex flex-fill" name="occurrenceSelect" #occurrence="ngModel" [placeholder]="'Не выбрано...'"
+                required
+                appMaxSelect2Length maxSelect2Length="{{getMaxLength('occurrence')}}"
+                appMaxSelect2Count maxSelect2Count="{{getMaxCount('occurrence')}}"
+                [data]="occurrences"
+                [(ngModel)]="selectedOccurrences" (ngModelChange)="onOccurrenceChanged($event)"
+                [ngClass]="{ 'is-invalid': submitted && occurrence.errors }"
+                [value]="selectedOccurrences"
+                [allowClear]="true"
+                [options]="options"
+    ></ng-select2>
+  </div>
+  <div class="d-flex flex-fill flex-nowrap">
+    <div class="d-flex flex-fill">
+      <div *ngIf="occurrence.invalid" class="text-danger">
+        <div *ngIf="occurrence.errors.required && submitted">
+          <small>Местоположение не выбрано.</small>
+        </div>
+        <div *ngIf="occurrence.errors.maxLengthInvalid">
+          <small>Превышена максимальная длинна местоположения.</small>
+        </div>
+        <div *ngIf="occurrence.errors.maxCountInvalid">
+          <small>Превышено максимальное количество местоположений.</small>
+        </div>
+      </div>
+    </div>
+    <div style="min-width: 40pt">
+      <div class="d-flex justify-content-end">
+        <div>
+          <small>{{getLength()}} / {{getMaxLength('occurrence')}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+

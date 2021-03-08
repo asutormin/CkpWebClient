@@ -1,0 +1,20 @@
+<div class="card mb-3">
+  <div class="card-body bg-light overflow-hidden">
+    <div class="d-flex flex-fill">
+      <div *ngIf="!valid" class="flex-fill">
+        <div class="flex-fill alert alert-danger my-3" role="alert">
+          <strong>Объявлние заполнено не корректно. Исправьте ошибки.</strong>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="newAdvertisement; else oldAdvertisement" class="d-flex justify-content-end">
+      <button class="btn btn-outline-primary" (click)="onClicked()">В корзину<span class="fa fa-shopping-cart ml-1"></span></button>
+    </div>
+  </div>
+</div>
+
+<ng-template #oldAdvertisement>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-outline-primary" (click)="onClicked()">Сохранить<span class="ml-1"></span></button>
+  </div>
+</ng-template>

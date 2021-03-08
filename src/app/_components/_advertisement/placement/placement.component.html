@@ -1,0 +1,57 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Публикация</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <div class="container-fluid p-0">
+      <form class="form" #f="ngForm" novalidate>
+
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <label for="supplierSelect">Издание</label>
+              <select class="form-control" id="supplierSelect" name="supplierSelect" #supplier="ngModel"
+                      [disabled]="!selectEnabled"
+                      required
+                      [(ngModel)]="currentSupplier" (ngModelChange)="onSupplierChanged()"
+                      [ngClass]="{ 'is-invalid': Submitted && supplier.errors }">
+                <option disabled [ngValue]="undefinedSupplier">Выберите издание...</option>
+                <option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{supplier.name}}</option>
+              </select>
+              <div class="invalid-feedback">Издание не выбрано.</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <label for="formatTypeSelect">Тип формата</label>
+              <select class="form-control" id="formatTypeSelect" name="formatTypeSelect" #formatType="ngModel"
+                      [disabled]="!selectEnabled"
+                      required
+                      [(ngModel)]="currentFormatType" (ngModelChange)="onFormatTypeChanged()"
+                      [ngClass]="{ 'is-invalid': Submitted && formatType.errors }">
+                <option disabled [ngValue]="undefinedFormatType">Выберите тип формата...</option>
+                <option *ngFor="let formatType of formatTypes" [ngValue]="formatType">{{formatType.name}}</option>
+              </select>
+              <div class="invalid-feedback">Тип формата не выбран.</div>
+            </div>
+            <div class="col-lg-6">
+              <label for="tariffSelect">Тариф</label>
+              <select class="form-control" id="tariffSelect" name="tariffSelect" #tariff="ngModel"
+                      [disabled]="!selectEnabled"
+                      required
+                      [(ngModel)]="currentTariff" (ngModelChange)="onTariffChanged()"
+                      [ngClass]="{ 'is-invalid': Submitted && tariff.errors }">
+                <option disabled [ngValue]="undefinedTariff">Выберите тариф...</option>
+                <option *ngFor="let tarif of tariffs" [ngValue]="tarif">{{tarif.format.name}} {{tarif.price.value}}р.</option>
+              </select>
+              <div class="invalid-feedback">Тариф не выбран.</div>
+            </div>
+          </div>
+      </form>
+      <div class="row mb-3" *ngIf="currentTariff === undefined || currentTariff.format.type.id != 26">
+        <div class="col-lg-12">
+          <app-rubrics #rubrics (rubricChanged)="onRubricChanged($event)" [enabled]="selectEnabled"></app-rubrics>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

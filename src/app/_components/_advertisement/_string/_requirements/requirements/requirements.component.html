@@ -1,0 +1,45 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Требования</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <form class="form" #f="ngForm" novalidate>
+      <div class="mb-3" *ngIf="canShowElement('requirements')">
+        <textarea class="form-control" name="requirementsValue" #requirements="ngModel" placeholder="Требования не заданы"
+                  appMaxFieldLength maxFieldLength="{{getMaxLength('requirements')}}"
+                  [(ngModel)]="advRequirements.value" [ngClass]="{ 'is-invalid': Submitted && requirements.errors }" rows="3"
+                  (keypress)="onRequirementsValueChanging($event)"></textarea>
+        <div class="d-flex flex-fill flex-nowrap">
+          <div class="d-flex flex-fill">
+            <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="text-danger">
+              <div *ngIf="requirements.errors.maxLengthInvalid">
+                <small>Превышена максимальная длинна требований.</small>
+              </div>
+            </div>
+          </div>
+          <div style="min-width: 40pt">
+            <div class="d-flex justify-content-end">
+              <div>
+                <small>{{getLength()}} / {{getMaxLength('requirements')}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('education')">
+        <app-education #education
+          [advEducationId]="advRequirements.educationId"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat">
+        </app-education>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('experience')">
+        <app-experience #experience
+          [advExperience]="advRequirements.experience"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat">
+        </app-experience>
+      </div>
+    </form>
+  </div>
+</div>

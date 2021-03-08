@@ -1,0 +1,95 @@
+<div class="card mb-3">
+  <div class="card-body bg-light overflow-hidden">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label for="moduleText">{{TextFieldName}}</label>
+          <textarea class="form-control" id="moduleText" name="moduleText" [(ngModel)]="currentText" (ngModelChange)="onTextChanged()"
+                    [placeholder]="TextFieldPlaceholder" rows="8"></textarea>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="fontSelect">Шрифт</label>
+              <select class="form-control" id="fontSelect" [(ngModel)]="currentFontFamily" (ngModelChange)="onFontFamilyChanged()">
+                <option disabled [ngValue]="undefined">Не выбран</option>
+                <option *ngFor="let fontFamily of fontFamilies" [ngValue]="fontFamily">{{fontFamily}}</option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Шрифт не выбран</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fontSelect">Размер</label>
+              <select class="form-control" id="fontSizeSelect" [(ngModel)]="currentFontSize" (ngModelChange)="onFontSizeChanged()">
+                <option disabled [ngValue]="undefined">Не выбран</option>
+                <option *ngFor="let fontSize of fontSizes" [ngValue]="fontSize">{{fontSize}} pt</option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Размер шрифта не выбран</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fontStyleSelect">Стиль</label>
+              <select class="form-control" id="fontStyleSelect" [(ngModel)]="currentFontStyle" (ngModelChange)="onFontStyleChanged()">
+                <option disabled [ngValue]="undefined">Не выбран</option>
+                <option *ngFor="let fontStyle of fontStyles" [ngValue]="fontStyle">{{fontStyle.name}}</option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Стиль не выбран</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="verticalTextAlignSelect">Вертикальное выравнивание</label>
+              <select class="form-control" id="verticalTextAlignSelect" [(ngModel)]="currentVerticalAlignment" (ngModelChange)="onVerticalAlignmentChanged()">
+                <option disabled [ngValue]="undefined">Не выбрано</option>
+                <option *ngFor="let alignment of verticalAlignments" [ngValue]="alignment">{{alignment.name}}</option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Вертикальное выравнивание не задано</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="horizontalTextAlignSelect">Горизонтальное выравнивание</label>
+              <select class="form-control" id="horizontalTextAlignSelect" [(ngModel)]="currentHorizontalAlignment" (ngModelChange)="onHorizontalAlignmentChanged()">
+                <option disabled [ngValue]="undefined">Не выбрано</option>
+                <option *ngFor="let alignment of horizontalAlignments" [ngValue]="alignment">{{alignment.name}}</option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Горизонтальное выравнивание не задано</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="textColorSelect">Цвет текста</label>
+              <select class="form-control" id="textColorSelect" [(ngModel)]="currentTextColor" (ngModelChange)="onTextColorChanged()"
+                      [ngStyle]="{ 'background-color': getColor(currentTextColor)}">
+                <option disabled [ngValue]="undefined">Не выбран</option>
+                <option *ngFor="let color of textColors" [ngValue]="color" [ngStyle]="{ 'background-color': getColor(color)}"></option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Цвет текста не выбран</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="backgroundColorSelect">Цвет фона</label>
+              <select class="form-control" id="backgroundColorSelect" [(ngModel)]="currentBackgroundColor" (ngModelChange)="onBackgroundColorChanged()"
+                      [ngStyle]="{ 'background-color': getColor(currentBackgroundColor)}">
+                <option disabled [ngValue]="undefined">Не выбран</option>
+                <option *ngFor="let color of backgroundColors" [ngValue]="color" [ngStyle]="{ 'background-color': getColor(color)}"></option>
+              </select>
+              <div class="invalid-feedback">
+                <small>Цвет фона не выбран</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

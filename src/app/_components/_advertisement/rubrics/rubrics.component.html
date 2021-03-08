@@ -1,0 +1,12 @@
+<form class="form mb-3" #f="ngForm" novalidate>
+  <label >Рубрика</label>
+  <select class="form-control" #rubric="ngModel"
+          required
+          [disabled]="!enabled"
+          [(ngModel)]="currentRubric" [ngModelOptions]="{ standalone: true }" (ngModelChange)="onRubricChanged()"
+          [ngClass]="{ 'is-invalid': submitted && rubric.errors }">
+    <option disabled [ngValue]="undefined">Выберите рубрику...</option>
+    <option *ngFor="let rubric of rubrics" [ngValue]="rubric" [disabled]="!rubric.canUse">{{rubric.number}} - {{rubric.name}}</option>
+  </select>
+  <div class="invalid-feedback">Рубрика не выбрана.</div>
+</form>

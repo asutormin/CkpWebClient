@@ -1,0 +1,16 @@
+<form class="form" #f="ngForm" novalidate>
+  <div class="input-group">
+    <div class="col-lg-7 d-flex flex-nowrap p-0">
+      <div class="input-group-prepend"><span class="input-group-text" style="border-top-right-radius:0; border-bottom-right-radius:0">График работы</span></div>
+      <select class="form-control" name="workGraphicSelect" style="border-top-left-radius:0; border-bottom-left-radius:0"
+              [(ngModel)]="currentWorkGraphic" (ngModelChange)="onWorkGraphicChanged()" >
+        <option disabled [ngValue]="undefinedWorkGraphic">Не выбран...</option>
+        <option *ngFor="let workGraphic of workGraphics" [ngValue]="workGraphic">{{workGraphic.name}}</option>
+      </select>
+    </div>
+    <div class="col-lg-5 p-0">
+      <input class="form-control" name="workGraphicComment" type="text" placeholder="Комментарий..."
+             [(ngModel)]="advWorkGraphic.comment">
+    </div>
+  </div>
+</form>

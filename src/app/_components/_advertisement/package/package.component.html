@@ -1,0 +1,9 @@
+<div class="card mb-3" *ngFor="let child of Advertisement.childs">
+  <div class="card-header">
+    <h5 class="mb-0">{{child.format.name}}</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <app-tariff #packageTariff [advertisement]="child" [isPackage]="true"></app-tariff>
+  </div>
+</div>
+

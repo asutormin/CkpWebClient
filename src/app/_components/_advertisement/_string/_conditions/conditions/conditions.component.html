@@ -1,0 +1,77 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Условия</h5>
+  </div>
+  <form class="form" #f="ngForm" novalidate>
+    <div class="card-body bg-light overflow-hidden">
+      <div class="mb-3" *ngIf="canShowElement('conditions')">
+        <textarea class="form-control" #conditions="ngModel" name="conditionsValue" placeholder="Условия не заданы"
+                  appMaxFieldLength maxFieldLength="{{getMaxLength('conditions')}}"
+                  [(ngModel)]="advConditions.value" [ngClass]="{ 'is-invalid': Submitted && conditions.errors }" rows="3"
+                  (keypress)="onConditionsValueChanging($event)"
+        ></textarea>
+        <div class="d-flex flex-fill flex-nowrap">
+          <div class="d-flex flex-fill">
+            <div *ngIf="conditions.invalid && (conditions.dirty || conditions.touched)" class="text-danger">
+              <div *ngIf="conditions.errors.maxLengthInvalid">
+                <small>Превышена максимальная длинна условий.</small>
+              </div>
+            </div>
+          </div>
+          <div style="min-width: 40pt">
+            <div class="d-flex justify-content-end">
+              <div>
+                <small>{{getLength()}} / {{getMaxLength('conditions')}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('salary')">
+        <app-salary #salary
+          [advSalary]="advConditions.salary"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat"
+          [advOrderPositionId]="advOrderPositionId">
+        </app-salary>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('work-graphic')">
+        <app-work-graphic #workGraphic
+          [advWorkGraphic]="advConditions.workGraphic"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat">
+        </app-work-graphic>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('occurrence')">
+        <app-occurrence #occurrence
+          [advOccurrences]="advOccurrencies"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat">
+        </app-occurrence>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('address')">
+        <app-address #address
+          [advAddresses]="advAddresses"
+          [advSupplierId]="advSupplierId"
+          [advFormat]="advFormat">
+        </app-address>
+      </div>
+
+      <div class="row no-gutters">
+        <div class="custom-control custom-checkbox mb-3 mr-2" *ngIf="canShowElement('housing')">
+          <input class="custom-control-input" type="checkbox" id="isHousing" name="isHousing" [(ngModel)]="advConditions.isHousing">
+          <label class="custom-control-label" for="isHousing">Предоставляется жильё</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3" *ngIf="canShowElement('food')">
+          <input class="custom-control-input" type="checkbox" id="isFood" name="isFood" [(ngModel)]="advConditions.isFood">
+          <label class="custom-control-label" for="isFood">Предоставляется питание</label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+

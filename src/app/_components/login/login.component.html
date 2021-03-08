@@ -1,0 +1,51 @@
+<div class="container" data-layout="container">
+  <div class="row flex-center min-vh-100 py-6">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+      <div class="card">
+        <div class="card-body p-4 p-sm-5">
+          <div class="d-flex justify-content-center pb-3">
+            <img src="../assets/img/logos/ckp_logo.png" alt="" height="100" />
+          </div>
+          <div class="row text-left justify-content-between align-items-center mb-2">
+            <div class="col-auto">
+              <h5>Вход</h5>
+            </div>
+          </div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <input class="form-control" type="text" id="login" formControlName="login" placeholder="Логин"
+                     [ngClass]="{ 'is-invalid': submitted && F.login.errors }"/>
+              <div *ngIf="submitted && F.login.errors" class="invalid-feedback">
+                <div *ngIf="F.login.errors.required">Задайте логин</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" id="password" formControlName="password" placeholder="Пароль"
+                     [ngClass]="{ 'is-invalid': submitted && F.password.errors }"/>
+              <div *ngIf="submitted && F.password.errors" class="invalid-feedback">
+                <div *ngIf="F.password.errors.required">Задайте пароль</div>
+              </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="basic-checkbox" checked="checked" />
+                  <label class="custom-control-label" for="basic-checkbox">Запомнить меня</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-block mt-3" type="submit" name="submit" [disabled]="form.invalid || submitted">Войти</button>
+            </div>
+            <div class="alert alert-danger" *ngIf="authService.error$ | async as error">
+              {{error}}
+            </div>
+<!--            <div class="alert alert-info" *ngIf="message">-->
+<!--              {{message}}-->
+<!--            </div>-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
