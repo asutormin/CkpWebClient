@@ -35,16 +35,16 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div *ngIf="canShowElement('vacancy-additional')">
-              <label>Дополнение</label>
-              <input class="form-control" type="text" name="vacancy-additional" #vacancyAdditional="ngModel" placeholder="Дополнение"
-                     appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
-                     [(ngModel)]="advertisement.string.vacancyAdditional" [ngClass]="{ 'is-invalid': submitted && vacancyAdditional.errors }"
+            <div *ngIf="canShowElement('company-name')">
+              <label>Компания</label>
+              <input class="form-control" type="text" name="company-name" #companyName="ngModel" placeholder="Название компании"
+                     appMaxFieldLength maxFieldLength="{{getMaxLength('company-name')}}"
+                     [(ngModel)]="advertisement.string.vacancyAdditional" [ngClass]="{ 'is-invalid': submitted && companyName.errors }"
                      (keypress)="onVacancyAdditionalChanging($event)">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
-                  <div *ngIf="vacancyAdditional.invalid" class="text-danger">
-                    <div *ngIf="vacancyAdditional.errors.maxLengthInvalid">
+                  <div *ngIf="companyName.invalid" class="text-danger">
+                    <div *ngIf="companyName.errors.maxLengthInvalid">
                       <small>Превышена максимальная длинна дополнения.</small>
                     </div>
                   </div>
@@ -52,7 +52,7 @@
                 <div style="min-width: 40pt">
                   <div class="d-flex justify-content-end">
                     <div>
-                      <small>{{advertisement.string.vacancyAdditional.length}} / {{getMaxLength('vacancy-additional')}}</small>
+                      <small>{{advertisement.string.vacancyAdditional.length}} / {{getMaxLength('company-name')}}</small>
                     </div>
                   </div>
                 </div>
