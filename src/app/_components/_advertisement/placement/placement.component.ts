@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {SuppliersService} from '../../../_services/suppliers.service';
 import {Company} from '../../../_model/company';
@@ -43,8 +43,8 @@ export class PlacementComponent implements OnInit, OnDestroy {
   public selectEnabled = true;
 
   public get Valid(): boolean {
-    return  this.submitted && this.form.valid &&
-      (this.rubricsComponent === undefined || (this.rubricsComponent !== undefined && this.rubricsComponent.Valid));
+    return  this.submitted && !this.form.invalid &&
+      (this.rubricsComponent === undefined || this.rubricsComponent.Valid);
   }
 
   public suppliers: Company[];
