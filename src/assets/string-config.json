@@ -61,7 +61,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -103,7 +103,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -145,7 +145,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -187,7 +187,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -229,7 +229,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -271,7 +271,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -313,7 +313,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -355,7 +355,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -397,7 +397,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -445,7 +445,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 50 }
+                    { "name": "company-name", "length": 50 }
                   ]
                 },
                 {
@@ -534,7 +534,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
@@ -575,7 +575,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
@@ -657,7 +657,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
@@ -698,7 +698,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
@@ -781,7 +781,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
@@ -822,7 +822,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40 },
-                    { "name": "vacancy-additional", "length": 65 }
+                    { "name": "company-name", "length": 65 }
                   ]
                 },
                 {
