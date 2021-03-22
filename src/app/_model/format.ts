@@ -6,6 +6,9 @@ export class Format extends BaseEntity {
   packageLength: number;
   firstSize: number;
   secondSize: number;
+  enableSecondSize: boolean;
+  unitName: string;
+  description: string;
   version: Date;
   type: FormatType;
 
