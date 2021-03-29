@@ -1,7 +1,7 @@
 <div class="input-group">
   <div class="col-lg-3 p-0">
-    <input class="form-control" type="text" placeholder="+7 (XXX) XXX-XX-XX"
-           [ngModel]="advPhoneToDisplay.number | mask: '{+7} ([000]) [000] [00] [00]'"
+    <input class="form-control" type="text"
+           [ngModel]="advPhoneToDisplay.number"
            (ngModelChange)="onPhoneChanged($event)"
            [mask]="'{+7} ([000]) [000] [00] [00]'"
            (maskFilled)="onFilledPhoneNumber($event)"

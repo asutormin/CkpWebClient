@@ -57,6 +57,7 @@ export class PhoneComponent implements OnInit {
 
   public onExtractPhone($event: string): void {
     this.refillAdvPhone();
+    console.log(this.advPhone);
   }
 
   public onPhoneDescriptionChanged($event: any): void {
@@ -65,10 +66,18 @@ export class PhoneComponent implements OnInit {
   }
 
   private refillAdvPhone(): void {
+    function format(value, pattern) {
+      let i  = 0;
+      const v = value.toString();
+      return pattern.replace(/#/g, _ => v[i++]);
+    }
+
     if (this.advPhone === undefined) {
       this.advPhone = new AdvPhone();
     }
     if (this.canExtractPhone) {
+      this.advPhoneToDisplay.number = format(
+        this.advPhoneToDisplay.number.replace(/\D/g, ''), '+# (###) ### ## ##')
       this.advPhone.countryCode = this.extractCountryCode();
       this.advPhone.code = this.extractCode();
       this.advPhone.number = this.extractNumber();
@@ -102,6 +111,7 @@ export class PhoneComponent implements OnInit {
   }
 
   public onPhoneChanged($event: any): void {
+    console.log('onPhoneChanged ', $event);
     this.advPhoneToDisplay.number = $event;
   }
 }
