@@ -15,14 +15,16 @@
       <app-requirements #requirements
         [advRequirements]="advertisement.string.requirements"
         [advSupplierId]="advertisement.supplierId"
-        [advFormat]="advertisement.format">
+        [advFormat]="advertisement.format"
+        (changed)="onFieldChanged()">
       </app-requirements>
     </div>
     <div *ngIf="canShowElement('region-responsibilities')">
       <app-responsibilities #responsibilities
         [advString]="advertisement.string"
         [advSupplierId]="advertisement.supplierId"
-        [advFormat]="advertisement.format">
+        [advFormat]="advertisement.format"
+        (changed)="onFieldChanged()">
       </app-responsibilities>
     </div>
     <div *ngIf="canShowElement('region-conditions')">
@@ -32,7 +34,8 @@
         [advAddresses]="advertisement.string.addresses"
         [advSupplierId]="advertisement.supplierId"
         [advFormat]="advertisement.format"
-        [advOrderPositionId]="advertisement.orderPositionId">
+        [advOrderPositionId]="advertisement.orderPositionId"
+        (changed)="onFieldChanged()">
       </app-conditions>
     </div>
 

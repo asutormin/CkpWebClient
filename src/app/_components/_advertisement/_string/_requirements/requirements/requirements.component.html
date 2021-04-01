@@ -5,22 +5,27 @@
   <div class="card-body bg-light overflow-hidden">
     <form class="form" #f="ngForm" novalidate>
       <div class="mb-3" *ngIf="canShowElement('requirements')">
-        <textarea class="form-control" name="requirementsValue" #requirements="ngModel" placeholder="Требования не заданы"
-                  appMaxFieldLength maxFieldLength="{{getMaxLength('requirements')}}"
-                  [(ngModel)]="advRequirements.value" [ngClass]="{ 'is-invalid': Submitted && requirements.errors }" rows="3"
-                  (keypress)="onRequirementsValueChanging($event)"></textarea>
+        <textarea class="form-control" name="requirementsValue" placeholder="Требования не заданы"
+                  [(ngModel)]="advRequirements.value"
+                  (ngModelChange)="onRequirementsChanged()"
+                  [ngClass]="{ 'is-invalid': Submitted && !isFieldValid('requirements') }" rows="3"
+                  (keypress)="onRequirementsValueChanging($event)">
+        </textarea>
         <div class="d-flex flex-fill flex-nowrap">
           <div class="d-flex flex-fill">
-            <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="text-danger">
-              <div *ngIf="requirements.errors.maxLengthInvalid">
+            <div *ngIf="!isFieldValid('requirements')" class="text-danger">
+              <div *ngIf="canShowTotalLength('requirements')">
+                <small>Превышено максимальное количество символов.</small>
+              </div>
+              <div *ngIf="!canShowTotalLength('requirements')">
                 <small>Превышена максимальная длинна требований.</small>
               </div>
             </div>
           </div>
           <div style="min-width: 40pt">
             <div class="d-flex justify-content-end">
-              <div>
-                <small>{{getLength()}} / {{getMaxLength('requirements')}}</small>
+              <div *ngIf="canShowTotalLength('requirements'); else Length">
+                <small>{{totalLength}} / {{getMaxTotalLength('requirements')}}</small>
               </div>
             </div>
           </div>
@@ -43,3 +48,7 @@
     </form>
   </div>
 </div>
+
+<ng-template #Length>
+  <small>{{getLength()}} / {{getMaxLength('requirements')}}</small>
+</ng-template>
