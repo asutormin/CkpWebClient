@@ -73,7 +73,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   public canShowTotalLength(name: string): boolean {
-    return this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name) !== undefined;
+    return this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name) !== null;
   }
 
   public getLength(): number {
