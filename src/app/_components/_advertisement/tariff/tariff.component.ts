@@ -105,14 +105,6 @@ export class TariffComponent implements OnInit, OnDestroy {
       (this.moduleComponent === undefined ? true : this.moduleComponent.Valid);
   }
 
-  public get TotalLength(): number {
-    const length =
-      (this.requirementsComponent === undefined ? 0 : this.requirementsComponent.Length) +
-      (this.conditionsComponent === undefined ? 0 : this.conditionsComponent.Length) +
-      (this.responsibilitiesComponent === undefined ? 0 : this.responsibilitiesComponent.Length);
-    return length;
-  }
-
   constructor(
     private suppliersService: SuppliersService,
     private stringConfigService: StringConfigService

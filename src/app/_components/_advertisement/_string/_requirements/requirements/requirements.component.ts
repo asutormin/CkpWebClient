@@ -64,7 +64,8 @@ export class RequirementsComponent implements OnInit {
     if (this.canShowTotalLength(name)) {
       return  this.totalLength <= this.getMaxTotalLength(name);
     } else {
-      return this.getLength() <= this.getMaxLength(name);
+      const maxLenght = this.getMaxLength(name);
+      return maxLenght ? this.getLength() <= maxLenght : true;
     }
   }
 
@@ -73,7 +74,8 @@ export class RequirementsComponent implements OnInit {
   }
 
   public canShowTotalLength(name: string): boolean {
-    return this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name) !== null;
+    const totalLength = this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name);
+    return totalLength ? true : false;
   }
 
   public getLength(): number {
