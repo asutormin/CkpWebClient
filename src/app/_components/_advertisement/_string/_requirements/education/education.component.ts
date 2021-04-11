@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {SuppliersService} from '../../../../../_services/suppliers.service';
 import {AdvFormat} from '../../../../../_model/advertisement/adv-format';
 import {NgForm} from '@angular/forms';
+import {AdvRequirements} from "../../../../../_model/advertisement/string/requirements/adv-requirements";
 
 @Component({
   selector: 'app-education',
@@ -15,7 +16,7 @@ export class EducationComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) private form: NgForm;
   private edSub: Subscription;
 
-  @Input() public advEducationId: number;
+  @Input() public advRequirements: AdvRequirements;
   @Input() public advSupplierId: number;
   @Input() public advFormat: AdvFormat;
 
@@ -36,7 +37,7 @@ export class EducationComponent implements OnInit, OnDestroy {
     this.edSub = this.suppliersService.getEducationsHandbook(this.advSupplierId, this.advFormat.formatTypeId)
       .subscribe(educations => {
         this.educations = educations;
-        this.currentEducation = educations.find(ed => ed.id === this.advEducationId);
+        this.currentEducation = educations.find(ed => ed.id === this.advRequirements.educationId);
       });
   }
 
@@ -47,7 +48,7 @@ export class EducationComponent implements OnInit, OnDestroy {
   }
 
   public onEducationChanged($event: any): void {
-    this.advEducationId = this.currentEducation.id;
+    this.advRequirements.educationId = this.currentEducation.id;
   }
 
 }

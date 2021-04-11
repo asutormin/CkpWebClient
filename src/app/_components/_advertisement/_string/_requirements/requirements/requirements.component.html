@@ -33,7 +33,7 @@
       </div>
       <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('education')">
         <app-education #education
-          [advEducationId]="advRequirements.educationId"
+          [advRequirements]="advRequirements"
           [advSupplierId]="advSupplierId"
           [advFormat]="advFormat">
         </app-education>
