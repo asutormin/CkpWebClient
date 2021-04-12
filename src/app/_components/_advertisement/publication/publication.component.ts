@@ -157,7 +157,8 @@ export class PublicationComponent implements OnInit, OnDestroy, AfterContentChec
       this.rSub = this.suppliersService.getRubrics(this.advertisement.priceId).subscribe(
         rubrics => {
           if (this.advertisement.rubric.id !== undefined && this.advertisement.rubric.id !== 0) {
-            this.crSub = this.suppliersService.getRubricVersion(this.advertisement.rubric.id, this.advertisement.rubric.version).subscribe(
+            this.crSub = this.suppliersService
+              .getRubricVersion(this.advertisement.rubric.id, this.advertisement.rubric.version).subscribe(
               rubric => {
                 let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());
                 if (currentRubric === undefined) {
@@ -338,6 +339,7 @@ export class PublicationComponent implements OnInit, OnDestroy, AfterContentChec
         return;
       } else {
         console.log('Данные введены корректно.');
+        console.log(this.advertisement);
       }
     }
 

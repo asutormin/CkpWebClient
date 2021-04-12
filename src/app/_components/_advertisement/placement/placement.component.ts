@@ -77,7 +77,9 @@ export class PlacementComponent implements OnInit, OnDestroy {
   }
 
   public setCurrentRubric(rubric: Rubric): void {
-    this.rubricsComponent.setCurrentRubric(rubric);
+    if (this.rubricsComponent) {
+      this.rubricsComponent.setCurrentRubric(rubric);
+    }
   }
 
   public setFormatTypes(formatTypes: FormatType[]): void {
@@ -149,7 +151,9 @@ export class PlacementComponent implements OnInit, OnDestroy {
   public onTariffChanged(): void {
     this.tariffChanged.emit(this.currentTariff);
     if (this.currentTariff === undefined) {
-      this.rubricsComponent.setRubrics(undefined);
+      if (this.rubricsComponent) {
+        this.rubricsComponent.setRubrics(undefined);
+      }
     } else {
       this.selectEnabled = false;
       this.rSub = this.suppliersService.getRubrics(this.currentTariff.price.id).subscribe(rubrics => {

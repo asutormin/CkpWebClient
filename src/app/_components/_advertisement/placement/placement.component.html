@@ -41,7 +41,24 @@
                       [(ngModel)]="currentTariff" (ngModelChange)="onTariffChanged()"
                       [ngClass]="{ 'is-invalid': Submitted && tariff.errors }">
                 <option disabled [ngValue]="undefinedTariff">Выберите тариф...</option>
-                <option *ngFor="let tarif of tariffs" [ngValue]="tarif">{{tarif.format.name}} {{tarif.price.value}}р.</option>
+                <option *ngFor="let tariff of tariffs" [ngValue]="tariff">
+                  <div *ngIf="tariff.format.type.id === 26">
+                    {{tariff.format.name}} {{tariff.price.value}}р.
+                  </div>
+                  <div *ngIf="tariff.format.type.id !== 26">
+                    <div *ngIf="tariff.format.enableSecondSize">
+                      <div *ngIf="tariff.format.description === undefined">
+                        {{tariff.format.name}} ({{tariff.format.firstSize}}{{tariff.format.unitName}} x {{tariff.format.secondSize}}{{tariff.format.unitName}}) {{tariff.price.value}}р.
+                      </div>
+                      <div *ngIf="tariff.format.description !== undefined">
+                        {{tariff.format.name}} {{tariff.format.description}} ({{tariff.format.firstSize}}{{tariff.format.unitName}} x {{tariff.format.secondSize}}{{tariff.format.unitName}}) {{tariff.price.value}}р.
+                      </div>
+                    </div>
+                    <div *ngIf="!tariff.format.enableSecondSize">
+                      {{tariff.format.name}} ({{tariff.format.firstSize}} {{tariff.format.unitName}}) {{tariff.price.value}}р.
+                    </div>
+                  </div>
+                </option>
               </select>
               <div class="invalid-feedback">Тариф не выбран.</div>
             </div>

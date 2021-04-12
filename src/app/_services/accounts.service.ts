@@ -46,7 +46,7 @@ export class AccountsService {
   }
 
   public createAccount(orderPositionIds: number[]): Observable<number> {
-    return this.http.post<number>(`${environment.apiUrl}/advertisements/account/create`, orderPositionIds)
+    return this.http.post<number>(`${environment.apiUrl}/accounts/create`, orderPositionIds)
       .pipe(
         map(response => response)
       );

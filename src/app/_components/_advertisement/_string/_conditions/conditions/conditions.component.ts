@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Advertisement} from '../../../../../_model/advertisement/advertisement';
 import {SalaryComponent} from '../salary/salary.component';
 import {WorkGraphicComponent} from '../work-graphic/work-graphic.component';
@@ -34,6 +34,13 @@ export class ConditionsComponent implements OnInit {
   @Input() public advSupplierId: number;
   @Input() public advFormat: AdvFormat;
   @Input() public advOrderPositionId: number;
+  @Input() public totalLength = 0;
+
+  @Output() public changed = new EventEmitter();
+
+  public get Length() {
+    return this.advConditions.value.length;
+  }
 
   public set Submitted(value: boolean) {
     this.submitted = value;
@@ -65,7 +72,7 @@ export class ConditionsComponent implements OnInit {
       (this.salaryComponent === undefined ? true : this.salaryComponent.Valid) &&
       (this.occurrenceComponent === undefined ? true : this.occurrenceComponent.Valid) &&
       (this.addressComponent === undefined ? true : this.addressComponent.Valid) &&
-      this.form.valid;
+      this.isFieldValid('conditions');
   }
 
   constructor(
@@ -75,8 +82,22 @@ export class ConditionsComponent implements OnInit {
   public ngOnInit() {
   }
 
+  public isFieldValid(name: string): boolean {
+    if (this.canShowTotalLength(name)) {
+      return  this.totalLength <= this.getMaxTotalLength(name);
+    } else {
+      const maxLenght = this.getMaxLength(name);
+      return maxLenght ? this.getLength() <= maxLenght : true;
+    }
+  }
+
   public canShowElement(name: string): boolean {
     return this.stringConfigService.getVisibility(this.advSupplierId, this.advFormat.id, name);
+  }
+
+  public canShowTotalLength(name: string): boolean {
+    const totalLength = this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name);
+    return totalLength ? true : false;
   }
 
   public getLength(): number {
@@ -87,10 +108,18 @@ export class ConditionsComponent implements OnInit {
     return this.stringConfigService.getLength(this.advSupplierId, this.advFormat.id, name);
   }
 
+  public getMaxTotalLength(name: string): number {
+    return  this.stringConfigService.getTotalLength(this.advSupplierId, this.advFormat.id, name);
+  }
+
   public onConditionsValueChanging($event: any): void {
     // const maxLength = this.getMaxLength('conditions');
     // if (maxLength <= this.advConditions.value.length) {
     //   $event.preventDefault();
     // }
+  }
+
+  public onConditionsChanged() {
+    this.changed.emit();
   }
 }

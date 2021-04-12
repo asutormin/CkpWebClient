@@ -19,6 +19,16 @@ export class StringConfigService {
     return element.length;
   }
 
+  public getTotalLength(supplierId: number, formatId: number, fieldName: string): any {
+    const element = this.getElement(supplierId, formatId, fieldName);
+
+    if (element === undefined) {
+      return undefined;
+    }
+
+    return element.totalLength;
+  }
+
   public getCount(supplierId: number, formatId: number, fieldName: string): any {
     const element = this.getElement(supplierId, formatId, fieldName);
 
@@ -57,7 +67,7 @@ export class StringConfigService {
        return undefined;
     }
 
-    const format = formats.map(f => f.format).find(f => f.id === formatId);
+    const format = formats.find(f => f.format.id === formatId).format;
     if (format === undefined) {
       return undefined;
     }

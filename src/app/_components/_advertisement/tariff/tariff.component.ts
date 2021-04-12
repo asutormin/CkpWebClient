@@ -161,4 +161,20 @@ export class TariffComponent implements OnInit, OnDestroy {
     this.advertisement.rubric.version = $event.version;
   }
 
+  onFieldChanged() {
+    const length =
+      (this.requirementsComponent === undefined ? 0 : this.requirementsComponent.Length) +
+      (this.conditionsComponent === undefined ? 0 : this.conditionsComponent.Length) +
+      (this.responsibilitiesComponent === undefined ? 0 : this.responsibilitiesComponent.Length);
+
+    if (this.requirementsComponent) {
+      this.requirementsComponent.totalLength = length;
+    }
+    if (this.conditionsComponent) {
+      this.conditionsComponent.totalLength = length;
+    }
+    if (this.responsibilitiesComponent) {
+      this.responsibilitiesComponent.totalLength = length;
+    }
+  }
 }

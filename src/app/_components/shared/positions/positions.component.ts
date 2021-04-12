@@ -14,6 +14,8 @@ export class PositionsComponent implements OnInit {
   @Input() public readOnly: false;
   @Input() public nds: number;
 
+  public accountInCreation = false;
+
   public get totalSum() {
     return this.positions === undefined ? 0 : this.positions.reduce((sum, current) => sum + current.sum, 0);
   }
@@ -22,6 +24,10 @@ export class PositionsComponent implements OnInit {
     return this.positions === undefined || this.nds === undefined
       ? 0
       : this.positions.reduce((sum, current) => sum + current.sum, 0) * (1 - 100 / (100 + this.nds));
+  }
+
+  public get CanAction() {
+    return this.positions.filter(p => p.isChecked).length > 0;
   }
 
   constructor(
@@ -35,6 +41,7 @@ export class PositionsComponent implements OnInit {
 
   public onCreateAccount(): void {
     const positionIds = this.getSelectedPositions();
+    this.accountInCreation = true;
     this.accountsService.createAccount(positionIds).subscribe(accountId =>
       this.router.navigate([`/accounts/${accountId}`])
     );

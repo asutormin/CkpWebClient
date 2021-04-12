@@ -5,23 +5,27 @@
   <form class="form" #f="ngForm" novalidate>
     <div class="card-body bg-light overflow-hidden">
       <div class="mb-3" *ngIf="canShowElement('conditions')">
-        <textarea class="form-control" #conditions="ngModel" name="conditionsValue" placeholder="Условия не заданы"
-                  appMaxFieldLength maxFieldLength="{{getMaxLength('conditions')}}"
-                  [(ngModel)]="advConditions.value" [ngClass]="{ 'is-invalid': Submitted && conditions.errors }" rows="3"
-                  (keypress)="onConditionsValueChanging($event)"
-        ></textarea>
+        <textarea class="form-control" name="conditionsValue" placeholder="Условия не заданы"
+                  [(ngModel)]="advConditions.value"
+                  (ngModelChange)="onConditionsChanged()"
+                  [ngClass]="{ 'is-invalid': Submitted && !isFieldValid('conditions') }" rows="3"
+                  (keypress)="onConditionsValueChanging($event)">
+        </textarea>
         <div class="d-flex flex-fill flex-nowrap">
           <div class="d-flex flex-fill">
-            <div *ngIf="conditions.invalid && (conditions.dirty || conditions.touched)" class="text-danger">
-              <div *ngIf="conditions.errors.maxLengthInvalid">
+            <div *ngIf="!isFieldValid('conditions')" class="text-danger">
+              <div *ngIf="canShowTotalLength('conditions')">
+                <small>Превышено максимальное количество символов.</small>
+              </div>
+              <div *ngIf="!canShowTotalLength('conditions')">
                 <small>Превышена максимальная длинна условий.</small>
               </div>
             </div>
           </div>
           <div style="min-width: 40pt">
             <div class="d-flex justify-content-end">
-              <div>
-                <small>{{getLength()}} / {{getMaxLength('conditions')}}</small>
+              <div *ngIf="canShowTotalLength('conditions'); else Length">
+                <small>{{totalLength}} / {{getMaxTotalLength('conditions')}}</small>
               </div>
             </div>
           </div>
@@ -70,6 +74,10 @@
     </div>
   </form>
 </div>
+
+<ng-template #Length>
+  <small>{{getLength()}} / {{getMaxLength('conditions')}}</small>
+</ng-template>
 
 
 

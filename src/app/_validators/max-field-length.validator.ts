@@ -8,18 +8,16 @@ import {AbstractControl, NG_VALIDATORS, Validator} from '@angular/forms';
     ]
 })
 export class MaxFieldLengthValidateDirective implements Validator {
-
   @Input() public maxFieldLength: number;
 
   validate(control: AbstractControl): {[key: string]: any} | null {
-
     if (this.maxFieldLength.toString() === '') {
       return null;
     }
 
     if (control.value && control.value.length > this.maxFieldLength) {
-      return { maxLengthInvalid: true }; // return object if the validation is not passed.
+      return { maxLengthInvalid: true };
     }
-    return null; // return null if validation is passed.
+    return null;
   }
 }
