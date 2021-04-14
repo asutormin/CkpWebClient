@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -27,14 +27,14 @@ export class AccountsService {
   public getAccount(accountId: number): Observable<Account> {
     return this.http.get(`${environment.apiUrl}/accounts/${accountId}`)
       .pipe(
-        map((responce: any) => {
+        map((response: any) => {
           return {
-            ...responce,
-            paid: responce.sum - responce.debt,
-            client: responce.clientLegalPerson,
-            supplier: responce.supplierLegalPerson,
-            bank: responce.bank,
-            positions: responce.positions.map((pos: any) => {
+            ...response,
+            paid: response.sum - response.debt,
+            client: response.clientLegalPerson,
+            supplier: response.supplierLegalPerson,
+            bank: response.bank,
+            positions: response.positions.map((pos: any) => {
               return {
                 ...pos,
                 sum: pos.clientSum,
@@ -52,7 +52,7 @@ export class AccountsService {
       );
   }
 
-  public downloadAccount(accountId: number): Observable<Blob>{
+  public downloadAccount(accountId: number): Observable<Blob> {
     return  this.http.get(`${environment.apiUrl}/accounts/document/${accountId}`, { responseType: 'blob' });
   }
 }
