@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {SuppliersService} from '../../../../../_services/suppliers.service';
 import {AdvFormat} from '../../../../../_model/advertisement/adv-format';
 import {NgForm} from '@angular/forms';
-import {AdvRequirements} from "../../../../../_model/advertisement/string/requirements/adv-requirements";
+import {AdvRequirements} from '../../../../../_model/advertisement/string/requirements/adv-requirements';
 
 @Component({
   selector: 'app-education',
