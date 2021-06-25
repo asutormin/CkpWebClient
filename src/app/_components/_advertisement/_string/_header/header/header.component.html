@@ -12,7 +12,7 @@
               <input class="form-control" type="text" name="vacancy-name" #vacancyName="ngModel" placeholder="Название вакансии"
                      required appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-name')}}"
                      [(ngModel)]="advertisement.string.vacancyName" [ngClass]="{ 'is-invalid': submitted && vacancyName.errors }"
-                     (keypress)="onVacancyNameChanging($event)">
+                     (keypress)="onVacancyNameChanging($event)" (ngModelChange)="onVacancyNameChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="vacancyName.invalid" class="text-danger">
@@ -40,7 +40,7 @@
               <input class="form-control" type="text" name="company-name" #companyName="ngModel" placeholder="Название компании"
                      appMaxFieldLength maxFieldLength="{{getMaxLength('company-name')}}"
                      [(ngModel)]="advertisement.string.vacancyAdditional" [ngClass]="{ 'is-invalid': submitted && companyName.errors }"
-                     (keypress)="onVacancyAdditionalChanging($event)">
+                     (keypress)="onVacancyAdditionalChanging($event)" (ngModelChange)="onVacancyAdditionalChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="companyName.invalid" class="text-danger">

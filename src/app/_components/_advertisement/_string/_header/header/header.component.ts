@@ -43,10 +43,25 @@ export class HeaderComponent implements OnInit {
     // }
   }
 
+  public onVacancyNameChange() {
+    this.advertisement.string.vacancyName = this.normalizeString(
+      this.advertisement.string.vacancyName);
+  }
+
   public onVacancyAdditionalChanging($event: KeyboardEvent): void {
     // const maxLength = this.getMaxLength('vacancy-additional');
     // if (maxLength <= this.advertisement.string.vacancyAdditional.length) {
     //   $event.preventDefault();
     // }
+  }
+
+  public onVacancyAdditionalChange() {
+    this.advertisement.string.vacancyAdditional = this.normalizeString(
+      this.advertisement.string.vacancyAdditional);
+  }
+
+  private normalizeString(input: string): string {
+    const output = input.replace(/(\r\n|\n|\r)/gm, '');
+    return output;
   }
 }
