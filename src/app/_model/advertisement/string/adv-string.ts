@@ -10,6 +10,7 @@ import {AdvOccurrence} from './adv-occurrence';
 export class AdvString {
   id: number;
   date: Date;
+  anonymousCompanyName: string;
   vacancyName: string;
   vacancyAdditional: string;
   requirements: AdvRequirements;
@@ -24,6 +25,7 @@ export class AdvString {
   occurrences: AdvOccurrence[];
 
   constructor() {
+    this.anonymousCompanyName = '';
     this.vacancyName = '';
     this.vacancyAdditional = '';
     this.requirements = new AdvRequirements();

@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@an
 import {Advertisement} from '../../../../../_model/advertisement/advertisement';
 import {StringConfigService} from '../../../../../_services/string-config.service';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {SuppliersService} from '../../../../../_services/suppliers.service';
 
 @Component({
   selector: 'app-header',
@@ -55,9 +56,21 @@ export class HeaderComponent implements OnInit {
     // }
   }
 
+  public onCompanyNameChanging($event: KeyboardEvent): void {
+    // const maxLength = this.getMaxLength('vacancy-additional');
+    // if (maxLength <= this.advertisement.string.companyName.length) {
+    //   $event.preventDefault();
+    // }
+  }
+
   public onVacancyAdditionalChange() {
     this.advertisement.string.vacancyAdditional = this.normalizeString(
       this.advertisement.string.vacancyAdditional);
+  }
+
+  public onCompanyNameChange() {
+    this.advertisement.string.anonymousCompanyName = this.normalizeString(
+      this.advertisement.string.anonymousCompanyName);
   }
 
   private normalizeString(input: string): string {

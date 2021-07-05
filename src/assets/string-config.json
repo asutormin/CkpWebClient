@@ -61,7 +61,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 50, "totalLength": null , "count": null}
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
                   ]
                 },
                 {
@@ -144,7 +144,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
@@ -185,7 +185,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
@@ -267,7 +267,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
@@ -308,7 +308,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
@@ -391,7 +391,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
@@ -432,7 +432,7 @@
                   "name": "region-header",
                   "elements": [
                     { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
-                    { "name": "company-name", "length": 65, "totalLength": null, "count": null }
+                    { "name": "anonymous-company-name", "length": 65, "totalLength": null, "count": null }
                   ]
                 },
                 {
