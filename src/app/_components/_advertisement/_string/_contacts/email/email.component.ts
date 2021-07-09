@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
 })
 export class EmailComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
 
   @Input() public advEmails: AdvEmail[];
   @Input() public advSupplierId: number;

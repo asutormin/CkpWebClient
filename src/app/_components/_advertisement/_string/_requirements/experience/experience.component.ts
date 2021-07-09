@@ -13,7 +13,7 @@ import {NgForm} from '@angular/forms';
 })
 export class ExperienceComponent implements OnInit, OnDestroy {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
   private exSub: Subscription;
 
   @Input() public advExperience: AdvExperience;

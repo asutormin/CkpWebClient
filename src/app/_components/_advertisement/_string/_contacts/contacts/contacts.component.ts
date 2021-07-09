@@ -16,9 +16,9 @@ import {EmailComponent} from '../email/email.component';
 })
 export class ContactsComponent implements OnInit {
 
-  @ViewChild('person', { static: false}) private personComponent: PersonComponent;
-  @ViewChild('phones', { static: false}) private phonesComponent: PhonesComponent;
-  @ViewChild('email', { static: false}) private emailComponent: EmailComponent;
+  @ViewChild('person') private personComponent: PersonComponent;
+  @ViewChild('phones') private phonesComponent: PhonesComponent;
+  @ViewChild('email') private emailComponent: EmailComponent;
 
   private submitted = false;
 

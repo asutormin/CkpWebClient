@@ -14,7 +14,7 @@ import {NgForm} from '@angular/forms';
 })
 export class SalaryComponent implements OnInit, OnDestroy {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
 
   private cSub: Subscription;
 

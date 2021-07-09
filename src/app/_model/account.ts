@@ -1,5 +1,6 @@
-import {LegalPerson} from './legal-person';
-import {Bank} from './bank';
+import { LegalPerson } from './legal-person';
+import { Bank } from './bank';
+import { Position } from './position';
 
 export class AccountLight {
   id: number;

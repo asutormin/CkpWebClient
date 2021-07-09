@@ -20,11 +20,11 @@ import {NgForm} from '@angular/forms';
 })
 export class ConditionsComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
-  @ViewChild('salary', {static: false}) private workGraphicComponent: WorkGraphicComponent;
-  @ViewChild('salary', {static: false}) private salaryComponent: SalaryComponent;
-  @ViewChild('occurrence', {static: false}) private occurrenceComponent: OccurrenceComponent;
-  @ViewChild('address', {static: false}) private addressComponent: AddressComponent;
+  @ViewChild('f') private form: NgForm;
+  @ViewChild('salary') private workGraphicComponent: WorkGraphicComponent;
+  @ViewChild('salary') private salaryComponent: SalaryComponent;
+  @ViewChild('occurrence') private occurrenceComponent: OccurrenceComponent;
+  @ViewChild('address') private addressComponent: AddressComponent;
 
   private submitted = false;
 

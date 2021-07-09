@@ -34,8 +34,8 @@ import {ApplyComponent} from '../apply/apply.component';
 })
 export class PublicationComponent implements OnInit, OnDestroy, AfterContentChecked {
   @ViewChild('placement', {static: true}) placementComponent: PlacementComponent;
-  @ViewChild('tariff', {static: false}) tariffComponent: TariffComponent;
-  @ViewChild('apply', {static: false}) applyComponent: ApplyComponent;
+  @ViewChild('tariff') tariffComponent: TariffComponent;
+  @ViewChild('apply') applyComponent: ApplyComponent;
 
   private aSub: Subscription;
 

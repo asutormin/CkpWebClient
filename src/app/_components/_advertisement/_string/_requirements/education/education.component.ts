@@ -13,7 +13,7 @@ import {AdvRequirements} from '../../../../../_model/advertisement/string/requir
 })
 export class EducationComponent implements OnInit, OnDestroy {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
   private edSub: Subscription;
 
   @Input() public advRequirements: AdvRequirements;

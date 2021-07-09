@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 registerLocaleData(localeRu);
@@ -14,28 +12,28 @@ import { ContactsComponent } from './_components/_advertisement/_string/_contact
 import { HeaderComponent } from './_components/_advertisement/_string/_header/header/header.component';
 import { GraphicsComponent } from './_components/_advertisement/graphics/graphics.component';
 import { PlacementComponent } from './_components/_advertisement/placement/placement.component';
-import {FormsModule, NG_VALIDATORS, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, NG_VALIDATORS, ReactiveFormsModule } from '@angular/forms';
 import { ModuleComponent } from './_components/_advertisement/_module/module/module.component';
 import { PackageComponent } from './_components/_advertisement/package/package.component';
-import { PaginationComponent } from './_components/pagination/pagination.component';
+import { PaginationComponent } from './_components/_shared/pagination/pagination.component';
 import { ApplyComponent } from './_components/_advertisement/apply/apply.component';
-import { AccountsComponent} from './_components/_accounting/accounts/accounts.component';
+import { AccountsComponent } from './_components/_accounting/accounts/accounts.component';
 import { AccountComponent } from './_components/_accounting/account/account.component';
 import { LoginComponent } from './_components/login/login.component';
 import { HomeComponent } from './_components/home/home.component';
 import { ShoppingCartComponent } from './_components/shopping-cart/shopping-cart.component';
-import { PositionsComponent } from './_components/shared/positions/positions.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { PositionsComponent } from './_components/_shared/positions/positions.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GraphicsStringifyPipe } from './_pipes/graphicsStringify.pipe';
 import { RubricsStringifiedPipe } from './_pipes/rubricsStringified.pipe';
 import { TariffComponent } from './_components/_advertisement/tariff/tariff.component';
-import {InputMaskAngularModule} from 'input-mask-angular';
+import { InputMaskAngularModule } from 'input-mask-angular';
 import { ResponsibilitiesComponent } from './_components/_advertisement/_string/_responsibilities/responsibilities/responsibilities.component';
 import { RubricsComponent } from './_components/_advertisement/rubrics/rubrics.component';
-import {DateHttpInterceptor} from './_helpers/date.interceptor';
-import {SalaryComponent} from './_components/_advertisement/_string/_conditions/salary/salary.component';
+import { DateHttpInterceptor } from './_helpers/date.interceptor';
+import { SalaryComponent } from './_components/_advertisement/_string/_conditions/salary/salary.component';
 import { ExperienceComponent } from './_components/_advertisement/_string/_requirements/experience/experience.component';
-import {NgxDropzoneModule} from 'ngx-dropzone';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BuilderComponent } from './_components/_advertisement/_module/builder/builder.component';
 import { PartBuilderComponent } from './_components/_advertisement/_module/part-builder/part-builder.component';
 import { UploadComponent } from './_components/_advertisement/_module/upload/upload.component';
@@ -49,12 +47,12 @@ import { PhonesComponent } from './_components/_advertisement/_string/_contacts/
 import { EmailComponent } from './_components/_advertisement/_string/_contacts/email/email.component';
 import { PersonComponent } from './_components/_advertisement/_string/_contacts/person/person.component';
 import { PhoneComponent } from './_components/_advertisement/_string/_contacts/phone/phone.component';
-import {JwtInterceptor} from './_helpers/jwt.interceptor';
-import {NgSelect2Module} from 'ng-select2';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { NgSelect2Module } from 'ng-select2';
 import { LogoComponent } from './_components/_advertisement/_string/_logo/logo/logo.component';
-import {MaxFieldLengthValidateDirective} from './_validators/max-field-length.validator';
-import {MaxSelect2LengthValidateDirective} from './_validators/max-select2-length.validator';
-import {MaxSelect2CountValidateDirective} from './_validators/max-select2-count.validator';
+import { MaxFieldLengthValidateDirective } from './_validators/max-field-length.validator';
+import { MaxSelect2LengthValidateDirective } from './_validators/max-select2-length.validator';
+import { MaxSelect2CountValidateDirective } from './_validators/max-select2-count.validator';
 
 @NgModule({
   declarations: [
@@ -104,7 +102,6 @@ import {MaxSelect2CountValidateDirective} from './_validators/max-select2-count.
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    AngularFontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     InputMaskAngularModule,

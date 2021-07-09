@@ -9,8 +9,8 @@ import {BuilderComponent} from '../builder/builder.component';
   styleUrls: ['./module.component.scss']
 })
 export class ModuleComponent implements OnInit {
-  @ViewChild('upload', {static: false}) uploadComponent: UploadComponent;
-  @ViewChild('builder', {static: false}) builderComponent: BuilderComponent;
+  @ViewChild('upload') uploadComponent: UploadComponent;
+  @ViewChild('builder') builderComponent: BuilderComponent;
 
   private submitted = false;
 

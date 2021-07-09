@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 })
 export class AddressComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
 
   @Input() public advAddresses: AdvAddress[];
   @Input() public advSupplierId: number;

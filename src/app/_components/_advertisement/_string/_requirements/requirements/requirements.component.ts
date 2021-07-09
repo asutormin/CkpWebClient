@@ -13,9 +13,9 @@ import {NgForm} from '@angular/forms';
 })
 export class RequirementsComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
-  @ViewChild('education', {static: false}) private educationComponent: EducationComponent;
-  @ViewChild('experience', {static: false}) private experienceComponent: ExperienceComponent;
+  @ViewChild('f') private form: NgForm;
+  @ViewChild('education') private educationComponent: EducationComponent;
+  @ViewChild('experience') private experienceComponent: ExperienceComponent;
 
   private submitted = false;
 

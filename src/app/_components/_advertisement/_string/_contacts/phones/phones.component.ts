@@ -12,9 +12,9 @@ import {isNumber} from 'util';
 })
 export class PhonesComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('phone0', { static: false }) phone0Component: PhoneComponent;
-  @ViewChild('phone1', { static: false }) phone1Component: PhoneComponent;
-  @ViewChild('phone2', { static: false }) phone2Component: PhoneComponent;
+  @ViewChild('phone0') phone0Component: PhoneComponent;
+  @ViewChild('phone1') phone1Component: PhoneComponent;
+  @ViewChild('phone2') phone2Component: PhoneComponent;
 
   @Input() public advPhones: AdvPhone[];
   @Input() public advSupplierId: number;

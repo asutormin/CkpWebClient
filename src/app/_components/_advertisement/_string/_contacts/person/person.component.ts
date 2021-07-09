@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 })
 export class PersonComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
   private advContact: AdvContact;
 
   public submitted = false;

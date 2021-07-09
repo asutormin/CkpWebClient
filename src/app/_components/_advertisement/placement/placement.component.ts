@@ -20,8 +20,8 @@ export class PlacementComponent implements OnInit, OnDestroy {
   private tSub: Subscription;
   private submitted = false;
 
-  @ViewChild('f', { static: false }) private form: NgForm;
-  @ViewChild('rubrics', { static: false}) private rubricsComponent: RubricsComponent;
+  @ViewChild('f') private form: NgForm;
+  @ViewChild('rubrics') private rubricsComponent: RubricsComponent;
 
   public set Submitted(value: boolean) {
     this.submitted = value;

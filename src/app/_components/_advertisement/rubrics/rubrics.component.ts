@@ -9,7 +9,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RubricsComponent implements OnInit {
 
-  @ViewChild('f', { static: false }) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
 
   @Input() public submitted = false;
   @Input() public enabled = true;

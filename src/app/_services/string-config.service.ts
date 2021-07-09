@@ -1,5 +1,5 @@
-import * as stringConfig from 'src/assets/string-config.json';
-import {Injectable} from '@angular/core';
+import suppliers from 'src/assets/string-config.json';
+import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class StringConfigService {
@@ -57,7 +57,7 @@ export class StringConfigService {
       return result;
     };
 
-    const supplier = stringConfig.suppliers.map(su => su.supplier).find(su => su.id === supplierId);
+    const supplier = suppliers.suppliers.map(su => su.supplier).find(su => su.id === supplierId);
     if (supplier === undefined) {
       return undefined;
     }

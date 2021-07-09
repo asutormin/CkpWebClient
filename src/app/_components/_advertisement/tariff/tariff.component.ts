@@ -28,16 +28,16 @@ import {ModuleComponent} from '../../_advertisement/_module/module/module.compon
 })
 export class TariffComponent implements OnInit, OnDestroy {
 
-  @ViewChild('rubrics', {static: false}) private rubricsComponent: RubricsComponent;
-  @ViewChild('graphics', {static: false}) private graphicsComponent: GraphicsComponent;
-  @ViewChild('package', {static: false}) private packageComponent: PackageComponent;
-  @ViewChild('header', {static: false}) private headerComponent: HeaderComponent;
-  @ViewChild('requirements', {static: false}) private requirementsComponent: RequirementsComponent;
-  @ViewChild('responsibilities', {static: false}) private responsibilitiesComponent: ResponsibilitiesComponent;
-  @ViewChild('conditions', {static: false}) private conditionsComponent: ConditionsComponent;
-  @ViewChild('logo', {static: false}) private logoComponent: LogoComponent;
-  @ViewChild('contacts', {static: false}) private contactsComponent: ContactsComponent;
-  @ViewChild('module', { static: false}) private moduleComponent: ModuleComponent;
+  @ViewChild('rubrics') private rubricsComponent: RubricsComponent;
+  @ViewChild('graphics') private graphicsComponent: GraphicsComponent;
+  @ViewChild('package') private packageComponent: PackageComponent;
+  @ViewChild('header') private headerComponent: HeaderComponent;
+  @ViewChild('requirements') private requirementsComponent: RequirementsComponent;
+  @ViewChild('responsibilities') private responsibilitiesComponent: ResponsibilitiesComponent;
+  @ViewChild('conditions') private conditionsComponent: ConditionsComponent;
+  @ViewChild('logo') private logoComponent: LogoComponent;
+  @ViewChild('contacts') private contactsComponent: ContactsComponent;
+  @ViewChild('module') private moduleComponent: ModuleComponent;
 
   private rSub: Subscription;
   private crSub: Subscription;

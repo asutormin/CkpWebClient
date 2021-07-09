@@ -11,7 +11,7 @@ import {SuppliersService} from '../../../../../_services/suppliers.service';
 })
 export class HeaderComponent implements OnInit {
 
-  @ViewChild('f', {static: false}) private form: NgForm;
+  @ViewChild('f') private form: NgForm;
 
   @Input() public advertisement: Advertisement;
   @Input() public submitted = false;
