@@ -53,6 +53,7 @@ import { LogoComponent } from './_components/_advertisement/_string/_logo/logo/l
 import { MaxFieldLengthValidateDirective } from './_validators/max-field-length.validator';
 import { MaxSelect2LengthValidateDirective } from './_validators/max-select2-length.validator';
 import { MaxSelect2CountValidateDirective } from './_validators/max-select2-count.validator';
+import { WaitLineComponent } from './_components/_shared/wait-line/wait-line.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { MaxSelect2CountValidateDirective } from './_validators/max-select2-coun
     LogoComponent,
     MaxFieldLengthValidateDirective,
     MaxSelect2LengthValidateDirective,
-    MaxSelect2CountValidateDirective
+    MaxSelect2CountValidateDirective,
+    WaitLineComponent
   ],
   imports: [
     BrowserModule,
