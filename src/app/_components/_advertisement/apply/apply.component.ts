@@ -8,12 +8,10 @@ import {Company} from '../../../_model/company';
 })
 export class ApplyComponent implements OnInit {
 
-  private submitted = false;
-
   @Input() public newAdvertisement: boolean;
-
   @Output() public submit = new EventEmitter();
 
+  public submitted = false;
   public valid = true;
 
   constructor() { }
