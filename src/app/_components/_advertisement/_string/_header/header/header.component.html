@@ -10,11 +10,11 @@
             <div *ngIf="canShowElement('vacancy-name')">
               <label>Название</label>
               <input class="form-control" type="text" name="vacancy-name" #vacancyName="ngModel"
-                     placeholder="Название вакансии"
-                     required appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-name')}}"
-                     [(ngModel)]="advertisement.string.vacancyName"
-                     [ngClass]="{ 'is-invalid': submitted && vacancyName.errors }"
-                     (keypress)="onVacancyNameChanging($event)" (ngModelChange)="onVacancyNameChange()">
+                placeholder="Название вакансии"
+                required appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-name')}}"
+                [(ngModel)]="advertisement.string.vacancyName"
+                [ngClass]="{ 'is-invalid': submitted && vacancyName.errors }" (keypress)="onVacancyNameChanging($event)"
+                (ngModelChange)="onVacancyNameChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="vacancyName.invalid" class="text-danger">
@@ -40,11 +40,11 @@
             <div *ngIf="canShowElement('vacancy-additional')">
               <label>Компания</label>
               <input class="form-control" type="text" name="vacancy-additional" #vacancyAdditional="ngModel"
-                     placeholder="Название компании"
-                     appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
-                     [(ngModel)]="advertisement.string.vacancyAdditional"
-                     [ngClass]="{ 'is-invalid': submitted && vacancyAdditional.errors }"
-                     (keypress)="onVacancyAdditionalChanging($event)" (ngModelChange)="onVacancyAdditionalChange()">
+                placeholder="Название компании"
+                appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
+                [(ngModel)]="advertisement.string.vacancyAdditional"
+                [ngClass]="{ 'is-invalid': submitted && vacancyAdditional.errors }"
+                (keypress)="onVacancyAdditionalChanging($event)" (ngModelChange)="onVacancyAdditionalChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="vacancyAdditional.invalid" class="text-danger">
@@ -56,7 +56,7 @@
                 <div style="min-width: 40pt">
                   <div class="d-flex justify-content-end">
                     <div>
-                      <small>{{advertisement.string.vacancyAdditional.length}}
+                      <small>{{advertisement.string.vacancyAdditional ? advertisement.string.vacancyAdditional.length : 0}}
                         / {{getMaxLength('vacancy-additional')}}</small>
                     </div>
                   </div>
@@ -66,11 +66,11 @@
             <div *ngIf="canShowElement('anonymous-company-name')">
               <label>Компания</label>
               <input class="form-control" type="text" name="anonymous-company-name" #anonymousCompanyName="ngModel"
-                     placeholder="Название компании"
-                     appMaxFieldLength maxFieldLength="{{getMaxLength('company-name')}}"
-                     [(ngModel)]="advertisement.string.anonymousCompanyName"
-                     [ngClass]="{ 'is-invalid': submitted && anonymousCompanyName.errors }"
-                     (keypress)="onCompanyNameChanging($event)" (ngModelChange)="onCompanyNameChange()">
+                placeholder="Название компании"
+                appMaxFieldLength maxFieldLength="{{getMaxLength('company-name')}}"
+                [(ngModel)]="advertisement.string.anonymousCompanyName"
+                [ngClass]="{ 'is-invalid': submitted && anonymousCompanyName.errors }"
+                (keypress)="onCompanyNameChanging($event)" (ngModelChange)="onCompanyNameChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="anonymousCompanyName.invalid" class="text-danger">
@@ -82,7 +82,7 @@
                 <div style="min-width: 40pt">
                   <div class="d-flex justify-content-end">
                     <div>
-                      <small>{{advertisement.string.anonymousCompanyName.length}}
+                      <small>{{advertisement.string.anonymousCompanyName ? advertisement.string.anonymousCompanyName.length : 0}}
                         / {{getMaxLength('anonymous-company-name')}}</small>
                     </div>
                   </div>
