@@ -43,9 +43,9 @@ export class PersonComponent implements OnInit {
   }
 
   public getTotalLength(): number {
-    return (this.AdvContact.firstName === undefined ? 0 : this.AdvContact.firstName.length) +
-      (this.AdvContact.secondName === undefined ? 0 : this.AdvContact.secondName.length) +
-      (this.AdvContact.lastName === undefined ? 0 : this.AdvContact.lastName.length);
+    return (this.AdvContact.firstName ? this.AdvContact.firstName.length : 0) +
+      (this.AdvContact.secondName ? this.AdvContact.secondName.length : 0) +
+      (this.AdvContact.lastName ? this.AdvContact.lastName.length : 0);
   }
 
 }
