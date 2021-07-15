@@ -38,20 +38,16 @@
           </div>
           <div class="col-lg-6">
             <div *ngIf="canShowElement('vacancy-additional')">
-              <label>Название</label>
+              <label>Компания</label>
               <input class="form-control" type="text" name="vacancy-additional" #vacancyAdditional="ngModel"
-                     placeholder="Название вакансии"
-                     required appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
+                     placeholder="Название компании"
+                     appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
                      [(ngModel)]="advertisement.string.vacancyAdditional"
                      [ngClass]="{ 'is-invalid': submitted && vacancyAdditional.errors }"
                      (keypress)="onVacancyAdditionalChanging($event)" (ngModelChange)="onVacancyAdditionalChange()">
               <div class="d-flex flex-fill flex-nowrap">
                 <div class="d-flex flex-fill">
                   <div *ngIf="vacancyAdditional.invalid" class="text-danger">
-                    <div
-                      *ngIf="vacancyAdditional.errors.required && (submitted || vacancyAdditional.dirty || vacancyAdditional.touched)">
-                      <small>Название компании не задано.</small>
-                    </div>
                     <div *ngIf="vacancyAdditional.errors.maxLengthInvalid">
                       <small>Превышена максимальная длинна названия компании.</small>
                     </div>
