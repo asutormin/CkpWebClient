@@ -15,6 +15,11 @@ export class MainLayoutComponent implements OnInit {
   public showLoginChangingFields: boolean;
   public showPasswordChangingFields: boolean;
 
+  public get CurrentYear(): number {
+    const currentDate = new Date();
+    return currentDate.getFullYear();
+  }
+
   constructor(
     private router: Router,
     private authService: AuthService
