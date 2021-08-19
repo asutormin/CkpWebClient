@@ -1,0 +1,28 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Контакты</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('person')">
+      <app-person #person
+                  [ContactData]="contactData"
+                  [supplierId]="supplierId"
+                  [formatData]="formatData">
+      </app-person>
+    </div>
+    <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('phones')">
+      <app-phones #phones
+                  [phonesData]="phonesData"
+                  [supplierId]="supplierId"
+                  [formatData]="formatData">
+      </app-phones>
+    </div>
+    <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('email')">
+      <app-email #email
+                 [emailsData]="emailsData"
+                 [supplierId]="supplierId"
+                 [formatData]="formatData">
+      </app-email>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AuthService} from '../../_services/auth.service';
-import {first} from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UserService } from '../../_services/user.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    public authService: AuthService
+    public userService: UserService
   ) {
-    if (this.authService.currentUserValue) {
+    if (this.userService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.submitted = true;
-    this.authService.login(this.F.login.value, this.F.password.value)
+    this.userService.login(this.F.login.value, this.F.password.value)
       .pipe(first())
       .subscribe(
         data => {

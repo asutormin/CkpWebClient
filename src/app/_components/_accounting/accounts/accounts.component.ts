@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AccountsService} from '../../../_services/accounts.service';
-import {AccountLight} from '../../../_model/account';
-import {AuthService} from '../../../_services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AccountService } from '../../../_services/account.service';
+import { AccountInfoLight } from '../../../_model/_input/account-info';
+import { UserService } from '../../../_services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -14,7 +15,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   private aSub: Subscription;
   private itemsCount: number;
 
-  public accountsToDisplay: AccountLight[];
+  public accountsToDisplay: AccountInfoLight[];
   public allAccountsLoaded: boolean;
   public sortDirection: number;
   public sortField: string;
@@ -24,8 +25,9 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private authService: AuthService,
-    private accountsService: AccountsService
+    private router: Router,
+    private authService: UserService,
+    private accountsService: AccountService
   ) {
     this.itemsCount = 10;
     this.accountsToDisplay = [];
@@ -42,7 +44,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   public getMoreItems(): void {
-    const minAccountId = Math.min.apply(Math, this.accountsToDisplay.map(a => a.id ));
+    const minAccountId = Math.min.apply(Math, this.accountsToDisplay.map(a => a.id));
     this.loadAccounts(minAccountId);
   }
 
@@ -64,16 +66,18 @@ export class AccountsComponent implements OnInit, OnDestroy {
     /* tslint:enable:no-string-literal */
   }
 
+  public onNavigate(accountId: number): void {
+    this.router.navigate([`/accounts/item/${accountId}`]);
+  }
+
   private loadAccounts(startAccountId: number): void {
-    this.authService.currentUser.subscribe(cu => {
-      const clientLegalPersonId = this.authService.currentUserValue.clientLegalPersonId;
-      this.aSub = this.accountsService.getAccounts(clientLegalPersonId, startAccountId, this.itemsCount).subscribe(
-        accounts => {
-          this.accountsToDisplay = this.accountsToDisplay.concat(accounts);
-          if (accounts.length < this.itemsCount) {
-            this.allAccountsLoaded = true;
-          }
-        });
-    });
+    const clientLegalPersonId = this.authService.currentUserValue.clientLegalPersonId;
+    this.aSub = this.accountsService.getList(startAccountId, this.itemsCount).subscribe(
+      accounts => {
+        this.accountsToDisplay = this.accountsToDisplay.concat(accounts);
+        if (accounts.length < this.itemsCount) {
+          this.allAccountsLoaded = true;
+        }
+      });
   }
 }

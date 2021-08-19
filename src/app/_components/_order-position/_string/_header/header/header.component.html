@@ -1,0 +1,97 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Вакансия</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <form class="form" #f="ngForm" novalidate>
+      <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-lg-6">
+            <div *ngIf="canShowElement('vacancy-name')">
+              <label>Название</label>
+              <input class="form-control" type="text" name="vacancy-name" #vacancyName="ngModel"
+                placeholder="Название вакансии"
+                required appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-name')}}"
+                [(ngModel)]="orderPositionData.stringData.vacancyName"
+                [ngClass]="{ 'is-invalid': submitted && vacancyName.errors }" (keypress)="onVacancyNameChanging($event)"
+                (ngModelChange)="onVacancyNameChange()">
+              <div class="d-flex flex-fill flex-nowrap">
+                <div class="d-flex flex-fill">
+                  <div *ngIf="vacancyName.invalid" class="text-danger">
+                    <div *ngIf="vacancyName.errors.required && (submitted || vacancyName.dirty || vacancyName.touched)">
+                      <small>Название вакансии не задано.</small>
+                    </div>
+                    <div *ngIf="vacancyName.errors.maxLengthInvalid">
+                      <small>Превышена максимальная длинна названия вакансии.</small>
+                    </div>
+                  </div>
+                </div>
+                <div style="min-width: 40pt">
+                  <div class="d-flex justify-content-end">
+                    <div>
+                      <small>{{orderPositionData.stringData.vacancyName.length}} / {{getMaxLength('vacancy-name')}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div *ngIf="canShowElement('vacancy-additional')">
+              <label>Компания</label>
+              <input class="form-control" type="text" name="vacancy-additional" #vacancyAdditional="ngModel"
+                placeholder="Название компании"
+                appMaxFieldLength maxFieldLength="{{getMaxLength('vacancy-additional')}}"
+                [(ngModel)]="orderPositionData.stringData.vacancyAdditional"
+                [ngClass]="{ 'is-invalid': submitted && vacancyAdditional.errors }"
+                (keypress)="onVacancyAdditionalChanging($event)" (ngModelChange)="onVacancyAdditionalChange()">
+              <div class="d-flex flex-fill flex-nowrap">
+                <div class="d-flex flex-fill">
+                  <div *ngIf="vacancyAdditional.invalid" class="text-danger">
+                    <div *ngIf="vacancyAdditional.errors.maxLengthInvalid">
+                      <small>Превышена максимальная длинна названия компании.</small>
+                    </div>
+                  </div>
+                </div>
+                <div style="min-width: 40pt">
+                  <div class="d-flex justify-content-end">
+                    <div>
+                      <small>{{orderPositionData.stringData.vacancyAdditional ? orderPositionData.stringData.vacancyAdditional.length : 0}}
+                        / {{getMaxLength('vacancy-additional')}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="canShowElement('anonymous-company-name')">
+              <label>Компания</label>
+              <input class="form-control" type="text" name="anonymous-company-name" #anonymousCompanyName="ngModel"
+                placeholder="Название компании"
+                appMaxFieldLength maxFieldLength="{{getMaxLength('company-name')}}"
+                [(ngModel)]="orderPositionData.stringData.anonymousCompanyName"
+                [ngClass]="{ 'is-invalid': submitted && anonymousCompanyName.errors }"
+                (keypress)="onCompanyNameChanging($event)" (ngModelChange)="onCompanyNameChange()">
+              <div class="d-flex flex-fill flex-nowrap">
+                <div class="d-flex flex-fill">
+                  <div *ngIf="anonymousCompanyName.invalid" class="text-danger">
+                    <div *ngIf="anonymousCompanyName.errors.maxLengthInvalid">
+                      <small>Превышена максимальная длинна названия компании.</small>
+                    </div>
+                  </div>
+                </div>
+                <div style="min-width: 40pt">
+                  <div class="d-flex justify-content-end">
+                    <div>
+                      <small>{{orderPositionData.stringData.anonymousCompanyName ? orderPositionData.stringData.anonymousCompanyName.length : 0}}
+                        / {{getMaxLength('anonymous-company-name')}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

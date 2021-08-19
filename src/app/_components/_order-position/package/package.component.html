@@ -1,0 +1,9 @@
+<div class="card mb-3" *ngFor="let child of OrderPositionData.childs">
+  <div class="card-header">
+    <h5 class="mb-0">{{child.formatData.name}}</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <app-tariff #packageTariff [orderPositionData]="child" [isPackage]="true"></app-tariff>
+  </div>
+</div>
+

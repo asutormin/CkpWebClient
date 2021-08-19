@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {AccountsService} from '../../../_services/accounts.service';
-import {Account} from '../../../_model/account';
-import {ActivatedRoute, Params} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { AccountService } from '../../../_services/account.service';
+import { AccountInfo } from '../../../_model/_input/account-info';
+import { ActivatedRoute, Params } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -12,23 +13,24 @@ import {switchMap} from 'rxjs/operators';
 })
 export class AccountComponent implements OnInit {
 
-  public account$: Observable<Account>;
+  public account$: Observable<AccountInfo>;
 
   constructor(
     private route: ActivatedRoute,
-    private accountsService: AccountsService
+    private accountsService: AccountService,
+    private authService: UserService
   ) { }
 
   ngOnInit() {
     this.account$ = this.route.params
       .pipe(switchMap((params: Params) => {
-        return this.accountsService.getAccount(params.id);
+        return this.accountsService.get(params.id);
       }));
   }
 
-  public onDownloadAccount() {
+  public onDownload() {
     this.account$.subscribe(account => {
-      this.accountsService.downloadAccount(account.id).subscribe(x => {
+      this.accountsService.download(account.id).subscribe(x => {
         // It is necessary to create a new blob object with mime-type explicitly set
         // otherwise only Chrome works like it should
         const newBlob = new Blob([x], { type: 'application/vnd.openxmlformats' });
@@ -55,9 +57,8 @@ export class AccountComponent implements OnInit {
           window.URL.revokeObjectURL(data);
           link.remove();
         }, 100);
+
       });
     });
-
-
   }
 }

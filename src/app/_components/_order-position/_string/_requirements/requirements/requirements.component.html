@@ -1,0 +1,54 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Требования</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <form class="form" #f="ngForm" novalidate>
+      <div class="mb-3" *ngIf="canShowElement('requirements')">
+        <textarea class="form-control" name="requirementsValue" placeholder="Требования не заданы"
+                  [(ngModel)]="requirementsData.value"
+                  (ngModelChange)="onRequirementsChanged()"
+                  [ngClass]="{ 'is-invalid': Submitted && !isFieldValid('requirements') }" rows="3"
+                  (keypress)="onRequirementsValueChanging($event)">
+        </textarea>
+        <div class="d-flex flex-fill flex-nowrap">
+          <div class="d-flex flex-fill">
+            <div *ngIf="!isFieldValid('requirements')" class="text-danger">
+              <div *ngIf="canShowTotalLength('requirements')">
+                <small>Превышено максимальное количество символов.</small>
+              </div>
+              <div *ngIf="!canShowTotalLength('requirements')">
+                <small>Превышена максимальная длинна требований.</small>
+              </div>
+            </div>
+          </div>
+          <div style="min-width: 40pt">
+            <div class="d-flex justify-content-end">
+              <div *ngIf="canShowTotalLength('requirements'); else Length">
+                <small>{{totalLength}} / {{getMaxTotalLength('requirements')}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('education')">
+        <app-education #education
+          [requirementsData]="requirementsData"
+          [supplierId]="supplierId"
+          [formatData]="formatData">
+        </app-education>
+      </div>
+      <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('experience')">
+        <app-experience #experience
+          [experienceData]="requirementsData.experienceData"
+          [supplierId]="supplierId"
+          [formatData]="formatData">
+        </app-experience>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #Length>
+  <small>{{getLength()}} / {{getMaxLength('requirements')}}</small>
+</ng-template>

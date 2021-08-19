@@ -1,37 +1,37 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {map} from 'rxjs/operators';
-import {Company} from '../_model/company';
-import {Rubric} from '../_model/rubric';
-import {FormatType} from '../_model/format-type';
-import {Tariff} from '../_model/tariff';
-import {Graphic} from '../_model/graphic';
-import {Experience} from '../_model/experience';
-import {Education} from '../_model/education';
-import {Currency} from '../_model/currency';
-import {WorkGraphic} from '../_model/work-graphic';
-import {Occurrence} from '../_model/occurrence';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
+import { SupplierInfo } from '../_model/_input/supplier-info';
+import { RubricInfo } from '../_model/_input/rubric-info';
+import { FormatTypeInfo } from '../_model/_input/format-type-info';
+import { TariffInfo } from '../_model/_input/tariff-info';
+import { GraphicInfo } from '../_model/_input/graphic-info';
+import { ExperienceInfo } from '../_model/_input/experience-info';
+import { EducationInfo } from '../_model/_input/education-info';
+import { CurrencyInfo } from '../_model/_input/currency-info';
+import { WorkGraphicInfo } from '../_model/_input/work-graphic-info';
+import { OccurrenceInfo } from '../_model/_input/occurrence-info';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SuppliersService {
-  constructor(private  http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
-  public getSuppliers(): Observable<Company[]> {
+  public getSuppliers(): Observable<SupplierInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers`)
-      .pipe(map(response => response as Company[]));
+      .pipe(map(response => response as SupplierInfo[]));
   }
 
-  public getSupplier(supplierId: number): Observable<Company> {
+  public getSupplier(supplierId: number): Observable<SupplierInfo> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}`)
-      .pipe(map(response => response as Company));
+      .pipe(map(response => response as SupplierInfo));
   }
 
-  public getRubrics(priceId: number): Observable<Rubric[]> {
+  public getRubrics(priceId: number): Observable<RubricInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/price/${priceId}/rubrics`)
-      .pipe(map((response: {[key: number]: any}) => {
+      .pipe(map((response: { [key: number]: any }) => {
         return Object
           .keys(response)
           .map(key => ({
@@ -41,30 +41,30 @@ export class SuppliersService {
       }));
   }
 
-  public getRubricVersion(rubricId: number, rubricVersion: Date): Observable<Rubric> {
+  public getRubricVersion(rubricId: number, rubricVersion: Date): Observable<RubricInfo> {
     const isoRubricVersion = this.getIsoDate(rubricVersion);
     return this.http.get(`${environment.apiUrl}/suppliers/rubrics/${rubricId}/${isoRubricVersion}`)
-      .pipe(map((response: any)  => {
-          return {
-            ...response,
-            version: new Date(response.version)
-          };
-        }));
+      .pipe(map((response: any) => {
+        return {
+          ...response,
+          version: new Date(response.version)
+        };
+      }));
   }
 
-  public getFormatTypes(supplierId: number): Observable<FormatType[]> {
+  public getFormatTypes(supplierId: number): Observable<FormatTypeInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/formattypes`)
-      .pipe(map(response => response as FormatType[]));
+      .pipe(map(response => response as FormatTypeInfo[]));
   }
 
-  public getFormatType(formatTypeId: number): Observable<FormatType> {
+  public getFormatType(formatTypeId: number): Observable<FormatTypeInfo> {
     return this.http.get(`${environment.apiUrl}/suppliers/formatTypes/${formatTypeId}`)
-      .pipe(map(response => response as FormatType));
+      .pipe(map(response => response as FormatTypeInfo));
   }
 
-  public getTariffs(supplierId: number, formatTypeId: number): Observable<Tariff[]> {
+  public getTariffs(supplierId: number, formatTypeId: number): Observable<TariffInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/tariffs/${formatTypeId}`)
-      .pipe(map((response: {[key: number]: any}) => {
+      .pipe(map((response: { [key: number]: any }) => {
         return Object
           .keys(response)
           .map(key => ({
@@ -74,7 +74,7 @@ export class SuppliersService {
       }));
   }
 
-  public getTariffVersion(formatId: number, formatVersion: Date, priceId: number): Observable<Tariff> {
+  public getTariffVersion(formatId: number, formatVersion: Date, priceId: number): Observable<TariffInfo> {
     const isoFormatVersion = this.getIsoDate(formatVersion);
     return this.http.get(`${environment.apiUrl}/suppliers/tariffs/${formatId}/${isoFormatVersion}/${priceId}`)
       .pipe(map((response: any) => {
@@ -85,19 +85,19 @@ export class SuppliersService {
       }));
   }
 
-  public getGraphics(supplierId: number, formatTypeId: number): Observable<Graphic[]> {
+  public getGraphics(supplierId: number, formatTypeId: number): Observable<GraphicInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/graphics/${formatTypeId}`)
-      .pipe(map((response: {[key: number]: any}) => {
+      .pipe(map((response: { [key: number]: any }) => {
         return Object
           .keys(response)
           .map(key => ({
             ...response[key],
-              outDate: new Date(response[key].outDate)
+            outDate: new Date(response[key].outDate)
           }));
       }));
   }
 
-  public getGraphic(graphicId: number): Observable<Graphic> {
+  public getGraphic(graphicId: number): Observable<GraphicInfo> {
     return this.http.get(`${environment.apiUrl}/suppliers/graphics/${graphicId}`)
       .pipe(map((response: any) => {
         return {
@@ -107,29 +107,29 @@ export class SuppliersService {
       }));
   }
 
-  public getEducationsHandbook(supplierId: number, formatTypeId: number): Observable<Education[]> {
+  public getEducationsHandbook(supplierId: number, formatTypeId: number): Observable<EducationInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/educations`)
-      .pipe(map(response => response as Education[]));
+      .pipe(map(response => response as EducationInfo[]));
   }
 
-  public getExperiencesHandbook(supplierId: number, formatTypeId: number): Observable<Experience[]> {
+  public getExperiencesHandbook(supplierId: number, formatTypeId: number): Observable<ExperienceInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/experiences`)
-      .pipe(map(response => response as Experience[]));
+      .pipe(map(response => response as ExperienceInfo[]));
   }
 
-  public getCurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<Currency[]> {
+  public getCurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<CurrencyInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/currencies`)
-      .pipe(map(response => response as Currency[]));
+      .pipe(map(response => response as CurrencyInfo[]));
   }
 
-  public getWorkGraphicsHandbook(supplierId: number, formatTypeId: number): Observable<WorkGraphic[]> {
+  public getWorkGraphicsHandbook(supplierId: number, formatTypeId: number): Observable<WorkGraphicInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/workgraphics`)
-      .pipe(map(response => response as WorkGraphic[]));
+      .pipe(map(response => response as WorkGraphicInfo[]));
   }
 
-  public getOccurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<Occurrence[]> {
+  public getOccurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<OccurrenceInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/occurrencies`)
-      .pipe(map(response => response as Occurrence[]));
+      .pipe(map(response => response as OccurrenceInfo[]));
   }
 
   private getIsoDate(dateToConvert): any {

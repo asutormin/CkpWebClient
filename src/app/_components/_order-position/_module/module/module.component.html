@@ -1,0 +1,45 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Макет</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="true" (click)="onTabChanged()">Загрузить</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="build-tab" data-toggle="tab" href="#build" role="tab" aria-controls="build" aria-selected="false" (click)="onTabChanged()">Создать</a>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+        <app-upload #upload [advertisement]="orderPositionData"></app-upload>
+      </div>
+      <div class="tab-pane" id="build" role="tabpanel" aria-labelledby="build-tab">
+        <app-builder #builder [orderPositionData]="orderPositionData"></app-builder>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Макет</h5>
+  </div>
+  <div class="card-body bg-light overflow-hidden">
+    <ngx-dropzone (change)="onSelect($event)">
+      <ngx-dropzone-label><div class="dz-message-text"><img class="mr-2" src="../assets/img/icons/cloud-upload.svg" width="25" alt="">Щёлкните здесь или перетащите макет.</div></ngx-dropzone-label>
+      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let m of samples" [file]="m.file" (removed)="onRemove(m)" [removable] = "true">
+        <ngx-dropzone-label>{{ m.file.name }} ({{ m.width }} x {{ m.height }})</ngx-dropzone-label>
+      </ngx-dropzone-image-preview>
+    </ngx-dropzone>
+  </div>
+</div>
+<app-builder></app-builder>
+-->
+

@@ -61,7 +61,7 @@
         <tbody id="accounts-body">
           <tr class="btn-reveal-trigger" *ngFor="let account of accountsToDisplay">
             <td class="align-middle text-center text-primary">
-              <a class="btn-link" [routerLink]="[account.id]"><strong>{{account.number}}</strong></a>
+              <a class="btn-link" [routerLink]="" (click)="onNavigate(account.id)"><strong>{{account.number}}</strong></a>
             </td>
             <td class="align-middle text-center">{{account.date | date:'dd.MM.yyyy' }}</td>
             <td class="align-middle text-right">{{account.sum | number:'1.2-2': 'ru'}}</td>

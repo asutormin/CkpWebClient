@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <app-placement #placement (supplierChanged)="onSupplierChanged($event)" (rubricChanged)="onRubricChanged($event)"
+    (formatTypeChanged)="onFormatTypeChanged($event)" (tariffChanged)="onTariffChanged($event)">
+  </app-placement>
+  <div *ngIf="orderPositionData !== undefined">
+    <app-tariff #tariff [orderPositionData]="orderPositionData" [isPackage]="false"></app-tariff>
+    <div
+      *ngIf="orderPositionData.stringData || orderPositionData.moduleData || orderPositionData.formatData.formatTypeId === 26">
+      <app-apply #apply [newOrderPositionData]="orderPositionData.orderPositionId === 0" (submit)="onSubmitted()">
+      </app-apply>
+    </div>
+  </div>
+</div>

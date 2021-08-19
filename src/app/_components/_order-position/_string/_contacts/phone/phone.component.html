@@ -1,0 +1,16 @@
+<div class="input-group">
+  <div class="col-lg-3 p-0">
+    <input class="form-control" type="text"
+      (paste)="$event.preventDefault()"
+      [ngModel]="phoneDataToDisplay.number"
+      (ngModelChange)="onPhoneChanged($event)"
+      [mask]="'{+7} ([000]) [000] [00] [00]'"
+      (maskFilled)="onFilledPhoneNumber($event)"
+      (extractedValue)="onExtractPhone($event)">
+
+  </div>
+  <div class="col-lg-9 p-0">
+    <input class="form-control" type="text" placeholder="Дополнительно" [ngModel]="phoneDataToDisplay.description"
+      (ngModelChange)="onPhoneDescriptionChanged($event)">
+  </div>
+</div>

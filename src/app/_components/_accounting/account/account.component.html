@@ -6,8 +6,7 @@
           <h5 class="mb-2 mb-md-0">Счёт № {{account.number}} от {{account.date | date: 'dd.MM.yyyy'}}</h5>
         </div>
         <div class="col-auto">
-          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button" (click)="onDownloadAccount()"><span class="fa fa-arrow-down mr-1"></span>Скачать счёт</button>
-<!--          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button"><span class="fa fa-arrow-down mr-1"></span>Счёт с печатью</button>-->
+          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button" (click)="onDownload()"><span class="fa fa-arrow-down mr-1"></span>Скачать счёт</button>
         </div>
       </div>
     </div>
@@ -36,7 +35,7 @@
           </div>
         </div>
       </div>
-      <app-positions [positions]="account.positions" [readOnly]="true" [nds]="account.nds"></app-positions>
+      <app-order-positions [positions]="account.positions" [readOnly]="true" [nds]="account.nds"></app-order-positions>
     </div>
   </div>
 </div>

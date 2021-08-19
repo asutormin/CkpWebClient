@@ -1,0 +1,83 @@
+<div [ngSwitch]="orderPositionData.formatData.formatTypeId">
+  <div *ngSwitchCase="0">
+    Формат не задан
+  </div>
+  <div *ngSwitchCase="1">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [orderPositionData]="orderPositionData" [disableUnchecked]="isPackage"></app-graphics>
+
+    <div *ngIf="canShowElement('region-header')">
+      <app-header #header [orderPositionData]="orderPositionData"></app-header>
+    </div>
+    <div *ngIf="canShowElement('region-requirements')">
+      <app-requirements #requirements
+        [requirementsData]="orderPositionData.stringData.requirementsData"
+        [supplierId]="orderPositionData.supplierId"
+        [formatData]="orderPositionData.formatData"
+        (changed)="onFieldChanged()">
+      </app-requirements>
+    </div>
+    <div *ngIf="canShowElement('region-responsibilities')">
+      <app-responsibilities #responsibilities
+        [stringData]="orderPositionData.stringData"
+        [supplierId]="orderPositionData.supplierId"
+        [formatData]="orderPositionData.formatData"
+        (changed)="onFieldChanged()">
+      </app-responsibilities>
+    </div>
+    <div *ngIf="canShowElement('region-conditions')">
+      <app-conditions #conditions
+        [conditionsData]="orderPositionData.stringData.conditionsData"
+        [occurrenciesData]="orderPositionData.stringData.occurrencesData"
+        [addressesData]="orderPositionData.stringData.addressesData"
+        [supplierId]="orderPositionData.supplierId"
+        [formatData]="orderPositionData.formatData"
+        [orderPositionId]="orderPositionData.orderPositionId"
+        (changed)="onFieldChanged()">
+      </app-conditions>
+    </div>
+
+    <div *ngIf="canShowElement('region-logos')">
+      <app-logo #logo [logoData]="orderPositionData.stringData.logoData"></app-logo>
+    </div>
+
+    <div *ngIf="canShowElement('region-contacts')">
+      <app-contacts #contacts
+        [contactData]="orderPositionData.stringData.contactData"
+        [phonesData]="orderPositionData.stringData.phonesData"
+        [emailsData]="orderPositionData.stringData.emailsData"
+        [supplierId]="orderPositionData.supplierId"
+        [formatData]="orderPositionData.formatData">
+      </app-contacts>
+    </div>
+
+  </div>
+
+  <div *ngSwitchCase="2">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [orderPositionData]="orderPositionData" [disableUnchecked]="isPackage"></app-graphics>
+    <app-module #module [orderPositionData]="orderPositionData"></app-module>
+  </div>
+
+  <div *ngSwitchCase="3">
+    <div *ngIf="isPackage">
+      <app-rubrics #rubrics></app-rubrics>
+    </div>
+    <app-graphics #graphics [orderPositionData]="orderPositionData"></app-graphics>
+    <app-module #module [orderPositionData]="orderPositionData"></app-module>
+  </div>
+
+  <div *ngSwitchCase="26">
+    <app-package #package [OrderPositionData]="orderPositionData"></app-package>
+  </div>
+
+  <div *ngSwitchDefault>
+    <ng-container *ngTemplateOutlet="UnknownFormat"></ng-container>
+  </div>
+</div>
+
+<ng-template #UnknownFormat>Неизвестный формат</ng-template>

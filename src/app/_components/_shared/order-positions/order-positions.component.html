@@ -1,0 +1,125 @@
+<div style="position: relative">
+  <div [ngClass]="{ fade: !accountInCreation }" class="d-flex flex-nowrap"
+       style="position: absolute; top: 20pt; width: 200px; height: 32px; left: calc(50% - 100px); top: calc(50% - 16px)">
+    <div class="spinner-border text-primary" role="status"></div>
+    <div class="ml-3">Формирую счёт...</div>
+  </div>
+  <div [ngClass]="{ fade: accountInCreation }">
+    <div class="dashboard-data-table table-responsive fs--1">
+      <table class="table table-striped table-dashboard border-bottom">
+        <thead class="bg-200 text-900">
+        <tr>
+          <div *ngIf="!readOnly">
+            <th class="align-middle white-space-nowrap">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input checkbox-bulk-select" id="checkbox-bulk-positions-select"
+                       type="checkbox" data-checkbox-body="#positions-body" data-checkbox-actions="#bulk-select-actions"
+                       data-checkbox-replaced-element="#bulk-select-replace-element">
+                <label class="custom-control-label" for="checkbox-bulk-positions-select"></label>
+              </div>
+            </th>
+          </div>
+          <th class="border-0 text-left">Издание</th>
+          <th class="border-0 text-left">Формат</th>
+          <th class="border-0 text-left">Выходы</th>
+          <th class="border-0 text-right">Цена</th>
+          <th class="border-0 text-center">Кол-во</th>
+          <th class="border-0 text-right">НДС</th>
+          <th class="border-0 text-right">Сумма</th>
+          <div *ngIf="!readOnly">
+            <th class="no-sort"></th>
+          </div>
+        </tr>
+        </thead>
+        <tbody id="positions-body">
+        <tr *ngFor="let position of positions">
+          <div *ngIf="!readOnly">
+            <td class="align-middle white-space-nowrap">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
+                       id="{{ 'checkbox-' + position.id }}" [(ngModel)]="position.isChecked">
+                <label class="custom-control-label" for="{{ 'checkbox-' + position.id }}"></label>
+              </div>
+            </td>
+          </div>
+          <td class="align-middle">
+            <h6 class="mb-0 text-nowrap">{{position.supplier.name}}</h6>
+            <p class="mb-0">{{position.rubrics | rubricsStringified}}</p>
+          </td>
+          <td class="align-middle">
+            <h6 class="mb-0 text-nowrap">{{position.format.type.name}}</h6>
+            <a class="mb-0" href="#" data-toggle="modal" data-target="#vacancyModal">{{position.format.name}}</a>
+          </td>
+          <td class="align-middle text-left">{{position.graphics | graphicsStringified}}</td>
+          <td class="align-middle text-right">{{position.price | number:'1.2-2': 'ru'}}</td>
+          <td class="align-middle text-right">{{position.quantity}}</td>
+          <td class="align-middle text-right">{{position.nds | number:'1.2-2': 'ru'}}</td>
+          <td class="align-middle text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
+          <div *ngIf="!readOnly">
+            <td class="align-middle white-space-nowrap">
+              <div class="dropdown text-sans-serif">
+                <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal mr-3" type="button" id="dropdown0"
+                        data-toggle="dropdown" data-boundary="html" aria-haspopup="true" aria-expanded="false"><span
+                  class="fa fa-ellipsis-h fs--1"></span></button>
+                <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="dropdown0">
+                  <div class="bg-white py-2">
+                    <a class="dropdown-item" (click)="onPositionEdit(position.id)">Изменить</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" (click)="onPositionRemove(position.id)">Удалить</a>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row no-gutters justify-content-end">
+      <div class="col-auto">
+        <table class="table table-sm table-borderless fs--1 text-right">
+          <tr>
+            <th class="text-900">НДС {{nds}}%:</th>
+            <td class="font-weight-semi-bold">{{totalNds| number:'1.2-2': 'ru'}}</td>
+          </tr>
+          <tr class="border-top">
+            <th class="text-900">Итого:</th>
+            <td class="font-weight-semi-bold">{{totalSum | number:'1.2-2': 'ru'}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="!readOnly">
+      <div class="row no-gutters">
+        <div class="col-lg d-flex justify-content-lg-start justify-content-center mb-1">
+          <button class="btn btn-outline-primary mr-1" type="button" [routerLink]="['/order-positions/item/new']"><span
+            class="fa fa-plus mr-1" data-fa-transform="shrink-3"></span>Добавить
+          </button>
+          <button class="btn btn-outline-danger" type="button" (click)="onRemoveSelectedPositions()" [disabled]="!CanAction">Удалить<span
+            class="fa fa-trash ml-1" data-fa-transform="shrink-3"></span></button>
+        </div>
+        <div class="col-12 col-lg-auto d-flex justify-content-lg-end justify-content-center mb-1">
+          <button class="btn btn-success ml-1" type="button" (click)="onCreateAccount()" [disabled]="!CanAction">Сформировать счёт<span
+            class="fa fa-ruble ml-1"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="vacancyModal" tabindex="-1" role="dialog" aria-labelledby="vacancyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Макет</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>Здесь будет выводиться модуль или строка.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<form class="form" #f="ngForm" novalidate>
+  <div class="input-group">
+    <div class="input-group-prepend"><span class="input-group-text">Образование</span></div>
+    <select class="form-control" #education="ngModel" name="education"
+            required
+            [(ngModel)]="currentEducation" (ngModelChange)="onEducationChanged($event)"
+            [ngClass]="{ 'is-invalid': submitted && education.errors }">
+      <option disabled [ngValue]="undefinedEducation">Не выбрано...</option>
+      <option *ngFor="let education of educations" [ngValue]="education">{{education.name}}</option>
+    </select>
+    <div class="invalid-feedback">Образование не выбрано.</div>
+  </div>
+</form>

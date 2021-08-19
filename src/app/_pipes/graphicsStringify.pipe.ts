@@ -1,9 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Graphic} from '../_model/graphic';
+import { Pipe, PipeTransform } from '@angular/core';
+import { GraphicInfo } from '../_model/_input/graphic-info';
 
-@Pipe({name: 'graphicsStringified'})
+@Pipe({ name: 'graphicsStringified' })
 export class GraphicsStringifyPipe implements PipeTransform {
-  transform(graphics: Graphic[]): string {
+  transform(graphics: GraphicInfo[]): string {
 
     function groupBy(list, keyGetter) {
       const map = new Map();
@@ -23,7 +23,7 @@ export class GraphicsStringifyPipe implements PipeTransform {
     const formattedOutDates = [];
 
     for (const graphicGroup of graphicGroups.values()) {
-      const graphicArray = graphicGroup as Graphic[];
+      const graphicArray = graphicGroup as GraphicInfo[];
       const count = graphicArray.length;
       const outDate = new Date(graphicArray[0].outDate);
       const formattedOutDate = ('00' + outDate.getDate()).slice(-2) + '.' + (outDate.getMonth() + 1) + '(' + count + ')';
