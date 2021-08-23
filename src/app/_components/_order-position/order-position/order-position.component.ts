@@ -24,8 +24,8 @@ import { OrderPositionService } from '../../../_services/order-position.service'
 import { OccurrenceData } from '../../../_model/_output/_string/occurrence-data';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../../_services/user.service';
-import { ModuleService } from '../../../_services/module.service';
 import { ApplyComponent } from '../apply/apply.component';
+import { SharedService } from 'src/app/_services/shared.service';
 
 @Component({
   selector: 'app-order-position',
@@ -37,7 +37,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   @ViewChild('tariff') tariffComponent: TariffComponent;
   @ViewChild('apply') applyComponent: ApplyComponent;
 
-  private aSub: Subscription;
+  private opSub: Subscription;
 
   private sSub: Subscription;
   private csSub: Subscription;
@@ -62,8 +62,8 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     private route: ActivatedRoute,
     private authService: UserService,
     private suppliersService: SuppliersService,
-    private advertisementsService: OrderPositionService,
-    private moduleService: ModuleService,
+    private orderPositionService: OrderPositionService,
+    private sharedService: SharedService,
     private cdRef: ChangeDetectorRef
   ) { }
 
@@ -79,16 +79,17 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     const loadAndBindSuppliers = () => {
       this.sSub = this.suppliersService.getSuppliers().subscribe(
         suppliers => {
-          if (this.orderPositionData.supplierId !== undefined) {
+          if (this.orderPositionData.supplierId) {
             this.csSub = this.suppliersService.getSupplier(this.orderPositionData.supplierId).subscribe(
               supplier => {
                 let currentSupplier = suppliers.find(s => s.id === supplier.id);
-                if (currentSupplier === undefined) {
+                if (currentSupplier) {
+                  this.placementComponent.setCurrentSupplier(currentSupplier);
+                } else {
                   suppliers = [];
                   currentSupplier = supplier;
                   suppliers.push(currentSupplier);
                 }
-                this.placementComponent.setCurrentSupplier(currentSupplier);
               });
           } else {
             this.placementComponent.setCurrentSupplier(undefined);
@@ -100,16 +101,17 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     const loadAndBindFormatTypes = () => {
       this.ftSub = this.suppliersService.getFormatTypes(this.orderPositionData.supplierId).subscribe(
         formatTypes => {
-          if (this.orderPositionData.formatData.formatTypeId !== undefined) {
+          if (this.orderPositionData.formatData.formatTypeId) {
             this.cftSub = this.suppliersService.getFormatType(this.orderPositionData.formatData.formatTypeId).subscribe(
               formatType => {
                 let currentFormatType = formatTypes.find(ft => ft.id === formatType.id);
-                if (currentFormatType === undefined) {
+                if (currentFormatType) {
+                  this.placementComponent.setCurrentFormatType(currentFormatType);
+                } else {
                   formatTypes = [];
                   currentFormatType = formatType;
                   formatTypes.push(currentFormatType);
                 }
-                this.placementComponent.setCurrentFormatType(currentFormatType);
               });
           } else {
             this.placementComponent.setCurrentFormatType(undefined);
@@ -122,9 +124,9 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
       this.tSub = this.suppliersService.getTariffs(this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(
         tariffs => {
           if (
-            this.orderPositionData.formatData.id !== undefined &&
-            this.orderPositionData.formatData.version !== undefined &&
-            this.orderPositionData.priceId !== undefined) {
+            this.orderPositionData.formatData.id &&
+            this.orderPositionData.formatData.version &&
+            this.orderPositionData.priceId) {
             this.ctSub = this.suppliersService
               .getTariffVersion(this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
                 tariff => {
@@ -133,12 +135,13 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
                       t.format.id === tariff.format.id &&
                       t.format.version.getTime() === tariff.format.version.getTime() &&
                       t.price.id === tariff.price.id);
-                  if (currentTariff === undefined) {
+                  if (currentTariff) {
+                    this.placementComponent.setCurrentTariff(currentTariff);
+                  } else {
                     tariffs = [];
                     currentTariff = tariff;
                     tariffs.push(currentTariff);
                   }
-                  this.placementComponent.setCurrentTariff(currentTariff);
                 });
           } else {
             this.placementComponent.setCurrentTariff(undefined);
@@ -156,17 +159,18 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     const loadAndBindRubrics = () => {
       this.rSub = this.suppliersService.getRubrics(this.orderPositionData.priceId).subscribe(
         rubrics => {
-          if (this.orderPositionData.rubricData.id !== undefined && this.orderPositionData.rubricData.id !== 0) {
+          if (this.orderPositionData.rubricData && this.orderPositionData.rubricData.id) {
             this.crSub = this.suppliersService
               .getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
                 rubric => {
                   let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());
-                  if (currentRubric === undefined) {
+                  if (currentRubric) {
+                    this.placementComponent.setCurrentRubric(currentRubric);
+                  } else {
                     rubrics = [];
                     currentRubric = rubric;
                     rubrics.push(currentRubric);
                   }
-                  this.placementComponent.setCurrentRubric(currentRubric);
                 });
           } else {
             this.placementComponent.setCurrentRubric(undefined);
@@ -175,23 +179,46 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
         });
     };
 
-    const positionId = this.route.snapshot.params.id;
-    console.log('OrderPositionId ', positionId);
-    if (positionId === undefined) {
-      this.orderPositionData = new OrderPositionData();
-      loadAndBindClientInfo();
-      loadAndBindSuppliers();
-    } else {
-      this.aSub = this.advertisementsService.get(positionId).subscribe(
-        advertisement => {
-          console.log(advertisement);
-          this.orderPositionData = advertisement;
+    const resetIds = (opd: OrderPositionData) => {
+      opd.orderId = 0;
+      opd.orderPositionId = 0;
+      opd.childs.forEach(c => resetIds(c));
+    }
+
+    const resetGraphics = (opd: OrderPositionData) => {
+      opd.graphicsData = [];
+      opd.childs.forEach(c => resetGraphics(c));
+    }
+
+    if (this.route.snapshot.params.id) {
+      // Происходит изменение позиции
+      this.opSub = this.orderPositionService.get(this.route.snapshot.params.id).subscribe(
+        opd => {
+          this.orderPositionData = opd;
           loadAndBindSuppliers();
           loadAndBindFormatTypes();
           loadAndBindTariffs();
           loadAndBindRubrics();
-        }
-      );
+        });
+    } else if (this.sharedService.OrderPositionId) {
+      // Происходит создание новой позиции на основе существующей
+      this.opSub = this.orderPositionService.get(this.sharedService.OrderPositionId).subscribe(
+        opd => {
+          // Сбрасываем буфер
+          this.sharedService.OrderPositionId = 0;
+          resetIds(opd);
+          resetGraphics(opd);
+          this.orderPositionData = opd;
+          loadAndBindSuppliers();
+          loadAndBindFormatTypes();
+          loadAndBindTariffs();
+          loadAndBindRubrics();
+        });
+    } else {
+      // Создаём полностью новую позицию
+      this.orderPositionData = new OrderPositionData();
+      loadAndBindClientInfo();
+      loadAndBindSuppliers();
     }
   }
 
@@ -200,8 +227,8 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   }
 
   public ngOnDestroy(): void {
-    if (this.aSub) {
-      this.aSub.unsubscribe();
+    if (this.opSub) {
+      this.opSub.unsubscribe();
     }
     if (this.sSub) {
       this.sSub.unsubscribe();
@@ -344,10 +371,10 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     }
 
     if (this.orderPositionData.orderPositionId === 0) {
-      this.advertisementsService.create(this.orderPositionData).subscribe(
+      this.orderPositionService.create(this.orderPositionData).subscribe(
         () => this.router.navigate(['/basket']));
     } else {
-      this.advertisementsService.update(this.orderPositionData).subscribe(
+      this.orderPositionService.update(this.orderPositionData).subscribe(
         () => this.router.navigate(['/basket']));
     }
   }
