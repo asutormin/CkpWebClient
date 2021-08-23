@@ -12,7 +12,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   private pSub: Subscription;
 
   public readOnly: boolean;
-  public positions = [];
+  public orderPositions = [];
 
   constructor(
     private authService: UserService,
@@ -22,7 +22,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.readOnly = true;
     this.pSub = this.orderPositionService.getBasket().subscribe(positions => {
-      this.positions = positions;
+      this.orderPositions = positions;
     });
   }
 

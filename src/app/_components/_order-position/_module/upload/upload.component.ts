@@ -3,7 +3,6 @@ import { ModuleService } from '../../../../_services/module.service';
 import { ImageInfo } from '../../../../_model/_input/image-info';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { OrderPositionData } from 'src/app/_model/_output/order-position-data';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ModuleData } from '../../../../_model/_output/_module/module-data';
 
 @Component({
@@ -13,7 +12,7 @@ import { ModuleData } from '../../../../_model/_output/_module/module-data';
 })
 export class UploadComponent implements OnInit {
 
-  @Input() public advertisement: OrderPositionData;
+  @Input() public orderPositionData: OrderPositionData;
 
   public samples: ImageInfo[] = [];
   public submitted = false;
@@ -23,17 +22,16 @@ export class UploadComponent implements OnInit {
   }
 
   constructor(
-    private sanitizer: DomSanitizer,
     private modulesService: ModuleService
   ) { }
 
   public ngOnInit(): void {
-    if (this.advertisement.orderPositionId === 0) {
-      return;
+    if (!this.orderPositionData.moduleData.base64String) {
+       return;
     }
 
-    const blob = this.dataURItoBlob(this.advertisement.moduleData.base64String);
-    const module = new File([blob], this.advertisement.moduleData.name);
+    const blob = this.dataURItoBlob(this.orderPositionData.moduleData.base64String);
+    const module = new File([blob], this.orderPositionData.moduleData.name);
 
     this.modulesService.createSample(module).subscribe(
       sample => {
@@ -65,8 +63,8 @@ export class UploadComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL(module);
         reader.onload = () => {
-          this.advertisement.moduleData.base64String = reader.result as string;
-          this.advertisement.moduleData.name = module.name;
+          this.orderPositionData.moduleData.base64String = reader.result as string;
+          this.orderPositionData.moduleData.name = module.name;
         };
       });
   }
@@ -76,16 +74,16 @@ export class UploadComponent implements OnInit {
   }
 
   public clear(): void {
-    this.advertisement.moduleData = new ModuleData();
+    this.orderPositionData.moduleData = new ModuleData();
     this.samples = [];
   }
 
   private checkImageSize(image: ImageInfo): void {
     if (
-      image.width !== this.advertisement.formatData.firstSize ||
-      image.height !== this.advertisement.formatData.secondSize) {
+      image.width !== this.orderPositionData.formatData.firstSize ||
+      image.height !== this.orderPositionData.formatData.secondSize) {
       // tslint:disable-next-line:max-line-length
-      alert('Размер подгруженного макета (' + image.width + ' x ' + image.height + ') не совпадает с требованием формата (' + this.advertisement.formatData.firstSize + ' x ' + this.advertisement.formatData.secondSize + ').');
+      alert('Размер подгруженного макета (' + image.width + ' x ' + image.height + ') не совпадает с требованием формата (' + this.orderPositionData.formatData.firstSize + ' x ' + this.orderPositionData.formatData.secondSize + ').');
     }
   }
 

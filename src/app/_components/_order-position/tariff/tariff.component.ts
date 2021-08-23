@@ -163,9 +163,9 @@ export class TariffComponent implements OnInit, OnDestroy {
 
   onFieldChanged() {
     const length =
-      (this.requirementsComponent === undefined ? 0 : this.requirementsComponent.Length) +
-      (this.conditionsComponent === undefined ? 0 : this.conditionsComponent.Length) +
-      (this.responsibilitiesComponent === undefined ? 0 : this.responsibilitiesComponent.Length);
+      (this.requirementsComponent ? this.requirementsComponent.Length : 0) +
+      (this.conditionsComponent ? this.conditionsComponent.Length : 0) +
+      (this.responsibilitiesComponent ? this.responsibilitiesComponent.Length : 0);
 
     if (this.requirementsComponent) {
       this.requirementsComponent.totalLength = length;
