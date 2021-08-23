@@ -4,7 +4,6 @@ import { AccountService } from '../../../_services/account.service';
 import { AccountInfo } from '../../../_model/_input/account-info';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -17,8 +16,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accountsService: AccountService,
-    private authService: UserService
+    private accountsService: AccountService
   ) { }
 
   ngOnInit() {

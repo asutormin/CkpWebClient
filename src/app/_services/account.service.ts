@@ -28,13 +28,14 @@ export class AccountService {
     return this.http.get(`${environment.apiUrl}/accounts/item/${accountId}`)
       .pipe(
         map((response: any) => {
-          return {
+           return {
             ...response,
             paid: response.sum - response.debt,
             client: response.clientLegalPerson,
             supplier: response.supplierLegalPerson,
             bank: response.bank,
-            positions: response.positions.map((pos: any) => {
+            accountPositions: response.accountPositions,
+            orderPositions: response.orderPositions.map((pos: any) => {
               return {
                 ...pos,
                 sum: pos.clientSum,

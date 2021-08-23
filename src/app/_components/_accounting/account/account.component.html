@@ -6,7 +6,8 @@
           <h5 class="mb-2 mb-md-0">Счёт № {{account.number}} от {{account.date | date: 'dd.MM.yyyy'}}</h5>
         </div>
         <div class="col-auto">
-          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button" (click)="onDownload()"><span class="fa fa-arrow-down mr-1"></span>Скачать счёт</button>
+          <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button" (click)="onDownload()"><span
+              class="fa fa-arrow-down mr-1"></span>Скачать счёт</button>
         </div>
       </div>
     </div>
@@ -35,7 +36,32 @@
           </div>
         </div>
       </div>
-      <app-order-positions [positions]="account.positions" [readOnly]="true" [nds]="account.nds"></app-order-positions>
+
+      <div class="card-body bg-light overflow-hidden p-0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="positionsTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="account-positions-tab" data-toggle="tab" href="#account-positions" role="tab"
+              aria-controls="account-positions" aria-selected="true">Позиции</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="order-positions-tab" data-toggle="tab" href="#order-positions" role="tab"
+              aria-controls="order-positions" aria-selected="false">Состав</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="account-positions" role="tabpanel" aria-labelledby="account-positions-tab">
+            <app-account-positions [accountPositions]="account.accountPositions">
+            </app-account-positions>
+          </div>
+          <div class="tab-pane" id="order-positions" role="tabpanel" aria-labelledby="order-positions-tab">
+            <app-order-positions [orderPositions]="account.orderPositions" [readOnly]="true" [nds]="account.nds">
+            </app-order-positions>
+          </div>
+          <app-positions-basement [orderPositions]="account.orderPositions">
+          </app-positions-basement>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -46,4 +72,3 @@
     <div class="ml-3">Загружаю счёт...</div>
   </div>
 </ng-template>
-

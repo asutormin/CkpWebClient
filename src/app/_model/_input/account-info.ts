@@ -1,6 +1,7 @@
 import { LegalPersonInfo } from './legal-person-info';
 import { BankInfo } from './bank-info';
 import { OrderPositionInfo } from './order-position-info';
+import { AccountPositionInfo } from './account-position-info';
 
 export class AccountInfoLight {
   id: number;
@@ -19,12 +20,13 @@ export class AccountInfoLight {
 export class AccountInfo extends AccountInfoLight {
   client: LegalPersonInfo;
   bank: BankInfo;
-  positions: OrderPositionInfo[];
-
+  accountPositions: AccountPositionInfo[];
+  orderPositions: OrderPositionInfo[];
+  
   constructor() {
     super();
     this.client = new LegalPersonInfo();
     this.bank = new BankInfo();
-    this.positions = [];
+    this.orderPositions = [];
   }
 }

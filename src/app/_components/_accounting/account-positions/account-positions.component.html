@@ -1,0 +1,20 @@
+<div class="dashboard-data-table table-responsive fs--1">
+    <table class="table table-striped table-dashboard border-bottom">
+        <thead class="bg-200 text-900">
+            <tr>
+                <th class="border-0 text-left">Наименование</th>
+                <th class="border-0 text-right">Кол-во</th>
+                <th class="border-0 text-right">Цена</th>
+                <th class="border-0 text-right">Сумма</th>
+            </tr>
+        </thead>
+        <tbody id="account-positions-body">
+            <tr *ngFor="let position of accountPositions">
+                <td class="col-9 align-middle text-left">{{position.name}}</td>
+                <td class="col-1 align-middle text-center">{{position.count}}</td>
+                <td class="col-1 align-middle text-right">{{position.cost | number:'1.2-2': 'ru'}}</td>
+                <td class="col-1 align-middle text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
