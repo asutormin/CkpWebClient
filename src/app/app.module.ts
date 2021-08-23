@@ -22,7 +22,7 @@ import { AccountComponent } from './_components/_accounting/account/account.comp
 import { LoginComponent } from './_components/login/login.component';
 import { HomeComponent } from './_components/home/home.component';
 import { BasketComponent } from './_components/basket/basket.component';
-import { OrderPositionsComponent } from './_components/_shared/order-positions/order-positions.component';
+import { OrderPositionsComponent } from './_components/_order-position/order-positions/order-positions.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GraphicsStringifyPipe } from './_pipes/graphicsStringify.pipe';
 import { RubricsStringifiedPipe } from './_pipes/rubricsStringified.pipe';
@@ -54,6 +54,8 @@ import { MaxFieldLengthValidateDirective } from './_validators/max-field-length.
 import { MaxSelect2LengthValidateDirective } from './_validators/max-select2-length.validator';
 import { MaxSelect2CountValidateDirective } from './_validators/max-select2-count.validator';
 import { WaitLineComponent } from './_components/_shared/wait-line/wait-line.component';
+import { AccountPositionsComponent } from './_components/_accounting/account-positions/account-positions.component';
+import { PositionsBasementComponent } from './_components/_shared/positions-basement/positions-basement.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { WaitLineComponent } from './_components/_shared/wait-line/wait-line.com
     MaxFieldLengthValidateDirective,
     MaxSelect2LengthValidateDirective,
     MaxSelect2CountValidateDirective,
-    WaitLineComponent
+    WaitLineComponent,
+    AccountPositionsComponent,
+    PositionsBasementComponent
   ],
   imports: [
     BrowserModule,
