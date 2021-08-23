@@ -36,7 +36,7 @@ export class ConditionsComponent implements OnInit {
   @Output() public changed = new EventEmitter();
 
   public get Length() {
-    return this.conditionsData.value.length;
+    return this.conditionsData.value ? this.conditionsData.value.length : 0;
   }
 
   public set Submitted(value: boolean) {
