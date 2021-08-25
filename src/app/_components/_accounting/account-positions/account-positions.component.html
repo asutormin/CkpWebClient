@@ -10,10 +10,10 @@
         </thead>
         <tbody id="account-positions-body">
             <tr *ngFor="let position of accountPositions">
-                <td class="col-9 align-middle text-left">{{position.name}}</td>
-                <td class="col-1 align-middle text-center">{{position.count}}</td>
-                <td class="col-1 align-middle text-right">{{position.cost | number:'1.2-2': 'ru'}}</td>
-                <td class="col-1 align-middle text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
+                <td style="min-width: 300px;" class="align-middle text-left">{{position.name}}</td>
+                <td style="min-width: 70px;" class="col-1 align-middle text-center">{{position.count}}</td>
+                <td style="min-width: 80px;" class="align-middle text-right">{{position.cost | number:'1.2-2': 'ru'}}</td>
+                <td style="min-width: 80px;" class="align-middle text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
             </tr>
         </tbody>
     </table>
