@@ -15,7 +15,7 @@ import { WorkGraphicInfo } from '../_model/_input/work-graphic-info';
 import { OccurrenceInfo } from '../_model/_input/occurrence-info';
 
 @Injectable({ providedIn: 'root' })
-export class SuppliersService {
+export class SupplierService {
   constructor(private http: HttpClient) {
   }
 

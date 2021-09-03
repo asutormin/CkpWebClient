@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
 import { OrderPositionData } from '../../../../../_model/_output/order-position-data';
 import { StringConfigService } from '../../../../../_services/string-config.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { SuppliersService } from '../../../../../_services/suppliers.service';
 
 @Component({
   selector: 'app-header',

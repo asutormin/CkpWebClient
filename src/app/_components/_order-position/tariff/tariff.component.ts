@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { OrderPositionData } from '../../../_model/_output/order-position-data';
 import { Subscription } from 'rxjs';
-import { SuppliersService } from '../../../_services/suppliers.service';
+import { SupplierService } from '../../../_services/supplier.service';
 import { RubricsComponent } from '../rubrics/rubrics.component';
 import { GraphicsComponent } from '../graphics/graphics.component';
 import { RubricInfo } from '../../../_model/_input/rubric-info';
@@ -106,7 +106,7 @@ export class TariffComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private suppliersService: SuppliersService,
+    private supplierService: SupplierService,
     private stringConfigService: StringConfigService
   ) { }
 
@@ -115,13 +115,13 @@ export class TariffComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.rSub = this.suppliersService.getRubrics(this.orderPositionData.priceId).subscribe(
+    this.rSub = this.supplierService.getRubrics(this.orderPositionData.priceId).subscribe(
       rubrics => {
         this.rcSub = this.rubricsComponent.rubricChanged.subscribe(
           rubric => this.onPackageRubricChanged(rubric));
 
         if (this.orderPositionData.rubricData.id !== undefined) {
-          this.crSub = this.suppliersService.getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
+          this.crSub = this.supplierService.getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
             rubric => {
               let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());
               if (currentRubric === undefined) {

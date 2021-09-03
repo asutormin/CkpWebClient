@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { EducationInfo } from '../../../../../_model/_input/education-info';
 import { Subscription } from 'rxjs';
-import { SuppliersService } from '../../../../../_services/suppliers.service';
+import { SupplierService } from '../../../../../_services/supplier.service';
 import { FormatData } from '../../../../../_model/_output/format-data';
 import { NgForm } from '@angular/forms';
 import { RequirementsData } from '../../../../../_model/_output/_string/_requirements/requirements-data';
@@ -30,11 +30,11 @@ export class EducationComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private suppliersService: SuppliersService
+    private supplierService: SupplierService
   ) { }
 
   public ngOnInit(): void {
-    this.edSub = this.suppliersService.getEducationsHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.edSub = this.supplierService.getEducationsHandbook(this.supplierId, this.formatData.formatTypeId)
       .subscribe(educations => {
         this.educations = educations;
         this.currentEducation = educations.find(ed => ed.id === this.requirementsData.educationId);

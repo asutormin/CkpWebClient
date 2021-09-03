@@ -16,7 +16,7 @@ import { OrderPositionData } from '../../../_model/_output/order-position-data';
 import { FormatData } from '../../../_model/_output/format-data';
 import { RubricData } from '../../../_model/_output/rubric-data';
 import { PlacementComponent } from '../placement/placement.component';
-import { SuppliersService } from '../../../_services/suppliers.service';
+import { SupplierService } from '../../../_services/supplier.service';
 import { Subscription } from 'rxjs';
 import { ContactData } from '../../../_model/_output/_string/contact-data';
 import { ModuleData } from '../../../_model/_output/_module/module-data';
@@ -61,7 +61,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     private router: Router,
     private route: ActivatedRoute,
     private authService: UserService,
-    private suppliersService: SuppliersService,
+    private supplierService: SupplierService,
     private orderPositionService: OrderPositionService,
     private sharedService: SharedService,
     private cdRef: ChangeDetectorRef
@@ -77,10 +77,10 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     };
 
     const loadAndBindSuppliers = () => {
-      this.sSub = this.suppliersService.getSuppliers().subscribe(
+      this.sSub = this.supplierService.getSuppliers().subscribe(
         suppliers => {
           if (this.orderPositionData.supplierId) {
-            this.csSub = this.suppliersService.getSupplier(this.orderPositionData.supplierId).subscribe(
+            this.csSub = this.supplierService.getSupplier(this.orderPositionData.supplierId).subscribe(
               supplier => {
                 let currentSupplier = suppliers.find(s => s.id === supplier.id);
                 if (currentSupplier) {
@@ -99,10 +99,10 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     };
 
     const loadAndBindFormatTypes = () => {
-      this.ftSub = this.suppliersService.getFormatTypes(this.orderPositionData.supplierId).subscribe(
+      this.ftSub = this.supplierService.getFormatTypes(this.orderPositionData.supplierId).subscribe(
         formatTypes => {
           if (this.orderPositionData.formatData.formatTypeId) {
-            this.cftSub = this.suppliersService.getFormatType(this.orderPositionData.formatData.formatTypeId).subscribe(
+            this.cftSub = this.supplierService.getFormatType(this.orderPositionData.formatData.formatTypeId).subscribe(
               formatType => {
                 let currentFormatType = formatTypes.find(ft => ft.id === formatType.id);
                 if (currentFormatType) {
@@ -121,13 +121,13 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     };
 
     const loadAndBindTariffs = () => {
-      this.tSub = this.suppliersService.getTariffs(this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(
+      this.tSub = this.supplierService.getTariffs(this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(
         tariffs => {
           if (
             this.orderPositionData.formatData.id &&
             this.orderPositionData.formatData.version &&
             this.orderPositionData.priceId) {
-            this.ctSub = this.suppliersService
+            this.ctSub = this.supplierService
               .getTariffVersion(this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
                 tariff => {
                   let currentTariff = tariffs.find(
@@ -157,10 +157,10 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     };
 
     const loadAndBindRubrics = () => {
-      this.rSub = this.suppliersService.getRubrics(this.orderPositionData.priceId).subscribe(
+      this.rSub = this.supplierService.getRubrics(this.orderPositionData.priceId).subscribe(
         rubrics => {
           if (this.orderPositionData.rubricData && this.orderPositionData.rubricData.id) {
-            this.crSub = this.suppliersService
+            this.crSub = this.supplierService
               .getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
                 rubric => {
                   let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());

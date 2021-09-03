@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SuppliersService } from '../../../_services/suppliers.service';
+import { SupplierService } from '../../../_services/supplier.service';
 import { SupplierInfo } from '../../../_model/_input/supplier-info';
 import { RubricInfo } from '../../../_model/_input/rubric-info';
 import { FormatTypeInfo } from '../../../_model/_input/format-type-info';
@@ -60,7 +60,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
   public undefinedTariff: any;
 
   constructor(
-    private suppliersService: SuppliersService) { }
+    private supplierService: SupplierService) { }
 
   public setSuppliers(suppliers: SupplierInfo[]): void {
     this.suppliers = suppliers;
@@ -120,7 +120,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
     this.Submitted = false;
 
     this.selectEnabled = false;
-    this.ftSub = this.suppliersService.getFormatTypes(this.currentSupplier.id).subscribe(formatTypes => {
+    this.ftSub = this.supplierService.getFormatTypes(this.currentSupplier.id).subscribe(formatTypes => {
       this.formatTypes = formatTypes;
       this.selectEnabled = true;
     });
@@ -137,7 +137,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
 
   public onFormatTypeChanged(): void {
     this.selectEnabled = false;
-    this.tSub = this.suppliersService.getTariffs(this.currentSupplier.id, this.currentFormatType.id).subscribe(tariffs => {
+    this.tSub = this.supplierService.getTariffs(this.currentSupplier.id, this.currentFormatType.id).subscribe(tariffs => {
       this.tariffs = tariffs;
       this.selectEnabled = true;
     });
@@ -156,7 +156,7 @@ export class PlacementComponent implements OnInit, OnDestroy {
       }
     } else {
       this.selectEnabled = false;
-      this.rSub = this.suppliersService.getRubrics(this.currentTariff.price.id).subscribe(rubrics => {
+      this.rSub = this.supplierService.getRubrics(this.currentTariff.price.id).subscribe(rubrics => {
         if (this.rubricsComponent) {
           this.rubricsComponent.setRubrics(rubrics);
         }

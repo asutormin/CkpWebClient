@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } fro
 import { OccurrenceInfo } from '../../../../../_model/_input/occurrence-info';
 import { OccurrenceData } from '../../../../../_model/_output/_string/occurrence-data';
 import { Subscription } from 'rxjs';
-import { SuppliersService } from '../../../../../_services/suppliers.service';
+
 import { FormatData } from '../../../../../_model/_output/format-data';
 import { StringConfigService } from '../../../../../_services/string-config.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { NgForm } from '@angular/forms';
+import { SupplierService } from 'src/app/_services/supplier.service';
 
 @Component({
   selector: 'app-occurrence',
@@ -34,7 +35,7 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private suppliersService: SuppliersService,
+    private supplierService: SupplierService,
     private stringConfigService: StringConfigService,
     private ref: ChangeDetectorRef
   ) { }
@@ -48,7 +49,7 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
       closeOnSelect: true,
     };
 
-    this.oSub = this.suppliersService.getOccurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.oSub = this.supplierService.getOccurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
       .subscribe(occurrencies => {
         this.occurrences = occurrencies.map(o => ({ id: JSON.stringify(o), text: o.name }));
         this.occurrencesData.forEach(ao => {

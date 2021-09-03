@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BaseEntity } from '../../../../../_model/_input/base-entity';
 import { CurrencyInfo } from '../../../../../_model/_input/currency-info';
 import { SalaryData } from '../../../../../_model/_output/_string/_conditions/salary-data';
-import { SuppliersService } from '../../../../../_services/suppliers.service';
+import { SupplierService } from '../../../../../_services/supplier.service';
 import { Subscription } from 'rxjs';
 import { FormatData } from '../../../../../_model/_output/format-data';
 import { NgForm } from '@angular/forms';
@@ -71,12 +71,12 @@ export class SalaryComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private suppliersService: SuppliersService
+    private supplierService: SupplierService
   ) { }
 
   ngOnInit() {
 
-    this.cSub = this.suppliersService.getCurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.cSub = this.supplierService.getCurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
       .subscribe(currencies => {
         this.currencies = currencies;
         this.currentCurrency = currencies.find(c => c.id === this.salaryData.currencyId);

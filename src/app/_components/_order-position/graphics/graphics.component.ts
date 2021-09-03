@@ -1,10 +1,11 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { SuppliersService } from '../../../_services/suppliers.service';
+
 import { Subscription } from 'rxjs';
 import { GraphicInfo } from '../../../_model/_input/graphic-info';
 import { OrderPositionData } from '../../../_model/_output/order-position-data';
 import { GraphicData } from '../../../_model/_output/graphic-data';
 import { EventService, EventType } from '../../../_services/event.service';
+import { SupplierService } from 'src/app/_services/supplier.service';
 
 @Component({
   selector: 'app-graphics',
@@ -34,27 +35,27 @@ export class GraphicsComponent implements OnInit, OnDestroy, AfterContentChecked
   }
 
   constructor(
-    private suppliersService: SuppliersService,
+    private supplierService: SupplierService,
     private eventService: EventService,
     private cdRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit() {
-    this.gSub = this.suppliersService.getGraphics(
+    this.gSub = this.supplierService.getGraphics(
       this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId)
       .subscribe(graphics => {
         this.graphics = graphics;
         this.orderPositionData.graphicsData.forEach(gr => {
           let checkedGraphic = this.graphics.find(g => g.id === gr.id);
           if (checkedGraphic === undefined) {
-            this.chckgSub = this.suppliersService.getGraphic(gr.id).subscribe(cg => {
+            this.chckgSub = this.supplierService.getGraphic(gr.id).subscribe(cg => {
               checkedGraphic = cg;
               checkedGraphic.isChecked = true;
               this.graphics.push(checkedGraphic);
               this.graphics = this.graphics.sort((a, b) => new Date(a.outDate).getTime() - new Date(b.outDate).getTime());
             });
             gr.childs.forEach(id => {
-              this.cgSub = this.suppliersService.getGraphic(id).subscribe(cgr => {
+              this.cgSub = this.supplierService.getGraphic(id).subscribe(cgr => {
                 if (this.graphics.findIndex(grc => grc.id === cgr.id) < 0) {
                   this.graphics.push(cgr);
                   this.graphics = this.graphics.sort((a, b) => new Date(a.outDate).getTime() - new Date(b.outDate).getTime());
