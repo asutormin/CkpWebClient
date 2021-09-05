@@ -1,11 +1,17 @@
 <form class="form" #f="ngForm" novalidate>
   <div class="input-group">
     <div class="input-group-prepend"><span class="input-group-text">Адрес</span></div>
-    <input class="form-control" type="text" name="address" #address="ngModel" placeholder="Задайте адрес..."
-           appMaxFieldLength maxFieldLength="{{getMaxLength('address')}}"
-           [(ngModel)]="addressToDisplay" (ngModelChange)="onAddressChanged()"
-           [ngClass]="{ 'is-invalid': submitted && address.errors }"
-           (keypress)="onAddressChanging($event)"/>
+    <input class="form-control" type="text" name="address" #address="ngModel" list="addresses"
+      placeholder="Начните вводить адрес..."
+      appMaxFieldLength maxFieldLength="{{getMaxLength('address')}}"
+      [ngClass]="{ 'is-invalid': submitted && address.errors }"
+      [(ngModel)]="currentAddress" (ngModelChange)="onCurrentAddressChanged()"
+      (keypress)="onCurrentAddressChanging($event)"
+      />    
+    <datalist id="addresses">
+      <option *ngFor="let promptAddress of promptAddresses$ | async" [ngValue]="promptAddress">{{promptAddress.description}}</option>
+    </datalist>
+  
   </div>
   <div class="d-flex flex-fill flex-nowrap">
     <div class="d-flex flex-fill">
@@ -18,9 +24,10 @@
     <div style="min-width: 40pt">
       <div class="d-flex justify-content-end">
         <div>
-          <small>{{addressToDisplay.length}} / {{getMaxLength('address')}}</small>
+          <small>{{currentAddress.length}} / {{getMaxLength('address')}}</small>
         </div>
       </div>
     </div>
   </div>
 </form>
+
