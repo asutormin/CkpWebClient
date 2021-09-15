@@ -16,7 +16,7 @@ export class LogoComponent implements OnInit {
   public logos: File[] = [];
 
   public get Valid(): boolean {
-    return this.submitted && this.logos.length === 0;
+    return this.submitted && this.logos.length > 0;
   }
 
   constructor(
