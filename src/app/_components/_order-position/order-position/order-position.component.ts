@@ -37,6 +37,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   @ViewChild('tariff') tariffComponent: TariffComponent;
   @ViewChild('apply') applyComponent: ApplyComponent;
 
+  private aSub: Subscription;
   private opSub: Subscription;
 
   private sSub: Subscription;
@@ -70,7 +71,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   public ngOnInit(): void {
 
     const loadAndBindClientInfo = () => {
-      this.authService.currentUser.subscribe(cu => {
+      this.aSub = this.authService.currentUser.subscribe(cu => {
         this.orderPositionData.clientId = cu.clientId;
         this.orderPositionData.clientLegalPersonId = cu.clientLegalPersonId;
       });
@@ -227,6 +228,9 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   }
 
   public ngOnDestroy(): void {
+    if (this.aSub) {
+      this.aSub.unsubscribe();
+    }
     if (this.opSub) {
       this.opSub.unsubscribe();
     }
