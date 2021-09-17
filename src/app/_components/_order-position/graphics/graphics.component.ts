@@ -21,7 +21,7 @@ export class GraphicsComponent implements OnInit, OnDestroy, AfterContentChecked
 
   private firstPackagePositionOutDates: Date[];
 
-  public weekdays = ['Воскрксенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+  public weekdays = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
   @Input() public orderPositionData: OrderPositionData;
   @Input() public submitted = false;
@@ -122,7 +122,7 @@ export class GraphicsComponent implements OnInit, OnDestroy, AfterContentChecked
   }
 
   public isPackageGraphicEnabled(graphicOutDate: Date): boolean {
-    if (this.firstPackagePositionOutDates === undefined ||
+    if (!this.firstPackagePositionOutDates ||
       this.firstPackagePositionOutDates.length === 0) {
       return true;
     }
