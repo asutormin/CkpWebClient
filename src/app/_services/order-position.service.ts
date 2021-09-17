@@ -18,7 +18,7 @@ export class OrderPositionService {
             .keys(response)
             .map(key => ({
               ...response[key],
-              price: response[key].clientPrice,
+              cost: response[key].clientCost,
               sum: response[key].clientSum
             }));
         }));

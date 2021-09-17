@@ -39,7 +39,7 @@ export class AccountService {
               return {
                 ...pos,
                 sum: pos.clientSum,
-                price: pos.clientPrice
+                cost: pos.clientCost
               };
             })
           };
