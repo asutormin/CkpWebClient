@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as echarts from 'echarts';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+ 
+  constructor(
+    public userService: UserService
+  ) { }
 
   ngOnInit() {
+    console.log(this.userService.currentUserValue);
   }
 
 }

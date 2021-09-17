@@ -56,6 +56,7 @@ import { MaxSelect2CountValidateDirective } from './_validators/max-select2-coun
 import { WaitLineComponent } from './_components/_shared/wait-line/wait-line.component';
 import { AccountPositionsComponent } from './_components/_accounting/account-positions/account-positions.component';
 import { PositionsBasementComponent } from './_components/_shared/positions-basement/positions-basement.component';
+import { BalanceComponent } from './_components/balance/balance.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { PositionsBasementComponent } from './_components/_shared/positions-base
     MaxSelect2CountValidateDirective,
     WaitLineComponent,
     AccountPositionsComponent,
-    PositionsBasementComponent
+    PositionsBasementComponent,
+    BalanceComponent
   ],
   imports: [
     BrowserModule,

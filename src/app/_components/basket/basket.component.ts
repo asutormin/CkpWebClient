@@ -15,7 +15,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   public orderPositions = [];
 
   constructor(
-    private authService: UserService,
+    public userService: UserService,
     private orderPositionService: OrderPositionService
   ) { }
 

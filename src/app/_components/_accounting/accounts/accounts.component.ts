@@ -24,9 +24,9 @@ export class AccountsComponent implements OnInit, OnDestroy {
     return this.accountsToDisplay === undefined ? 0 : this.accountsToDisplay.length;
   }
 
-  constructor(
+  constructor(    
     private router: Router,
-    private authService: UserService,
+    public userService: UserService,
     private accountsService: AccountService
   ) {
     this.itemsCount = 10;
@@ -71,7 +71,6 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   private loadAccounts(startAccountId: number): void {
-    const clientLegalPersonId = this.authService.currentUserValue.clientLegalPersonId;
     this.aSub = this.accountsService.getList(startAccountId, this.itemsCount).subscribe(
       accounts => {
         this.accountsToDisplay = this.accountsToDisplay.concat(accounts);

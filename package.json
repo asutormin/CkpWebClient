@@ -27,6 +27,8 @@
     "@auth0/angular-jwt": "^5.0.1",
     "bootstrap": "^4.5.0",
     "buffer": "^6.0.2",
+    "countup.js": "^2.0.8",
+    "echarts": "^5.2.0",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
     "input-mask-angular": "^1.1.5",

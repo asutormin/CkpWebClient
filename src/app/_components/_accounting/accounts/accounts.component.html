@@ -1,14 +1,21 @@
-<div class="card mb-3">
-  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-lg-10">
-        <h3 class="mb-0">Счета</h3>
-        <p class="mt-2">Это самые новые счета. Если Вам нужно видеть больше нажмите "Загрузить ещё".</p>
-        <p class="mt-2">А чтобы ознакомиться со счётом более детально щёлкните по его номеру.</p>
+<div class="row no-gutters">
+  <div [ngClass]="userService.currentUserValue.isNeedPrepayment ? 'col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-8 col-xxl-8 mb-3' : 'col-12 mb-3'">
+    <div class="card h-100">
+      <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-11 fs--1">
+            <h3 class="mb-1">Счета</h3>
+            <p class="mb-1">Это самые новые счета. Если Вам нужно видеть больше нажмите "Загрузить ещё".</p>
+            <p class="mb-1">А чтобы ознакомиться со счётом более детально щёлкните по его номеру.</p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div  *ngIf="userService.currentUserValue.isNeedPrepayment" class="col-sm-12 col-md-5 col-lg-4 col-xl-4 col-xxl-4 mb-3">
+    <app-balance></app-balance>
   </div>
 </div>
 
@@ -49,13 +56,7 @@
             <th class="align-middle text-right">Сумма</th>
             <th class="align-middle text-right">Долг</th>
             <th class="align-middle text-left pl-3">Оплата</th>
-            <!--
-            <th class="align-middle text-left">Клиент</th>
-            -->
             <th class="align-middle text-left">Поставщик</th>
-            <!--
-            <th class="pr-1 align-middle data-table-row-action"></th>
-            -->
           </tr>
         </thead>
         <tbody id="accounts-body">
