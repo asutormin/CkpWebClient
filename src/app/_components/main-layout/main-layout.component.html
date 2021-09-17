@@ -1,5 +1,5 @@
 <main class="main" id="top">
-  <div class="container" data-layout="container">
+  <div class="container-fluid" data-layout="container">
     <nav class="navbar navbar-light navbar-vertical navbar-expand-xl navbar-card">
       <div class="d-flex align-items-center">
         <div class="toggle-icon-wrapper">
@@ -59,6 +59,7 @@
     </nav>
 
     <div class="content">
+
       <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand" style="height: 68px;">
         <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button"
           data-toggle="collapse"
@@ -69,9 +70,10 @@
         </button>
         <a class="navbar-brand me-1 me-sm-3" href="/">
           <div class="d-flex align-items-center">
-            <img class="me-2" src="../assets/img/logos/ckp_logo.png" alt="" height="40" />
+            <img class="ml-2 me-2" src="../assets/img/logos/ckp_logo.png" alt="" height="40" />
           </div>
         </a>
+        
         <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
           <li class="nav-item">
             <span class="mr-2">{{CurrentUser !== null ? CurrentUser.clientLegalPersonName : ''}}</span>
@@ -80,6 +82,7 @@
             <a href="#" class="nav-link-text" (click)="logout()">Выйти</a>
           </li>
         </ul>
+      
       </nav>
       <router-outlet></router-outlet>
       <footer>
