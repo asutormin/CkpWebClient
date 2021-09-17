@@ -93,16 +93,16 @@ export class TariffComponent implements OnInit, OnDestroy {
 
   public get Valid(): boolean {
     return this.submitted &&
-      (this.rubricsComponent === undefined ? true : this.rubricsComponent.Valid) &&
-      (this.packageComponent === undefined ? true : this.packageComponent.Valid) &&
-      (this.graphicsComponent === undefined ? true : this.graphicsComponent.Valid) &&
-      (this.headerComponent === undefined ? true : this.headerComponent.Valid) &&
-      (this.requirementsComponent === undefined ? true : this.requirementsComponent.Valid) &&
-      (this.responsibilitiesComponent === undefined ? true : this.responsibilitiesComponent.Valid) &&
-      (this.conditionsComponent === undefined ? true : this.conditionsComponent.Valid) &&
-      (this.logoComponent === undefined ? true : this.logoComponent.Valid) &&
-      (this.contactsComponent === undefined ? true : this.contactsComponent.Valid) &&
-      (this.moduleComponent === undefined ? true : this.moduleComponent.Valid);
+      (this.rubricsComponent ? this.rubricsComponent.Valid : true) &&
+      (this.packageComponent ? this.packageComponent.Valid : true) &&
+      (this.graphicsComponent ? this.graphicsComponent.Valid : true) &&
+      (this.headerComponent ? this.headerComponent.Valid : true) &&
+      (this.requirementsComponent ? this.requirementsComponent.Valid : true) &&
+      (this.responsibilitiesComponent ? this.responsibilitiesComponent.Valid : true) &&
+      (this.conditionsComponent ? this.conditionsComponent.Valid : true) &&
+      (this.logoComponent ? this.logoComponent.Valid : true) &&
+      (this.contactsComponent ? this.contactsComponent.Valid : true) &&
+      (this.moduleComponent ? this.moduleComponent.Valid : true);
   }
 
   constructor(
