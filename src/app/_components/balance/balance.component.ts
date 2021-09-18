@@ -39,7 +39,7 @@ export class BalanceComponent implements OnInit, OnDestroy {
         radius: ['60%', '70%'],
         center: ['50%', '50%'],
         avoidLabelOverlap: false,
-        stillShowZeroSum: true,
+        stillShowZeroSum: false,
         left: 0,
         right: 0,
         top: 0,
