@@ -49,7 +49,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     const businessUnitIds = this.orderPositions
       .map(p => p.price.businessUnitId);
     const uniqueBusinessUnits = [...new Set(businessUnitIds)];
-    return uniqueBusinessUnits.length < 2;
+    return uniqueBusinessUnits.length < 2 && this.orderPositions.length > 0;
   }
 
   constructor(
