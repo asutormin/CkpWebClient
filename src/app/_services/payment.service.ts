@@ -29,7 +29,7 @@ export class PaymentService {
   }
 
   public payAdvanceOrders(): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/payments/pay-advance-orders`, {})
+    return this.http.put(`${environment.apiUrl}/payments/pay-orders`, {})
     .pipe(
       map(result => result));
   }
