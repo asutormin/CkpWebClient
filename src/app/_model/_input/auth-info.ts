@@ -3,7 +3,6 @@ export class AuthInfo {
   clientName: string;
   clientLegalPersonId: number;
   clientLegalPersonName: string;
-  isNeedPrepayment: boolean;
   login: string;
   token: string;
 
