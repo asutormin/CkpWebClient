@@ -7,6 +7,7 @@ import { SharedService } from 'src/app/_services/shared.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { UserService } from 'src/app/_services/user.service';
 import { Subscription } from 'rxjs';
+import { AccountSettingsService } from 'src/app/_services/account-settings.service';
 
 @Component({
   selector: 'app-order-positions',
@@ -15,6 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class OrderPositionsComponent implements OnInit, OnDestroy {
   private aSub: Subscription;
+  private sSub: Subscription;
   private pSub: Subscription;
   private dSub: Subscription;
 
@@ -54,8 +56,8 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private userService: UserService,
     private accountsService: AccountService,
+    private accountSettingsService: AccountSettingsService,
     private orderPositionService: OrderPositionService,
     private paymentService: PaymentService,
     private sharedService: SharedService
@@ -68,6 +70,9 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     if (this.aSub) {
       this.aSub.unsubscribe();
+    }
+    if (this.sSub) {
+      this.sSub.unsubscribe();
     }
     if (this.pSub) {
       this.pSub.unsubscribe();
@@ -92,41 +97,35 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   }
 
   public onCreateAccount(): void {
-    const navigate = (accountId) => {
-      this.router.navigate([`/accounts/item/${accountId}`])
-    }
 
     const createAccount = () => {
       const positionIds = this.getSelectedPositionIds();
       this.isWorking = true;
       this.accountInCreation = true;
-        this.aSub = this.accountsService.create(positionIds).subscribe(accountId => {
-          if (this.userService.currentUserValue.isNeedPrepayment) {
-            this.accountInCreation = false;
-            this.paymentInAction = true;
-              this.pSub = this.paymentService.payAdvanceOrders().subscribe(p =>
-                navigate(accountId)
-              )
-          }
-          navigate(accountId);
-        });
+      this.aSub = this.accountsService.create(positionIds).subscribe(accountId => {
+        this.accountInCreation = false;
+        this.paymentInAction = true;
+        this.pSub = this.paymentService.payAdvanceOrders().subscribe(p => this.router.navigate([`/accounts/item/${accountId}`]));
+      });
     }
 
-    if (this.userService.currentUserValue.isNeedPrepayment) {
-      this.paymentService.getBalances().subscribe(balances => {
-        const positions = this.getSelectedPositions();
-        const sum = positions.reduce((sum, current) => sum + current.sum, 0);
-        const businessUnitId = positions[0].price.businessUnitId;
-        const balance = balances.filter(b => b.businessUnitId === businessUnitId)[0];
-        if (balance.balanceSum < sum) {
-          this.insufficientFunds = true;
-        } else {
-          createAccount();
-        }
-      })
-    } else {
-      createAccount();
-    }
+    this.sSub = this.accountSettingsService.getIsNeedPrepayment().subscribe(isNeedPrepayment => {
+      if (isNeedPrepayment) {
+        this.pSub = this.paymentService.getBalances().subscribe(balances => {
+          const positions = this.getSelectedPositions();
+          const sum = positions.reduce((sum, current) => sum + current.sum, 0);
+          const businessUnitId = positions[0].price.businessUnitId;
+          const balance = balances.filter(b => b.businessUnitId === businessUnitId)[0];
+          if (balance.balanceSum < sum) {
+            this.insufficientFunds = true;
+          } else {
+            createAccount();
+          }
+        })
+      } else {
+        createAccount();
+      }
+    })
   }
 
   public onRemoveSelectedPositions(): void {
@@ -135,7 +134,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     this.dSub = this.orderPositionService.delete(positionIds).subscribe(() => {
       this.orderPositions = this.orderPositions.filter(p => positionIds.indexOf(p.id) <= -1);
       this.removingInAction = false;
-      }
+    }
     );
   }
 
@@ -151,9 +150,9 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   public onPositionRemove(id: number): void {
     this.removingInAction = true;
     this.orderPositionService.delete([id]).subscribe(() => {
-        this.orderPositions = this.orderPositions.filter(p => p.id !== id)
-        this.removingInAction = false;
-      }
+      this.orderPositions = this.orderPositions.filter(p => p.id !== id)
+      this.removingInAction = false;
+    }
     );
   }
 
