@@ -55,7 +55,7 @@
             </app-account-positions>
           </div>
           <div class="tab-pane" id="order-positions" role="tabpanel" aria-labelledby="order-positions-tab">
-            <app-order-positions [orderPositions]="account.orderPositions" [readOnly]="true" [nds]="account.nds">
+            <app-order-positions [OrderPositions]="account.orderPositions" [readOnly]="true" [nds]="account.nds">
             </app-order-positions>
           </div>
           <app-positions-basement [orderPositions]="account.orderPositions">

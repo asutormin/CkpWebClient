@@ -3,6 +3,8 @@ import {SupplierInfo} from './supplier-info';
 import {FormatInfo} from './format-info';
 import {GraphicInfo} from './graphic-info';
 import { PriceInfo } from './price-info';
+import { ImageInfo } from './image-info';
+import { StringInfo } from './string-info';
 
 export class OrderPositionInfo {
   id: number;
@@ -18,4 +20,7 @@ export class OrderPositionInfo {
   graphics: GraphicInfo[];
   rubrics: RubricInfo[];
   isChecked: boolean;
+  module: ImageInfo;
+  string: StringInfo;
+  childs: OrderPositionInfo[];
 }

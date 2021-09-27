@@ -3,7 +3,7 @@ import { AddressData } from '../../../../../_model/_output/_string/address-data'
 import { StringConfigService } from '../../../../../_services/string-config.service';
 import { FormatData } from '../../../../../_model/_output/format-data';
 import { NgForm } from '@angular/forms';
-import { AddressService } from 'src/app/_services/address.service';
+import { StringService } from 'src/app/_services/string.service';
 import { AddressInfo } from 'src/app/_model/_input/address-info';
 import { Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -31,11 +31,11 @@ export class AddressComponent implements OnInit, AfterViewInit {
 
   constructor(
     private stringConfigService: StringConfigService,
-    private addressService: AddressService
+    private stringService: StringService
   ) {
     this.currentAddress$ = new Subject<string>();
     this.promptAddresses$ = this.currentAddress$.pipe(
-      switchMap(address => this.addressService.getList(address))
+      switchMap(address => this.stringService.getAddreses(address))
     );
   }
 

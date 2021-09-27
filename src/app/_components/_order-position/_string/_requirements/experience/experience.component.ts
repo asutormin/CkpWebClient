@@ -34,7 +34,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.exSub = this.supplierService.getExperiencesHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.exSub = this.supplierService.getExperiencesHandbook()
       .subscribe(experiences => {
         this.experiences = experiences;
         this.currentExperience = experiences.find(ex => ex.id === this.experienceData.id);

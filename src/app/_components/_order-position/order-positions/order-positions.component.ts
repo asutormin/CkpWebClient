@@ -1,13 +1,14 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { OrderPositionInfo } from '../../../_model/_input/order-position-info';
 import { AccountService } from '../../../_services/account.service';
 import { Router } from '@angular/router';
 import { OrderPositionService } from '../../../_services/order-position.service';
 import { SharedService } from 'src/app/_services/shared.service';
 import { PaymentService } from 'src/app/_services/payment.service';
-import { UserService } from 'src/app/_services/user.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AccountSettingsService } from 'src/app/_services/account-settings.service';
+import { ModuleService } from 'src/app/_services/module.service';
+import { StringService } from 'src/app/_services/string.service';
 
 @Component({
   selector: 'app-order-positions',
@@ -15,12 +16,25 @@ import { AccountSettingsService } from 'src/app/_services/account-settings.servi
   styleUrls: ['./order-positions.component.scss']
 })
 export class OrderPositionsComponent implements OnInit, OnDestroy {
+  @ViewChild('imgTask') private imgTask: any;
+
   private aSub: Subscription;
   private sSub: Subscription;
   private pSub: Subscription;
   private dSub: Subscription;
+  private imSub: Subscription[] = new Array();
+  private orderPositions: OrderPositionInfo[];
+  private orderPositionsBehaviorSubject = new Subject<OrderPositionInfo[]>();
 
-  @Input() public orderPositions: OrderPositionInfo[];
+  @Input() public set OrderPositions(value: OrderPositionInfo[]) {
+    this.orderPositions = value;
+    this.orderPositionsBehaviorSubject.next(value)
+  }
+
+  public get OrderPositions(): OrderPositionInfo[] {
+    return this.orderPositions;
+  }
+
   @Input() public readOnly: false;
   @Input() public nds: number;
 
@@ -30,16 +44,17 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   public removingInAction = false;
   public insufficientFunds = false;
   public checkAll: boolean | null;
+  public currentOrderPosition: OrderPositionInfo;
 
-  public get totalSum() {
-    return this.orderPositions
-      ? this.orderPositions.reduce((sum, current) => sum + current.sum, 0)
+  public get TotalSum() {
+    return this.OrderPositions
+      ? this.OrderPositions.reduce((sum, current) => sum + current.sum, 0)
       : 0;
   }
 
-  public get totalNds() {
-    return this.orderPositions && this.nds
-      ? this.orderPositions.reduce((sum, current) => sum + current.sum * current.nds / 100, 0)
+  public get TotalNds() {
+    return this.OrderPositions && this.nds
+      ? this.OrderPositions.reduce((sum, current) => sum + current.sum * current.nds / 100, 0)
       : 0;
   }
 
@@ -47,11 +62,11 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     return this.getSelectedPositions().length > 0;
   }
 
-  public get checkAllEnabled() {
-    const businessUnitIds = this.orderPositions
+  public get CheckAllEnabled() {
+    const businessUnitIds = this.OrderPositions
       .map(p => p.price.businessUnitId);
     const uniqueBusinessUnits = [...new Set(businessUnitIds)];
-    return uniqueBusinessUnits.length < 2 && this.orderPositions.length > 0;
+    return uniqueBusinessUnits.length < 2 && this.OrderPositions.length > 0;
   }
 
   constructor(
@@ -60,8 +75,26 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     private accountSettingsService: AccountSettingsService,
     private orderPositionService: OrderPositionService,
     private paymentService: PaymentService,
+    private moduleService: ModuleService,
+    private stringService: StringService,
     private sharedService: SharedService
-  ) { }
+  ) { 
+    const loadIms = (orderPositions: OrderPositionInfo[]) => {
+      orderPositions.forEach(op => {
+        if (op.format.type.id == 1) {
+          const sub = this.stringService.getString(op.id).subscribe(s => op.string = s);
+          this.imSub.push(sub);
+        } else if (op.format.type.id == 2) {
+          const sub = this.moduleService.getImageTask(op.id).subscribe(m => op.module = m);
+          this.imSub.push(sub);
+        } else if (op.format.type.id == 26) {
+          loadIms(op.childs);
+        }
+      })
+    }
+
+    this.orderPositionsBehaviorSubject.subscribe(ops => loadIms(this.OrderPositions));
+  }
 
 
   public ngOnInit(): void {
@@ -80,16 +113,20 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     if (this.dSub) {
       this.dSub.unsubscribe();
     }
+
+    if (this.imSub) {
+      this.imSub.forEach(sub => sub.unsubscribe())
+    }
   }
 
   public onCheckAllChanged(): void {
-    this.orderPositions.forEach(p => p.isChecked = this.checkAll);
+    this.OrderPositions.forEach(p => p.isChecked = this.checkAll);
   }
 
   public onPositionCheckChanged(): void {
-    if (this.orderPositions.every(p => p.isChecked)) {
+    if (this.OrderPositions.every(p => p.isChecked)) {
       this.checkAll = true;
-    } else if (this.orderPositions.every(p => !p.isChecked)) {
+    } else if (this.OrderPositions.every(p => !p.isChecked)) {
       this.checkAll = false;
     } else {
       this.checkAll = null;
@@ -132,7 +169,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     const positionIds = this.getSelectedPositionIds();
     this.removingInAction = true;
     this.dSub = this.orderPositionService.delete(positionIds).subscribe(() => {
-      this.orderPositions = this.orderPositions.filter(p => positionIds.indexOf(p.id) <= -1);
+      this.OrderPositions = this.OrderPositions.filter(p => positionIds.indexOf(p.id) <= -1);
       this.removingInAction = false;
     }
     );
@@ -150,15 +187,34 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   public onPositionRemove(id: number): void {
     this.removingInAction = true;
     this.orderPositionService.delete([id]).subscribe(() => {
-      this.orderPositions = this.orderPositions.filter(p => p.id !== id)
+      this.OrderPositions = this.OrderPositions.filter(p => p.id !== id)
       this.removingInAction = false;
-    }
-    );
+    });
   }
 
   public isPositionEnabled(businessUnitId: number): boolean {
     const selectedPositions = this.getSelectedPositions();
     return selectedPositions.length === 0 || selectedPositions.findIndex(p => p.price.businessUnitId === businessUnitId) > -1;
+  }
+ 
+  public onShowPreview(orderPosition: OrderPositionInfo): void {
+    this.currentOrderPosition = orderPosition;
+  }
+
+  public onNextPreview(): void {
+    let index = this.OrderPositions.indexOf(this.currentOrderPosition);
+    if (index < this.OrderPositions.length - 1) {
+      index++;
+      this.currentOrderPosition = this.OrderPositions[index];
+    }
+  }
+
+  public onPrevPreview(): void {
+    let index = this.OrderPositions.indexOf(this.currentOrderPosition);
+    if (index > 0) {
+      index--;
+      this.currentOrderPosition = this.OrderPositions[index];
+    }
   }
 
   private getSelectedPositionIds(): number[] {
@@ -166,6 +222,8 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   }
 
   private getSelectedPositions(): OrderPositionInfo[] {
-    return this.orderPositions.filter(p => p.isChecked);
+    return this.OrderPositions.filter(p => p.isChecked);
   }
 }
+
+

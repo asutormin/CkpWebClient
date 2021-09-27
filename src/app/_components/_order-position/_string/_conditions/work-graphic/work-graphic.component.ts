@@ -35,7 +35,7 @@ export class WorkGraphicComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.wSub = this.supplierService.getWorkGraphicsHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.wSub = this.supplierService.getWorkGraphicsHandbook()
       .subscribe(workGraphics => {
         this.workGraphics = workGraphics;
         this.currentWorkGraphic = workGraphics.find(wg => wg.id === this.workGraphicData.id);

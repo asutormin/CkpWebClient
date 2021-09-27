@@ -107,28 +107,28 @@ export class SupplierService {
       }));
   }
 
-  public getEducationsHandbook(supplierId: number, formatTypeId: number): Observable<EducationInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/educations`)
+  public getEducationsHandbook(): Observable<EducationInfo[]> {
+    return this.http.get(`${environment.apiUrl}/suppliers/handbooks/educations`)
       .pipe(map(response => response as EducationInfo[]));
   }
 
-  public getExperiencesHandbook(supplierId: number, formatTypeId: number): Observable<ExperienceInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/experiences`)
+  public getExperiencesHandbook(): Observable<ExperienceInfo[]> {
+    return this.http.get(`${environment.apiUrl}/suppliers/handbooks/experiences`)
       .pipe(map(response => response as ExperienceInfo[]));
   }
 
-  public getCurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<CurrencyInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/currencies`)
+  public getCurrenciesHandbook(): Observable<CurrencyInfo[]> {
+    return this.http.get(`${environment.apiUrl}/suppliers/handbooks/currencies`)
       .pipe(map(response => response as CurrencyInfo[]));
   }
 
-  public getWorkGraphicsHandbook(supplierId: number, formatTypeId: number): Observable<WorkGraphicInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/workgraphics`)
+  public getWorkGraphicsHandbook(): Observable<WorkGraphicInfo[]> {
+    return this.http.get(`${environment.apiUrl}/suppliers/handbooks/workgraphics`)
       .pipe(map(response => response as WorkGraphicInfo[]));
   }
 
-  public getOccurrenciesHandbook(supplierId: number, formatTypeId: number): Observable<OccurrenceInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/handbooks/${formatTypeId}/occurrencies`)
+  public getOccurrenciesHandbook(supplierId: number): Observable<OccurrenceInfo[]> {
+    return this.http.get(`${environment.apiUrl}/suppliers/handbooks/occurrencies/${supplierId}`)
       .pipe(map(response => response as OccurrenceInfo[]));
   }
 

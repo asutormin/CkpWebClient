@@ -34,7 +34,7 @@ export class EducationComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.edSub = this.supplierService.getEducationsHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.edSub = this.supplierService.getEducationsHandbook()
       .subscribe(educations => {
         this.educations = educations;
         this.currentEducation = educations.find(ed => ed.id === this.requirementsData.educationId);

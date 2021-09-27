@@ -47,4 +47,11 @@ export class ModuleService {
         })
       );
   }
+
+  public getImageTask(orderPositionId: number): Observable<ImageInfo> {
+    return this.http.get(`${environment.apiUrl}/modules/task/${orderPositionId}`)
+    .pipe(
+        map(response => response as ImageInfo)
+    )
+  }
 }

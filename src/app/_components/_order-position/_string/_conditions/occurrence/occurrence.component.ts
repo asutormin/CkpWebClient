@@ -49,7 +49,7 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
       closeOnSelect: true,
     };
 
-    this.oSub = this.supplierService.getOccurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.oSub = this.supplierService.getOccurrenciesHandbook(this.supplierId)
       .subscribe(occurrencies => {
         this.occurrences = occurrencies.map(o => ({ id: JSON.stringify(o), text: o.name }));
         this.occurrencesData.forEach(ao => {

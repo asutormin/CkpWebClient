@@ -76,7 +76,7 @@ export class SalaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.cSub = this.supplierService.getCurrenciesHandbook(this.supplierId, this.formatData.formatTypeId)
+    this.cSub = this.supplierService.getCurrenciesHandbook()
       .subscribe(currencies => {
         this.currencies = currencies;
         this.currentCurrency = currencies.find(c => c.id === this.salaryData.currencyId);
