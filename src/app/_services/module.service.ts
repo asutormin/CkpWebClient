@@ -48,8 +48,8 @@ export class ModuleService {
       );
   }
 
-  public getImageTask(orderPositionId: number): Observable<ImageInfo> {
-    return this.http.get(`${environment.apiUrl}/modules/task/${orderPositionId}`)
+  public getSample(orderPositionId: number): Observable<ImageInfo> {
+    return this.http.get(`${environment.apiUrl}/modules/sample/${orderPositionId}`)
     .pipe(
         map(response => response as ImageInfo)
     )

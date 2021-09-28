@@ -85,7 +85,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
           const sub = this.stringService.getString(op.id).subscribe(s => op.string = s);
           this.imSub.push(sub);
         } else if (op.format.type.id == 2) {
-          const sub = this.moduleService.getImageTask(op.id).subscribe(m => op.module = m);
+          const sub = this.moduleService.getSample(op.id).subscribe(m => op.module = m);
           this.imSub.push(sub);
         } else if (op.format.type.id == 26) {
           loadIms(op.childs);
