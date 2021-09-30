@@ -47,15 +47,10 @@
                   </div>
                   <div *ngIf="tariff.format.type.id !== 26">
                     <div *ngIf="tariff.format.enableSecondSize">
-                      <div *ngIf="tariff.format.description === undefined">
-                        {{tariff.format.name}} ({{tariff.format.firstSize}}{{tariff.format.unitName}} x {{tariff.format.secondSize}}{{tariff.format.unitName}}) {{tariff.price.value}}р.
-                      </div>
-                      <div *ngIf="tariff.format.description !== undefined">
-                        {{tariff.format.name}} {{tariff.format.description}} ({{tariff.format.firstSize}}{{tariff.format.unitName}} x {{tariff.format.secondSize}}{{tariff.format.unitName}}) {{tariff.price.value}}р.
-                      </div>
+                      {{tariff.format.name}}<p *ngIf="tariff.project"> {{tariff.project.name}}</p><p *ngIf="tariff.format.description"></p> ({{tariff.format.firstSize}}{{tariff.format.unitName}} x {{tariff.format.secondSize}}{{tariff.format.unitName}}) {{tariff.price.value}}р.
                     </div>
                     <div *ngIf="!tariff.format.enableSecondSize">
-                      {{tariff.format.name}} ({{tariff.format.firstSize}} {{tariff.format.unitName}}) {{tariff.price.value}}р.
+                      {{tariff.format.name}}<p *ngIf="tariff.project"> {{tariff.project.name}}</p><p *ngIf="tariff.format.description"> {{tariff.format.description}}</p> ({{tariff.format.firstSize}}{{tariff.format.unitName}} {{tariff.format.unitName}}) {{tariff.price.value}}р.
                     </div>
                   </div>
                 </option>
