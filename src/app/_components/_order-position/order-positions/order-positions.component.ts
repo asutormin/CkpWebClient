@@ -16,7 +16,6 @@ import { StringService } from 'src/app/_services/string.service';
   styleUrls: ['./order-positions.component.scss']
 })
 export class OrderPositionsComponent implements OnInit, OnDestroy {
-  @ViewChild('imgTask') private imgTask: any;
 
   private aSub: Subscription;
   private sSub: Subscription;
