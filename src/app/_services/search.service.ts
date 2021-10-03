@@ -10,8 +10,6 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   public getOrderPositions(value: string, skipCount: number): Observable<OrderPositionInfo[]> {
-    console.log(skipCount);
-    console.log(value);
       return this.http.get(`${environment.apiUrl}/search/list`, { params: { value: value, skipCount: skipCount } })
       .pipe(
         map((response: { [key: number]: any }) => {
