@@ -8,6 +8,7 @@ import { LoginComponent } from './_components/login/login.component';
 import { HomeComponent } from './_components/home/home.component';
 import { BasketComponent } from './_components/basket/basket.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { HistoryComponent } from './_components/_history/history/history.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: 'order-positions/item/new', component: OrderPositionComponent, canActivate: [AuthGuard] },
       { path: 'order-positions/item/:id', component: OrderPositionComponent, canActivate: [AuthGuard] },
       { path: 'accounts/list', component: AccountsComponent, canActivate: [AuthGuard] },
-      { path: 'accounts/item/:id', component: AccountComponent, canActivate: [AuthGuard] }
+      { path: 'accounts/item/:id', component: AccountComponent, canActivate: [AuthGuard] },
+      { path: 'history', component: HistoryComponent, canActivate: [AuthGuard] }
     ]
   }
 ];

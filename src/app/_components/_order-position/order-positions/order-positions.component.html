@@ -106,38 +106,29 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 *ngIf="currentOrderPosition.supplier" class="modal-title" id="exampleModalLabel">
-          {{currentOrderPosition.supplier.name}}</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light"
-            aria-hidden="true">&times;</span></button>
+        <div class="w-100">
+          <div class="row no-gutters">
+            <h5 *ngIf="currentOrderPosition.supplier" class="modal-title mb-1" id="exampleModalLabel">{{currentOrderPosition.supplier.name}}</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <h5 class="fs-0 text-dark" *ngIf="currentOrderPosition.rubrics.length > 0">{{currentOrderPosition.rubrics[0].number}} - {{currentOrderPosition.rubrics[0].name}}</h5>
+          <div class="row no-gutters fs--1 text-500">
+            <p class="mb-0">{{currentOrderPosition.format.type.name}}</p>
+            <p class="ml-auto mb-0">{{currentOrderPosition.format.name}}</p>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-body">
         <div *ngIf="currentOrderPosition.format.type.id == 1">
-          <ng-container *ngTemplateOutlet="stringBlock; context: currentOrderPosition"></ng-container>
+          <app-preview-string [string]="currentOrderPosition.string" [fontColor]="'text-primary'">
+          </app-preview-string>
         </div>
         <div *ngIf="currentOrderPosition.format.type.id == 2">
-          <ng-container *ngTemplateOutlet="moduleBlock; context: currentOrderPosition"></ng-container>
+          <app-preview-module [module]="currentOrderPosition.module"></app-preview-module>
         </div>
         <div *ngIf="currentOrderPosition.format.type.id == 26">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" *ngFor="let clildPosition of currentOrderPosition.childs; let i = index">
-              <a [ngClass]="i == 0 ? 'nav-link active' : 'nav-link'" id="{{ 'tab-' + i }}" id="tab-{{i}}"
-                data-toggle="tab" href="#content-{{i}}" role="tab" [attr.aria-controls]="'content-'+ i"
-                aria-selected="false">{{clildPosition.format.name}}</a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div [ngClass]="i == 0 ? 'tab-pane active' : 'tab-pane'"
-              *ngFor="let clildPosition of currentOrderPosition.childs; let i = index" id="content-{{i}}"
-              role="tabpanel" [attr.aria-labelledby]="'tab-' + i">
-              <div *ngIf="clildPosition.format.type.id == 1">
-                <ng-container *ngTemplateOutlet="stringBlock; context: clildPosition"></ng-container>
-              </div>
-              <div *ngIf="clildPosition.format.type.id == 2">
-                <ng-container *ngTemplateOutlet="moduleBlock; context: clildPosition"></ng-container>
-              </div>
-            </div>
-          </div>
+          <app-preview-package [orderPositions]="currentOrderPosition.childs"></app-preview-package>
         </div>
       </div>
       <div class="d-flex justify-content-center mb-1">
@@ -159,45 +150,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #moduleBlock let-module="module">
-  <img *ngIf="module; else noContentBlock" [src]="'data:image/jpeg;base64,' + module.base64String"
-    style="width: 100%; height: auto;" />
-</ng-template>
-
-<ng-template #stringBlock let-string="string">
-  <div *ngIf="string; else noContentBlock">
-    <div class="d-flex justify-content-center">
-      <strong><span>{{string.company}}</span></strong>
-    </div>
-    <div class="text-uppercase mb-1">
-      <strong>{{string.name}}</strong>
-    </div>
-    <div *ngIf="string.requirements" class="text-justify mb-1">
-      <strong><u>Требования:</u></strong> {{string.requirements}}
-    </div>
-    <div *ngIf="string.responsibilities" class="text-justify mb-1">
-      <strong><u>Обязанности:</u></strong> {{string.responsibilities}}
-    </div>
-    <div *ngIf="string.conditions" class="text-justify mb-1">
-      <strong><u>Условия:</u></strong> {{string.conditions}}
-    </div>
-    <div class="mb-1" *ngIf="string.address">{{string.address}}</div>
-    <div class="row no-gutters">
-      <strong *ngIf="string.occurrences" class="mr-auto">{{string.occurrences}}</strong>
-      <div class="ml-auto">
-        <div *ngIf="string.contactPerson" class="d-flex justify-content-end">
-          <strong>{{string.contactPerson}}</strong>
-        </div>
-        <div *ngIf="string.phones" class="d-flex justify-content-end">
-          <strong>тел. {{string.phones}}</strong>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</ng-template>
-
-<ng-template #noContentBlock>
-  Загружаю...
-</ng-template>

@@ -1,0 +1,26 @@
+<div *ngIf="orderPositions; else noContentBlock">
+    <owl-carousel [options]="slideOptions" [carouselClasses]="['owl-theme', 'sliding', 'owl-dots-inner']" >  
+        <div class="item p-1" *ngFor="let orderPosition of orderPositions">
+            <h5 class="fs-0" *ngIf="orderPosition.rubrics.length > 0">
+                <a class="text-dark">{{orderPosition.rubrics[0].number}} - {{orderPosition.rubrics[0].name}}</a>
+            </h5>
+            <div class="row no-gutters fs--1 text-500 mb-3">
+                <p class="mb-0">{{orderPosition.format.type.name}}</p>
+                <p class="ml-auto mb-0">{{orderPosition.format.name}}</p>
+            </div>  
+            <div *ngIf="orderPosition.format.type.id == 1">
+                <app-preview-string class="fs--1"
+                    [string]="orderPosition.string"
+                    [fontColor]="orderPosition.price.businessUnitId == 3 ? 'color-ckp' : 'color-rdv'">
+                </app-preview-string>
+            </div>
+            <div *ngIf="orderPosition.format.type.id == 2">
+                <app-preview-module [module]="orderPosition.module"></app-preview-module>
+            </div> 
+        </div>  
+    </owl-carousel> 
+</div>
+
+<ng-template #noContentBlock>
+    ...
+</ng-template>

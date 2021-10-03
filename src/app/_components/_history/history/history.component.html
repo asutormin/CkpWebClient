@@ -1,0 +1,89 @@
+
+<div class="card mb-3">
+    <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+    </div>
+    <div class="card-body">
+        <div class="col-lg-11 fs--1">
+            <h3 class="mb-1">История</h3>
+            <p class="mb-1">Здесь собраны все Ваши вакансии. Вначале самые новые.</p>
+            <p class="mb-1">Строка поиска поможет отобрать вакансии, в которых присутствует введённая фраза. Чтобы повторить размещение нажмите кнопку <strong>Создать на основе</strong> в правом нижнем углу карточки вакансии.</p>
+        </div>
+    </div>
+</div>
+
+<form class="mt-1 mb-3 form-inline search-box">
+    <input class="form-control rounded-pill search-input w-100" type="search" placeholder="Найти..." name="input-search"
+        aria-label="Search" [ngModel]="searchString" (ngModelChange)="onSearhStringChange($event)" /><span class="position-absolute fa fa-search text-400 search-box-icon"></span>
+</form>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div *ngFor="let orderPosition of orderPositions" class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden h-100">
+                        <div class="p-3 h-100">
+                            <div class="row no-gutters">
+                                <span [ngClass]="orderPosition.price.businessUnitId == 3 ? 'badge-ckp' : 'badge-rdv'"
+                                    class="ml-auto badge badge-outlined mb-3">{{orderPosition.supplier.name}}
+                                </span>
+                            </div>
+
+                            <h5 class="fs-0" *ngIf="orderPosition.rubrics.length > 0">
+                                <a class="text-dark">{{orderPosition.rubrics[0].number}} - {{orderPosition.rubrics[0].name}}</a>
+                            </h5>
+                            <div class="row no-gutters fs--1 text-500 mb-3">
+                                <p class="mb-0">{{orderPosition.format.type.name}}</p>
+                                <p class="ml-auto mb-0">{{orderPosition.format.name}}</p>
+                            </div>
+                            <div *ngIf="orderPosition.format.type.id == 1">
+                                <app-preview-string class="fs--1"
+                                    [string]="orderPosition.string"
+                                    [fontColor]="orderPosition.price.businessUnitId == 3 ? 'color-ckp' : 'color-rdv'">
+                                </app-preview-string>
+                            </div>
+                            <div *ngIf="orderPosition.format.type.id == 2">
+                                <app-preview-module [module]="orderPosition.module"></app-preview-module>
+                            </div>
+                            <div *ngIf="orderPosition.format.type.id == 26">
+                                <app-preview-package [orderPositions]="orderPosition.childs"></app-preview-package>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-3">
+                        <h5 class="fs-2 text-500 mb-0 d-flex justify-content-end">
+                            <span class="fa fa-ruble mt-1 mr-1"></span>
+                            <span>{{orderPosition.cost}}</span>
+                        </h5>
+                        <p class="fs--1 mb-0">Выходы: <strong [ngClass]="orderPosition.price.businessUnitId == 3 ? 'color-ckp' : 'color-rdv'">{{orderPosition.graphics | graphicsStringified : true}}</strong></p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between px-3">
+                        <div>
+                            <span class="text-500 fs--1">{{orderPosition.id}}</span>
+                        </div>
+                        <div>
+                            <a class="btn btn-sm btn-falcon-default"
+                                title="Создать на основе"
+                                data-toggle="tooltip"
+                                data-placement="top" 
+                                (click)="onPositionCreateBy(orderPosition.id)">
+                                <span class="fa fa-cart-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <div class="text-center">
+                <div class="text-primary mb-3">Загружаю вакансии...</div>
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 80px; height: 80px; border-width: 8px;">
+                    <span class="sr-only"></span>
+                  </div>
+            </div>
+    </div>
+</div>
+
+<div *ngIf="searchCompleted" class="flex-fill alert alert-warning my-3" role="alert">
+    <strong>Все вакансии загружены.</strong>
+</div>

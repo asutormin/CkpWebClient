@@ -1,0 +1,32 @@
+
+.badge {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 4px 16px;
+    border: 3px solid transparent;
+    min-width: 50px;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 99999px
+  }
+
+.badge.badge-outlined {
+    background-color: transparent
+  }
+
+  .badge.badge-outlined.badge-ckp {
+    border-color: #38c;
+    color: #38c;// #06f
+  }
+
+  .badge.badge-outlined.badge-rdv {
+    border-color: #399;
+    color: #399
+  }
+
+
+  

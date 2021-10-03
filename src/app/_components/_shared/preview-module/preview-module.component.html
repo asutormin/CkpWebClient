@@ -1,0 +1,6 @@
+<img *ngIf="module; else noContentBlock" [src]="'data:image/jpeg;base64,' + module.base64String"
+    style="width: 100%; height: auto;" />
+
+<ng-template #noContentBlock>
+    ...
+</ng-template>

@@ -1,0 +1,33 @@
+<div *ngIf="string; else noContentBlock" >
+    <div class="d-flex text-right justify-content-end text-dark mb-3">
+        <span>{{string.company}}</span>
+    </div>
+    <div class="text-uppercase text-left mb-3" [ngClass]="fontColor">
+        <strong>{{string.name}}</strong>
+    </div>
+    <div *ngIf="string.requirements" class="text-justify mb-1">
+        <strong>Требования</strong> {{string.requirements}}
+    </div>
+    <div *ngIf="string.responsibilities" class="text-justify mb-1">
+        <strong>Обязанности</strong> {{string.responsibilities}}
+    </div>
+    <div *ngIf="string.conditions" class="text-justify mb-1">
+        <strong>Условия</strong> {{string.conditions}}
+    </div>
+    <div class="mb-1" *ngIf="string.address">{{string.address}}</div>
+    <div class="row no-gutters">
+        <strong *ngIf="string.occurrences" class="mr-auto">{{string.occurrences}}</strong>
+        <div class="ml-auto text-right">
+            <div *ngIf="string.contactPerson" class="d-flex justify-content-end">
+                <strong>{{string.contactPerson}}</strong>
+            </div>
+            <div *ngIf="string.phones" class="d-flex justify-content-end">
+                <strong>тел. {{string.phones}}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noContentBlock>
+    ...No content
+</ng-template>

@@ -57,6 +57,11 @@ import { WaitLineComponent } from './_components/_shared/wait-line/wait-line.com
 import { AccountPositionsComponent } from './_components/_accounting/account-positions/account-positions.component';
 import { PositionsBasementComponent } from './_components/_shared/positions-basement/positions-basement.component';
 import { BalanceComponent } from './_components/balance/balance.component';
+import { HistoryComponent } from './_components/_history/history/history.component';
+import { PreviewStringComponent } from './_components/_shared/preview-string/preview-string.component';
+import { PreviewModuleComponent } from './_components/_shared/preview-module/preview-module.component';
+import { PreviewPackageComponent } from './_components/_shared/preview-package/preview-package.component';
+import { OwlModule } from 'ngx-owl-carousel';
 
 @NgModule({
   declarations: [
@@ -104,7 +109,11 @@ import { BalanceComponent } from './_components/balance/balance.component';
     WaitLineComponent,
     AccountPositionsComponent,
     PositionsBasementComponent,
-    BalanceComponent
+    BalanceComponent,
+    HistoryComponent,
+    PreviewStringComponent,
+    PreviewModuleComponent,
+    PreviewPackageComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +123,8 @@ import { BalanceComponent } from './_components/balance/balance.component';
     ReactiveFormsModule,
     InputMaskAngularModule,
     NgxDropzoneModule,
-    NgSelect2Module
+    NgSelect2Module, 
+    OwlModule 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
