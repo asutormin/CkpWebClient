@@ -75,12 +75,12 @@
             </div>
 
         </div>
-            <div class="text-center">
-                <div class="text-primary mb-3">Загружаю вакансии...</div>
-                <div class="spinner-border text-primary mb-3" role="status" style="width: 80px; height: 80px; border-width: 8px;">
-                    <span class="sr-only"></span>
-                  </div>
+        <div *ngIf="isLoading" class="text-center">
+            <div class="text-primary mb-3">Загружаю вакансии...</div>
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 80px; height: 80px; border-width: 8px;">
+                <span class="sr-only"></span>
             </div>
+        </div>
     </div>
 </div>
 

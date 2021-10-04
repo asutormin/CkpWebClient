@@ -31,7 +31,7 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
     private stringService: StringService,
     private moduleService: ModuleService,
     private sharedService: SharedService
-  ) { 
+  ) {
     this.searchSubject
       .pipe(
         debounceTime(1000),
@@ -57,11 +57,11 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener("window:scroll", ['$event.target'])
   onContentScrolled(e: any) {
     let scroll = e.documentElement.scrollTop;
-    if (scroll > this.currentScrollPosition) 
-      if (!this.isLoading) 
+    if (scroll > this.currentScrollPosition)
+      if (!this.isLoading)
         if (!this.searchCompleted)
           this.loadOrderPositions(this.searchString);
-    
+
     this.currentScrollPosition = scroll;
   }
 
@@ -80,12 +80,16 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
   private loadOrderPositions(value: string): void {
     this.isLoading = true;
     this.hSub = this.searchService.getOrderPositions(value, this.orderPositions.length).subscribe(ops => {
-       this.loadIms(ops);
-       this.orderPositions.push(...ops);
-       console.log(this.orderPositions);
-       this.isLoading = false;
-       if (ops.length == 0) this.searchCompleted = true;
-     });
+      if (ops.length == 0) {
+        this.searchCompleted = true;
+        this.isLoading = false;
+        return;
+      } 
+      this.loadIms(ops);
+      this.orderPositions.push(...ops);
+      console.log(this.orderPositions);
+      this.isLoading = false;
+    });
   }
 
   private loadIms(orderPositions: OrderPositionInfo[]): void {
