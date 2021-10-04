@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { StringService } from 'src/app/_services/string.service';
 import { AddressInfo } from 'src/app/_model/_input/address-info';
 import { Observable, of, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-address',
@@ -35,6 +35,8 @@ export class AddressComponent implements OnInit, AfterViewInit {
   ) {
     this.currentAddress$ = new Subject<string>();
     this.promptAddresses$ = this.currentAddress$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
       switchMap(address => this.stringService.getAddreses(address))
     );
   }
