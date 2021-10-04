@@ -94,7 +94,7 @@
               ]
             }
           },
-		      {
+  	      {
             "format": {
               "id": 58312,
               "name": "[История] Выделенное объявление - Тариф \"Неделя\"",
@@ -136,10 +136,94 @@
               ]
             }
           },
+          {
+            "format": {
+              "id": 159794,
+              "name": "Строка простая Стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159794,
+              "name": "Строка простая Расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
 		      {
             "format": {
               "id": 159792,
-              "name": "Строка простая - Тариф \"Неделя\"",
+              "name": "Строка простая - Тариф \"Неделя\" Стандартная",
               "elements": [
                 {
                   "name": "region-header",
@@ -181,7 +265,91 @@
 		      {
             "format": {
               "id": 159793,
-              "name": "Строка простая - Тариф \"Неделя\"",
+              "name": "Строка простая - Тариф \"Неделя\" Расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159796,
+              "name": "Строка выделенная Стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159797,
+              "name": "Строка выделенная Расширенная",
               "elements": [
                 {
                   "name": "region-header",
@@ -223,7 +391,7 @@
           {
             "format": {
               "id": 159801,
-              "name": "Строка выделенная - Тариф \"Неделя\"",
+              "name": "Строка выделенная - Тариф \"Неделя\" Стандартная",
               "elements": [
                 {
                   "name": "region-header",
@@ -265,7 +433,91 @@
 		      {
             "format": {
               "id": 159800,
-              "name": "Строка выделенная - Тариф \"Неделя\"",
+              "name": "Строка выделенная - Тариф \"Неделя\" Расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 440, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159812,
+              "name": "Мини модуль Стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "format": {
+              "id": 159813,
+              "name": "Мини модуль Расширенная",
               "elements": [
                 {
                   "name": "region-header",
@@ -307,7 +559,7 @@
 		      {
             "format": {
               "id": 159810,
-              "name": "Мини модуль - Тариф \"Неделя\"",
+              "name": "Мини модуль - Тариф \"Неделя\" Стандартная",
               "elements": [
                 {
                   "name": "region-header",
@@ -349,7 +601,7 @@
 		      {
             "format": {
               "id": 159810,
-              "name": "Мини модуль - Тариф \"Неделя\"",
+              "name": "Мини модуль - Тариф \"Неделя\" Расширенная",
               "elements": [
                 {
                   "name": "region-header",
@@ -388,10 +640,10 @@
               ]
             }
           },
-		      {
+          {
             "format": {
-              "id": 159804,
-              "name": "Строка с логотипом - Тариф \"Неделя\"",
+              "id": 159806,
+              "name": "Строка с логотипом Стандартная",
               "elements": [
                 {
                   "name": "region-header",
@@ -435,8 +687,99 @@
           },
 		      {
             "format": {
+              "id": 159807,
+              "name": "Строка с логотипом Расширенная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-logos"
+                }
+              ]
+            }
+          },
+		      {
+            "format": {
+              "id": 159804,
+              "name": "Строка с логотипом - Тариф \"Неделя\" Стандартная",
+              "elements": [
+                {
+                  "name": "region-header",
+                  "elements": [
+                    { "name": "vacancy-name", "length": 40, "totalLength": null, "count": null },
+                    { "name": "vacancy-additional", "length": 50, "totalLength": null , "count": null}
+                  ]
+                },
+                {
+                  "name": "region-requirements",
+                  "elements": [
+                    { "name": "requirements", "length": 280, "totalLength": null, "count": null },
+                    { "name": "education", "length": null, "totalLength": null, "count": null },
+                    { "name": "experience", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-conditions",
+                  "elements": [
+                    { "name": "salary", "length": null, "totalLength": null, "count": null },
+                    { "name": "work-graphic", "length": null, "totalLength": null, "count": null },
+                    { "name": "occurrence", "length": null, "totalLength": null, "count": 1 },
+                    { "name": "address", "length": 80, "totalLength": null, "count": null },
+                    { "name": "housing", "length": null, "totalLength": null, "count": null },
+                    { "name": "food", "length": null, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-contacts",
+                  "elements": [
+                    { "name": "person", "length": 255, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "email", "length": 255, "totalLength": null, "count": null }
+                  ]
+                },
+                {
+                  "name": "region-logos"
+                }
+              ]
+            }
+          },
+          
+		      {
+            "format": {
               "id": 159805,
-              "name": "Строка с логотипом - Тариф \"Неделя\"",
+              "name": "Строка с логотипом - Тариф \"Неделя\" Расширенная",
               "elements": [
                 {
                   "name": "region-header",
