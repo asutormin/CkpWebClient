@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { OrderPositionInfo } from 'src/app/_model/_input/order-position-info';
 import { ModuleService } from 'src/app/_services/module.service';
 import { SearchService } from 'src/app/_services/search.service';
@@ -14,9 +14,8 @@ import { StringService } from 'src/app/_services/string.service';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
-  private hSub: Subscription;
   private imSub: Subscription[] = new Array();
-  private searchSubject: Subject<string> = new Subject<string>();
+  private search$: Subject<string> = new Subject<string>();
   private currentScrollPosition: any;
 
   public isLoading: boolean = false;
@@ -32,18 +31,27 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
     private moduleService: ModuleService,
     private sharedService: SharedService
   ) {
-    this.searchSubject
+    this.search$
       .pipe(
-        debounceTime(1000),
-        distinctUntilChanged())
-      .subscribe(s => {
-        this.orderPositions.length = 0;
-        this.loadOrderPositions(s);
-      });
+        debounceTime(500),
+        switchMap(searchString => {
+          this.isLoading = true;
+          return this.searchService.getOrderPositions(searchString, this.orderPositions.length); 
+        })
+        ).subscribe(ops => {
+          this.isLoading = false;
+          if (ops.length == 0) {
+            this.searchCompleted = true;
+            return;
+          }
+          this.loadIms(ops);
+          this.orderPositions.push(...ops);
+          console.log(this.orderPositions);
+        });
   }
 
   public ngOnInit(): void {
-    this.searchSubject.next('');
+    this.search$.next('');
   }
 
   public ngAfterViewInit(): void {
@@ -60,36 +68,22 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
     if (scroll > this.currentScrollPosition)
       if (!this.isLoading)
         if (!this.searchCompleted)
-          this.loadOrderPositions(this.searchString);
+          this.search$.next(this.searchString);
 
     this.currentScrollPosition = scroll;
   }
 
   public onSearhStringChange($event: string): void {
     this.searchCompleted = false;
-    this.searchString = $event;
     this.unsubscribe();
-    this.searchSubject.next($event);
+    this.orderPositions.length = 0;
+    this.searchString = $event;
+    this.search$.next($event);
   }
 
   public onPositionCreateBy(positionId: number): void {
     this.sharedService.OrderPositionId = positionId;
     this.router.navigate([`/order-positions/item/new`]);
-  }
-
-  private loadOrderPositions(value: string): void {
-    this.isLoading = true;
-    this.hSub = this.searchService.getOrderPositions(value, this.orderPositions.length).subscribe(ops => {
-      if (ops.length == 0) {
-        this.searchCompleted = true;
-        this.isLoading = false;
-        return;
-      } 
-      this.loadIms(ops);
-      this.orderPositions.push(...ops);
-      console.log(this.orderPositions);
-      this.isLoading = false;
-    });
   }
 
   private loadIms(orderPositions: OrderPositionInfo[]): void {
@@ -107,10 +101,6 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private unsubscribe(): void {
-    if (this.hSub) {
-      this.hSub.unsubscribe();
-    }
-
     this.imSub.forEach(sub => {
       if (sub) {
         sub.unsubscribe();
