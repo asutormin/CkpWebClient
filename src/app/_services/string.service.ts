@@ -13,9 +13,7 @@ export class StringService {
   public getAddreses(description: string): Observable<AddressInfo[]> {
     return this.http.get(`${environment.apiUrl}/strings/addresses/list`, { params: { description: description } })
       .pipe(
-        map(response => response as AddressInfo[]),
-        debounceTime(1000),
-        distinctUntilChanged()
+        map(response => response as AddressInfo[])
       );
   }
 
