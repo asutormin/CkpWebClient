@@ -50,10 +50,10 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
     };
 
     this.oSub = this.supplierService.getOccurrenciesHandbook(this.supplierId)
-      .subscribe(occurrencies => {
-        this.occurrences = occurrencies.map(o => ({ id: JSON.stringify(o), text: o.name }));
+      .subscribe(occurrences => {
+        this.occurrences = occurrences.map(o => ({ id: JSON.stringify(o), text: o.name }));
         this.occurrencesData.forEach(ao => {
-          const occurrence = occurrencies.find(o => o.id === ao.id && o.typeId === ao.typeId);
+          const occurrence = occurrences.find(o => o.id === ao.id && o.typeId === ao.typeId);
           if (occurrence !== undefined) {
             this.selectedOccurrences.push(JSON.stringify(occurrence));
           }
@@ -95,12 +95,12 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
 
     this.selectedOccurrences.forEach(o => {
       const occurrence = JSON.parse(o) as OccurrenceInfo;
-      if (occurrence !== undefined) {
-        const advOccurrence = new OccurrenceData();
-        advOccurrence.id = occurrence.id;
-        advOccurrence.typeId = occurrence.typeId;
-        advOccurrence.orderBy = this.selectedOccurrences.indexOf(o);
-        this.occurrencesData.push(advOccurrence);
+      if (occurrence) {
+        const occurrenceData = new OccurrenceData();
+        occurrenceData.id = occurrence.id;
+        occurrenceData.typeId = occurrence.typeId;
+        occurrenceData.orderBy = this.selectedOccurrences.indexOf(o);
+        this.occurrencesData.push(occurrenceData);
       }
     });
   }
