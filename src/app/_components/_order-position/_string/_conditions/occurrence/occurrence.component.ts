@@ -31,13 +31,15 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
   public submitted = false;
 
   public get Valid(): boolean {
-    return this.submitted && this.form.valid;
+    return this.submitted && 
+      this.form.valid && 
+      this.occurrencesData.length > 0 &&
+      this.occurrencesData.findIndex(o => o.id > 0) >= 0;
   }
 
   constructor(
     private supplierService: SupplierService,
-    private stringConfigService: StringConfigService,
-    private ref: ChangeDetectorRef
+    private stringConfigService: StringConfigService
   ) { }
 
   public ngOnInit(): void {
@@ -54,7 +56,7 @@ export class OccurrenceComponent implements OnInit, OnDestroy {
         this.occurrences = occurrences.map(o => ({ id: JSON.stringify(o), text: o.name }));
         this.occurrencesData.forEach(ao => {
           const occurrence = occurrences.find(o => o.id === ao.id && o.typeId === ao.typeId);
-          if (occurrence !== undefined) {
+          if (occurrence) {
             this.selectedOccurrences.push(JSON.stringify(occurrence));
           }
         });
