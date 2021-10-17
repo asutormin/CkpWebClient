@@ -4,13 +4,4 @@ export class PhoneData {
   number: string;
   description: string;
   orderBy: number;
-/*
-  constructor() {
-    this.countryCode = '';
-    this.code = '';
-    this.number = '';
-    this.description = '';
-  }
-
- */
 }
