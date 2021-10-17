@@ -11,11 +11,11 @@
       </app-person>
     </div>
     <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('phones')">
-      <app-phones #phones
+      <app-phones-masked #phones
                   [phonesData]="phonesData"
                   [supplierId]="supplierId"
                   [formatData]="formatData">
-      </app-phones>
+      </app-phones-masked>
     </div>
     <div class="container-fluid p-0 mb-3" *ngIf="canShowElement('email')">
       <app-email #email

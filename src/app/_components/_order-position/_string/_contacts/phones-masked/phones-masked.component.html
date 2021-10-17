@@ -1,0 +1,33 @@
+<app-phone-masked #phone0 [elementIndex]="0" (phoneChanged)="onPhoneChanged()"></app-phone-masked>
+<app-phone-masked #phone1 [elementIndex]="1" (phoneChanged)="onPhoneChanged()"></app-phone-masked>
+<app-phone-masked #phone2 [elementIndex]="2" (phoneChanged)="onPhoneChanged()"></app-phone-masked>
+<div class="d-flex flex-fill flex-nowrap">
+  <div class="d-flex flex-fill">
+      <div>
+        <small>* Количество используемых символов отличается от введённого.</small>  
+      </div>
+  </div>
+  <div style="min-width: 40pt">
+    <div class="d-flex justify-content-end">
+      <div>
+        <small>{{getTotalLength()}} / {{getMaxLength('phones')}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex flex-fill flex-nowrap">
+  <div class="d-flex flex-fill">
+    <div class="text-danger">
+      <div *ngIf="lengthError">
+        <small>Превышена максимальная длинна телефонов.</small>
+      </div>
+      <div *ngIf="submitted && requiredError">
+        <small>Не задан ни один телефон.</small>
+      </div>
+      <div *ngIf="submitted && !requiredError && numberError">
+        <small>Не задан номер.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
