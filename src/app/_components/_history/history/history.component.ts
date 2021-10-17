@@ -33,7 +33,7 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.search$
       .pipe(
-        debounceTime(500),
+        debounceTime(250),
         switchMap(searchString => {
           this.isLoading = true;
           return this.searchService.getOrderPositions(searchString, this.orderPositions.length); 
