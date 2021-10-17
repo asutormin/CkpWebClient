@@ -63,7 +63,6 @@ import { PreviewModuleComponent } from './_components/_shared/preview-module/pre
 import { PreviewPackageComponent } from './_components/_shared/preview-package/preview-package.component';
 import { OwlModule } from 'ngx-owl-carousel';
 import { PhoneMaskedComponent } from './_components/_order-position/_string/_contacts/phone-masked/phone-masked.component';
-import { PhonePipe } from './_pipes/phone.pipe';
 import { PhonesMaskedComponent } from './_components/_order-position/_string/_contacts/phones-masked/phones-masked.component';
 
 @NgModule({
@@ -118,7 +117,6 @@ import { PhonesMaskedComponent } from './_components/_order-position/_string/_co
     PreviewModuleComponent,
     PreviewPackageComponent,
     PhoneMaskedComponent,
-    PhonePipe,
     PhonesMaskedComponent
   ],
   imports: [
