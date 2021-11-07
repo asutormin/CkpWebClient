@@ -87,7 +87,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -129,7 +129,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -171,7 +171,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -213,7 +213,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -255,7 +255,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -297,7 +297,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -339,7 +339,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -381,7 +381,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -423,7 +423,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -465,7 +465,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -507,7 +507,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -549,7 +549,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -591,7 +591,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -633,7 +633,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 }
@@ -675,7 +675,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 },
@@ -720,7 +720,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 },
@@ -765,7 +765,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 },
@@ -811,7 +811,7 @@
                   "name": "region-contacts",
                   "elements": [
                     { "name": "person", "length": 255, "totalLength": null, "count": null },
-                    { "name": "phones", "length": 32, "totalLength": null, "count": null },
+                    { "name": "phones", "length": 220, "totalLength": null, "count": null },
                     { "name": "email", "length": 255, "totalLength": null, "count": null }
                   ]
                 },
