@@ -13,6 +13,7 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
   @ViewChild('phone0') phone0Component: PhoneMaskedComponent;
   @ViewChild('phone1') phone1Component: PhoneMaskedComponent;
   @ViewChild('phone2') phone2Component: PhoneMaskedComponent;
+  @ViewChild('phone3') phone3Component: PhoneMaskedComponent;
 
   @Input() public phonesData: PhoneData[];
   @Input() public supplierId: number;
@@ -39,7 +40,8 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
 
     this.phone0Component.setPhoneData(this.phonesData[0]);
     this.phone1Component.setPhoneData(this.phonesData[1]);
-    this.phone2Component.setPhoneData(this.phonesData[3]);
+    this.phone2Component.setPhoneData(this.phonesData[2]);
+    this.phone3Component.setPhoneData(this.phonesData[3]);
   }
   
   public getMaxLength(name: string): any {
@@ -50,11 +52,65 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
       const isPhone0Set = this.phone0Component && this.phone0Component.getLength() > 0;
       const isPhone1Set = this.phone1Component && this.phone1Component.getLength() > 0;
       const isPhone2Set = this.phone2Component && this.phone2Component.getLength() > 0;
+      const isPhone3Set = this.phone3Component && this.phone3Component.getLength() > 0;
 
     let totalLength = (isPhone0Set ? this.phone0Component.getLength() : 0) +
       (isPhone1Set ? this.phone1Component.getLength() : 0) +
-      (isPhone2Set ? this.phone2Component.getLength() : 0);
+      (isPhone2Set ? this.phone2Component.getLength() : 0) +
+      (isPhone3Set ? this.phone3Component.getLength() : 0);
 
+      // Разделитель между телефонами ', ' - 2 символа
+      if (!isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
+        // 0000
+        totalLength += 0;
+      } else if (!isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
+        // 0001
+        totalLength += 0
+      } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
+        // 0010
+        totalLength += 0;
+      } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
+        // 0011
+        totalLength += 2;
+      } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
+        // 0100
+        totalLength += 0;
+      } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
+        // 0101
+        totalLength += 2;
+      } else if (!isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
+        // 0110
+        totalLength += 2;
+      } else if (!isPhone0Set && isPhone1Set && isPhone2Set && isPhone3Set) {
+        // 0111
+        totalLength += 4;
+      } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
+        // 1000
+        totalLength += 0;
+      } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
+        // 1001
+        totalLength += 2;
+      } else if (isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
+        // 1010
+        totalLength += 2
+      } else if (isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
+        // 1011
+        totalLength += 4;
+      } else if (isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
+        // 1100
+        totalLength += 2;
+      } else if (isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
+        // 1101
+        totalLength += 4;
+      } else if (isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
+        // 1110
+        totalLength += 4;
+      } else {
+        // 1111
+        totalLength += 6;
+      }
+
+/*
       // Разделитель между телефонами ', ' - 2 символа
       if (!isPhone0Set && !isPhone1Set && !isPhone2Set) {
         // 000
@@ -81,7 +137,7 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
         // 111
         totalLength += 4;
       }
-
+*/
     return totalLength;
   }
   
@@ -106,6 +162,11 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
     if (phoneData2) {
       phoneData2.orderBy = orderBy;
       this.phonesData.push(phoneData2);
+    }
+    const phoneData3 = this.phone3Component.getPhoneData();
+    if (phoneData3) {
+      phoneData3.orderBy = orderBy;
+      this.phonesData.push(phoneData3);
     }
 
     this.checkErrors();
