@@ -21,14 +21,14 @@
               <div class="custom-control custom-checkbox">
                 <input class="custom-control-input"
                        type="checkbox" id="{{ 'checkbox-' + graphic.id }}"
-                       [disabled]="(disableUnchecked && !graphic.isChecked) && (orderPositionData.graphicsData.length > 0 || !isPackageGraphicEnabled(graphic.outDate))"
-                       [(ngModel)]="graphic.isChecked" (change)="onGraphicChanged($event)"/>
+                       [disabled]="!isGraphicEnabled(graphic)"
+                       [(ngModel)]="graphic.isChecked" (change)="onGraphicChanged()"/>
                 <label class="custom-control-label" for="{{ 'checkbox-' + graphic.id }}"></label>
               </div>
             </td>
             <td class="align-middle text-center">{{graphic.number}}</td>
             <td class="align-middle text-center text-primary"><strong>{{graphic.outDate | date:'dd.MM.yyyy' }}</strong></td>
-            <td class="align-middle text-left">{{weekdays[graphic.outDate.getDay()]}}</td>
+            <td class="align-middle text-left">{{weekdays[graphic.outDate.getDay()].name}}</td>
             <td class="align-middle text-center white-space-nowrap w-auto">{{graphic.closingDate  | date:'dd.MM.yyyy HH:mm'}}</td>
           </tr>
         </tbody>

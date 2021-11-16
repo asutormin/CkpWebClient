@@ -85,27 +85,6 @@ export class SupplierService {
       }));
   }
 
-  public getGraphics(supplierId: number, formatTypeId: number): Observable<GraphicInfo[]> {
-    return this.http.get(`${environment.apiUrl}/suppliers/${supplierId}/graphics/${formatTypeId}`)
-      .pipe(map((response: { [key: number]: any }) => {
-        return Object
-          .keys(response)
-          .map(key => ({
-            ...response[key],
-            outDate: new Date(response[key].outDate)
-          }));
-      }));
-  }
-
-  public getGraphic(graphicId: number): Observable<GraphicInfo> {
-    return this.http.get(`${environment.apiUrl}/suppliers/graphics/${graphicId}`)
-      .pipe(map((response: any) => {
-        return {
-          ...response,
-          outDate: new Date(response.outDate)
-        };
-      }));
-  }
 
   public getEducationsHandbook(): Observable<EducationInfo[]> {
     return this.http.get(`${environment.apiUrl}/suppliers/handbooks/educations`)
