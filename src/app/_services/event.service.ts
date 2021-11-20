@@ -1,9 +1,10 @@
-import {Injectable, Output} from '@angular/core';
-import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
+import {Injectable } from '@angular/core';
+import {BehaviorSubject, Observable } from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 
 export enum EventType {
-  AdvGraphics_Changed
+  AdvGraphics_Changed,
+  Tariff_Changed
 }
 
 export class EmitEvent {

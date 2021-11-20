@@ -46,8 +46,17 @@ export class GraphicService {
     }
 
     // Сортирует список графиков по возрастанию даты сдачи
-    public Sort(graphics: GraphicInfo[]): GraphicInfo[] {
+    public sort(graphics: GraphicInfo[]): GraphicInfo[] {
         return graphics.sort((a, b) => new Date(a.outDate).getTime() - new Date(b.outDate).getTime());
+    }
+
+    // Фильтрует графики по выходу в заданный день недели
+    public filter(graphics: GraphicInfo[], weekdayShortName: string): GraphicInfo[] {
+        const weekdays = this.getWeekdays();
+        const weekday = this.getWeekdays().find(wd => wd.shortName === weekdayShortName);
+        return weekday
+          ? graphics.filter(g => weekdays[g.outDate.getDay()].name.match(weekday.name))
+          : graphics;
     }
 
     // Возвращает массив Observable-ов получения графика
