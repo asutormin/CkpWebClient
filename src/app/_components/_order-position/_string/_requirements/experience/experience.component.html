@@ -3,9 +3,7 @@
       <div class="col-lg-6 d-flex flex-nowrap p-0">
         <div class="input-group-prepend"><span class="input-group-text" style="border-top-right-radius:0; border-bottom-right-radius:0">Опыт работы</span></div>
         <select class="form-control" #experience="ngModel" name="experience"
-                required
                 [(ngModel)]="currentExperience" (ngModelChange)="onExperienceChanged()"
-                [ngClass]="{ 'is-invalid': submitted && experience.errors }"
                 style="border-top-left-radius:0; border-bottom-left-radius:0">
           <option disabled [ngValue]="undefinedExperience">Не выбран...</option>
           <option *ngFor="let experience of experiences" [ngValue]="experience">{{experience.name}}</option>
@@ -17,10 +15,5 @@
           <div class="input-group-append"><span class="input-group-text" style="border-top-left-radius:0; border-bottom-left-radius:0">года / лет</span></div>
         </div>
       </div>
-  </div>
-  <div *ngIf="experience.invalid" class="text-danger">
-    <div *ngIf="experience.errors.required && submitted">
-      <small>Опыт работы не выбран.</small>
-    </div>
   </div>
 </form>

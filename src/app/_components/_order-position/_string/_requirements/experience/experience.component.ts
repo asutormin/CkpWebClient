@@ -26,7 +26,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   public submitted = false;
 
   public get Valid(): boolean {
-    return this.submitted && this.form.valid;
+    return this.submitted;
   }
 
   constructor(
