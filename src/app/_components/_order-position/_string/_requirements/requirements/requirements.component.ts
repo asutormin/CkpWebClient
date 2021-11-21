@@ -47,10 +47,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   public get Valid(): boolean {
-    return this.submitted &&
-      (this.educationComponent === undefined ? true : this.educationComponent.Valid) &&
-      (this.experienceComponent === undefined ? true : this.experienceComponent.Valid) &&
-      this.isFieldValid('requirements');
+    return this.submitted && this.isFieldValid('requirements');
   }
 
   constructor(
