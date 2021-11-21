@@ -10,7 +10,7 @@
         </select>
       </div>
       <div class="col-lg-6 p-0">
-        <div *ngIf="currentExperience !== undefined && currentExperience.name === 'От'" class="d-flex flex-fill flex-nowrap">
+        <div *ngIf="currentExperience && currentExperience.name === 'От'" class="d-flex flex-fill flex-nowrap">
           <input class="form-control" type="number" [(ngModel)]="experienceData.value" name="experienceValue" style="border-top-right-radius:0; border-bottom-right-radius:0">
           <div class="input-group-append"><span class="input-group-text" style="border-top-left-radius:0; border-bottom-left-radius:0">года / лет</span></div>
         </div>
