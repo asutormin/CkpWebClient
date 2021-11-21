@@ -354,14 +354,14 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
 
   public onSubmitted() {
 
-    if (this.placementComponent !== undefined) {
+    if (this.placementComponent) {
       this.placementComponent.Submitted = true;
     }
-    if (this.tariffComponent !== undefined) {
+    if (this.tariffComponent) {
       this.tariffComponent.Submitted = true;
     }
 
-    if (this.applyComponent !== undefined) {
+    if (this.applyComponent) {
       this.applyComponent.valid = this.placementComponent.Valid && this.tariffComponent.Valid;
       if (!this.applyComponent.valid) {
         console.log('Данные введены не корректно.');

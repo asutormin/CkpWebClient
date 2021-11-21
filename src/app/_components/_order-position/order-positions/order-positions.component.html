@@ -34,10 +34,12 @@
           <tr *ngFor="let position of OrderPositions">
             <div *ngIf="!readOnly">
               <td class="align-middle white-space-nowrap">
-                <div class="custom-control custom-checkbox">
+                <div class="custom-control custom-checkbox"
+                  [attr.title]="isPositionEnabled(position.price.businessUnitId) ? '' : 'Позиция реализуется другим юр. лицом и не может быть включена в счёт вместе с выбранными позициями.'">
                   <input class="custom-control-input" type="checkbox" id="{{ 'checkbox-' + position.id }}"
                     [disabled]="!isPositionEnabled(position.price.businessUnitId)" [(ngModel)]="position.isChecked"
-                    (change)="onPositionCheckChanged()">
+                    (change)="onPositionCheckChanged()"
+                    >
                   <label class="custom-control-label" for="{{ 'checkbox-' + position.id }}"></label>
                 </div>
               </td>
