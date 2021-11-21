@@ -82,15 +82,15 @@ export class SalaryComponent implements OnInit, OnDestroy {
         this.currentCurrency = currencies.find(c => c.id === this.salaryData.currencyId);
       });
 
-    if (this.salaryData.from !== undefined && this.salaryData.to !== undefined && this.salaryData.from === this.salaryData.to) {
+    if (this.salaryData.from && this.salaryData.to && this.salaryData.from === this.salaryData.to) {
       this.currentSalaryType = this.salaryTypes.find(st => st.id === 1);
-    } else if (this.salaryData.from !== undefined && this.salaryData.to === undefined) {
+    } else if (this.salaryData.from && !this.salaryData.to) {
       this.currentSalaryType = this.salaryTypes.find(st => st.id === 2);
-    } else if (this.salaryData.from === undefined && this.salaryData.to !== undefined) {
+    } else if (!this.salaryData.from && this.salaryData.to) {
       this.currentSalaryType = this.salaryTypes.find(st => st.id === 3);
-    } else if (this.salaryData.from !== undefined && this.salaryData.to !== undefined) {
+    } else if (this.salaryData.from && this.salaryData.to) {
       this.currentSalaryType = this.salaryTypes.find(st => st.id === 4);
-    } else if (this.salaryData.from === undefined && this.salaryData.to === undefined) {
+    } else if (!this.salaryData.from && !this.salaryData.to) {
       if (this.orderPositionId !== 0) {
         this.currentSalaryType = this.salaryTypes.find(st => st.id === 5);
       } else {

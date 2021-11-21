@@ -1,15 +1,24 @@
 <form class="form" #f="ngForm" novalidate>
   <div class="input-group">
-    <div class="col-lg-4 d-flex flex-nowrap p-0">
-      <div class="input-group-prepend align-self-start"><span class="input-group-text" style="border-top-right-radius:0; border-bottom-right-radius:0">Оплата</span></div>
-      <select class="form-control" name="salaryTypeSelect" style="border-top-left-radius:0; border-bottom-left-radius:0"
-              [(ngModel)]="currentSalaryType" (ngModelChange)="onSalaryTypeChanged()">
-        <option disabled [ngValue]="undefinedSalaryType">Не выбрана...</option>
-        <option *ngFor="let salaryType of salaryTypes" [ngValue]="salaryType">{{salaryType.name}}</option>
-      </select>
+    <div class="col-lg-4 p-0">
+      <div class="d-flex flex-nowrap">
+        <div class="input-group-append w-auto"><span class="input-group-text" style="border-top-right-radius:0; border-bottom-right-radius:0">Оплата</span></div>
+          <select class="form-control" name="salaryTypeSelect" #salaryType="ngModel" style="border-top-left-radius:0; border-bottom-left-radius:0"
+                  required
+                  [(ngModel)]="currentSalaryType" (ngModelChange)="onSalaryTypeChanged()"
+                  [ngClass]="{ 'is-invalid': submitted && salaryType.errors }">
+            <option disabled [ngValue]="undefinedSalaryType">Не выбрана...</option>
+            <option *ngFor="let salaryType of salaryTypes" [ngValue]="salaryType">{{salaryType.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="salaryType.invalid" class="text-danger">
+          <div *ngIf="salaryType.errors.required && submitted">
+            <small>Оплата не выбрана.</small>
+          </div>
+        </div>
     </div>
     <div class="col-lg-5 d-flex p-0">
-      <div *ngIf="currentSalaryType !== undefined" [ngSwitch]="currentSalaryType.id" class="flex-fill">
+      <div *ngIf="currentSalaryType" [ngSwitch]="currentSalaryType.id" class="flex-fill">
         <div *ngSwitchCase="1" class="d-flex flex-nowrap flex-fill input-group">
           <input class="form-control" type="number" name="salaryValue" placeholder="Сумма" [(ngModel)]="salaryFixed">
           <ng-container *ngTemplateOutlet="salaryPercent"></ng-container>
@@ -33,7 +42,7 @@
     </div>
 
     <div class="col-lg-3 p-0">
-      <select class="form-control" name="currencySelect" #salary="ngModel"
+      <select *ngIf="currentSalaryType && currentSalaryType.id !== 5" class="form-control" name="currencySelect" #salary="ngModel"
               required
               [(ngModel)]="currentCurrency" (ngModelChange)="onCurrencyChanged()"
               [ngClass]="{ 'is-invalid': submitted && salary.errors }">
