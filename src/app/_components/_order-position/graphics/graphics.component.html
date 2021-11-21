@@ -13,6 +13,7 @@
             <th class="sort pr-1 align-middle text-center">Выход</th>
             <th class="sort pr-1 align-middle text-left">День недели</th>
             <th class="sort pr-1 align-middle text-center white-space-nowrap w-auto">Завершение приёма</th>
+            <th class="sort pr-1 align-middle text-center">Размещение</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
             <td class="align-middle text-center text-primary"><strong>{{graphic.outDate | date:'dd.MM.yyyy' }}</strong></td>
             <td class="align-middle text-left">{{weekdays[graphic.outDate.getDay()].name}}</td>
             <td class="align-middle text-center white-space-nowrap w-auto">{{graphic.closingDate  | date:'dd.MM.yyyy HH:mm'}}</td>
+            <td class="align-middle text-center">{{getPlacementGraphics(graphic.id, graphic.isChecked)}}</td>
           </tr>
         </tbody>
       </table>

@@ -6,6 +6,7 @@ import { EventService, EventType } from '../../../_services/event.service';
 import { GraphicApiService } from 'src/app/_services/graphic.api.service';
 import { GraphicService } from 'src/app/_services/graphic.service';
 import { mergeMap } from 'rxjs/operators';
+import { number } from 'echarts';
 
 @Component({
   selector: 'app-graphics',
@@ -126,4 +127,21 @@ export class GraphicsComponent implements OnInit, OnDestroy {
       this.anotherPackagePositionOutDates,
       this.orderPositionData.graphicsData);
   }
+
+  public getPlacementGraphics(graphicId: number, isCheched: boolean): string {
+    if (!isCheched)
+      return '';
+
+    const numbers = [];
+    const graphicData = this.orderPositionData.graphicsData.filter(g => g.id == graphicId)[0];
+    const graphicIds = this.graphicService.getGraphicAllIds(new Array(graphicData));
+
+    graphicIds.forEach(g => {
+      const graphic = this.graphicService.findById(this.graphicsAll, g);
+      if (graphic)
+        numbers.push(graphic.number);
+    })
+
+    return numbers.join(", ");
+  } 
 }
