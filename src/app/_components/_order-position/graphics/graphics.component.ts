@@ -6,7 +6,6 @@ import { EventService, EventType } from '../../../_services/event.service';
 import { GraphicApiService } from 'src/app/_services/graphic.api.service';
 import { GraphicService } from 'src/app/_services/graphic.service';
 import { mergeMap } from 'rxjs/operators';
-import { number } from 'echarts';
 
 @Component({
   selector: 'app-graphics',
