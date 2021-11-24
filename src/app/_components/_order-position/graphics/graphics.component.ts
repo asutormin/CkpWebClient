@@ -80,6 +80,9 @@ export class GraphicsComponent implements OnInit, OnDestroy {
               shortName => {
                 // Если в описании содержится день недели - отфильтровываем графики с выходом в этот день
                 this.graphics = this.graphicService.filter(this.graphicsAll, shortName);
+                // Сбрасываем все выбранные графики
+                this.orderPositionData.graphicsData.length = 0;
+                this.graphics.forEach(g => g.isChecked = false);
               }
             )
           }
@@ -133,7 +136,7 @@ export class GraphicsComponent implements OnInit, OnDestroy {
 
     const numbers = [];
     const graphicData = this.orderPositionData.graphicsData.filter(g => g.id == graphicId)[0];
-    const graphicIds = this.graphicService.getGraphicAllIds(new Array(graphicData));
+    const graphicIds = this.graphicService.getGraphicAllIds(graphicData ? new Array(graphicData) : []);
 
     graphicIds.forEach(g => {
       const graphic = this.graphicService.findById(this.graphicsAll, g);
