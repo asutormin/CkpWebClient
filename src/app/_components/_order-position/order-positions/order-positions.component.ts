@@ -64,8 +64,13 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   public get CheckAllEnabled() {
     const businessUnitIds = this.OrderPositions
       .map(p => p.price.businessUnitId);
-    const uniqueBusinessUnits = [...new Set(businessUnitIds)];
-    return uniqueBusinessUnits.length < 2 && this.OrderPositions.length > 0;
+    const uniqueBusinessUnits = businessUnitIds.filter((v, i, a) => a.indexOf(v) === i);
+
+    const orderIds = this.OrderPositions
+      .map(p => p.orderId);
+    const uniqueOrderIds = orderIds.filter((v, i, a) => a.indexOf(v) === i);
+
+    return this.OrderPositions.length > 0 && (uniqueBusinessUnits.length < 2 || uniqueOrderIds.length < 2);
   }
 
   constructor(
@@ -92,7 +97,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
       })
     }
 
-    this.orderPositionsBehaviorSubject.subscribe(ops => loadIms(this.OrderPositions));
+    this.orderPositionsBehaviorSubject.subscribe(() => loadIms(this.OrderPositions));
   }
 
 
@@ -191,9 +196,11 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public isPositionEnabled(businessUnitId: number): boolean {
+  public isPositionEnabled(orderId: number, businessUnitId: number): boolean {
     const selectedPositions = this.getSelectedPositions();
-    return selectedPositions.length === 0 || selectedPositions.findIndex(p => p.price.businessUnitId === businessUnitId) > -1;
+    return selectedPositions.length === 0 ||
+      selectedPositions.map(sp => sp.orderId).filter((v, i, a) => a.indexOf(v) === i).indexOf(orderId) >= 0 ||
+      selectedPositions.findIndex(p => p.price.businessUnitId === businessUnitId) > -1;
   }
  
   public onShowPreview(orderPosition: OrderPositionInfo): void {

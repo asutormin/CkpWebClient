@@ -8,6 +8,7 @@ import { StringInfo } from './string-info';
 
 export class OrderPositionInfo {
   id: number;
+  orderId: number;
   parentId: number;
   supplier: SupplierInfo;
   format: FormatInfo;
