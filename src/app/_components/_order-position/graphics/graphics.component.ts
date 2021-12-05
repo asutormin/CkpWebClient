@@ -125,9 +125,10 @@ export class GraphicsComponent implements OnInit, OnDestroy {
   public isGraphicEnabled(graphic: GraphicInfo): boolean {
     return this.graphicService.isGraphicEnabled(
       graphic,
+      this.graphics,
       this.disableUnchecked,
       this.anotherPackagePositionOutDates,
-      this.orderPositionData.graphicsData);
+      this.orderPositionData);
   }
 
   public getPlacementGraphics(graphicId: number, isCheched: boolean): string {

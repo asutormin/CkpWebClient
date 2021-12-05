@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { GraphicInfo } from "../_model/_input/graphic-info";
 import { GraphicData } from "../_model/_output/graphic-data";
+import { OrderPositionData } from "../_model/_output/order-position-data";
 import { GraphicApiService } from "./graphic.api.service";
 
 @Injectable({ providedIn: 'root' })
@@ -89,15 +90,27 @@ export class GraphicService {
   }
 
   // Возвращает доступность графика для выбора
-  public isGraphicEnabled(graphic: GraphicInfo, disableUnchecked: boolean, anotherOutDates: Date[], graphicsData: GraphicData[]): boolean {
+  public isGraphicEnabled(graphic: GraphicInfo, graphics: GraphicInfo[], disableUnchecked: boolean, anotherOutDates: Date[], orderPositionData: OrderPositionData): boolean {
+    const graphicsData = orderPositionData.graphicsData;
     // Если пакет
     if (disableUnchecked) {
       if (graphic.isChecked)
         return true;
-
+      
       if (graphicsData.length == 0) {
         if (!(anotherOutDates && anotherOutDates.length > 0))
           return true;
+
+        // Если длительная простановка и предыдущий гравик дотсупен - этот будет не доступен 
+        const packageLength = orderPositionData.formatData.packageLength;
+        if (packageLength > 1) {
+          const prevGraphic = this.getPreviousGraphic(graphic, graphics);
+
+          if (prevGraphic) {
+            const enablePrev = this.isGraphicInAllowedRange(prevGraphic.outDate, anotherOutDates);
+            if (enablePrev) return false;
+          }
+        }
 
         const enabled = this.isGraphicInAllowedRange(graphic.outDate, anotherOutDates);
         return enabled;
@@ -114,9 +127,16 @@ export class GraphicService {
 
   // Возвращает, доступне ли график в пакете
   private isGraphicInAllowedRange(graphicOutDate: Date, outDates: Date[]): boolean {
-    const diff = Math.abs(new Date(graphicOutDate).getTime() - new Date(outDates[0]).getTime());
+    //const diff = Math.abs(new Date(graphicOutDate).getTime() - new Date(outDates[0]).getTime());
+    const diff = new Date(graphicOutDate).getTime() - new Date(outDates[0]).getTime();
     const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-    return diffDays <= 7;
+    return diffDays <= 4 && diffDays >= 0;
+  }
+
+  // Возвращает предыдущий график с ближайшей меньшей или равной датой выхода
+  private getPreviousGraphic(graphic: GraphicInfo, graphics: GraphicInfo[]): GraphicInfo {
+    return graphics.filter(g => g.outDate <= graphic.outDate && g.id != graphic.id)
+    .sort((g1, g2) => g2.outDate.getTime() - g1.outDate.getTime())[0];
   }
 
 }
