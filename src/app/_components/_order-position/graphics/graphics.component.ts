@@ -80,9 +80,12 @@ export class GraphicsComponent implements OnInit, OnDestroy {
               shortName => {
                 // Если в описании содержится день недели - отфильтровываем графики с выходом в этот день
                 this.graphics = this.graphicService.filter(this.graphicsAll, shortName);
-                // Сбрасываем все выбранные графики
-                this.orderPositionData.graphicsData.length = 0;
-                this.graphics.forEach(g => g.isChecked = false);
+                // Если позиция новая - сбрасываем все выбранные графики
+                // При изменении позиции тариф изменить нельзя
+                if (this.orderPositionData.orderPositionId == 0) {
+                  this.orderPositionData.graphicsData.length = 0;
+                  this.graphics.forEach(g => g.isChecked = false);
+                }
               }
             )
           }
@@ -146,5 +149,5 @@ export class GraphicsComponent implements OnInit, OnDestroy {
     })
 
     return numbers.join(", ");
-  } 
+  }
 }
