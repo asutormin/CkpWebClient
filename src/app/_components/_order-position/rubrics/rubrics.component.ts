@@ -19,7 +19,7 @@ export class RubricsComponent implements OnInit {
   public currentRubric: RubricInfo;
 
   public get Valid(): boolean {
-    return this.submitted && this.currentRubric !== undefined;
+    return this.submitted && this.currentRubric && this.currentRubric.id !== 0;
   }
 
   constructor() { }
