@@ -11,6 +11,7 @@ export class AccountInfoLight {
   paid: number;
   nds: number;
   supplier: LegalPersonInfo;
+  typeId: number;
 
   constructor() {
     this.supplier = new LegalPersonInfo();
