@@ -62,19 +62,24 @@
         <tbody id="accounts-body">
           <tr class="btn-reveal-trigger" *ngFor="let account of accountsToDisplay">
             <td class="align-middle text-center text-primary">
-              <a class="btn-link" [routerLink]="" (click)="onNavigate(account.id)"><strong>{{account.number}}</strong></a>
+              <a class="btn-link" [routerLink]=""
+                (click)="onNavigate(account.id)"><strong>{{account.number}}</strong></a>
             </td>
             <td class="align-middle text-center">{{account.date | date:'dd.MM.yyyy' }}</td>
             <td class="align-middle text-right">{{account.sum | number:'1.2-2': 'ru'}}</td>
-            <td class="align-middle text-right">{{account.sum - account.paid | number:'1.2-2': 'ru'}}</td>
+            <td class="align-middle text-right">
+              <div *ngIf="account.typeId !== 2">
+                {{account.sum - account.paid | number:'1.2-2': 'ru'}}
+              </div>
+            </td>
             <td class="align-middle text-left fs-0 pl-3">
-              <div *ngIf="account.sum == account.paid">
+              <div *ngIf="account.typeId !== 2 && account.sum == account.paid">
                 <ng-container *ngTemplateOutlet="completePaid"></ng-container>
               </div>
-              <div *ngIf="account.sum > account.paid && account.paid > 0" class="w-auto">
+              <div *ngIf="account.typeId !== 2 && account.sum > account.paid && account.paid > 0" class="w-auto">
                 <ng-container *ngTemplateOutlet="partialPaid"></ng-container>
               </div>
-              <div *ngIf="account.paid == 0" class="w-auto">
+              <div *ngIf="account.typeId !== 2 && account.paid == 0" class="w-auto">
                 <ng-container *ngTemplateOutlet="notPaid"></ng-container>
               </div>
             </td>
@@ -83,10 +88,11 @@
         </tbody>
       </table>
       <div class="mb-3">
-       <small>Загружено записей: {{accountsCount}}</small>
+        <small>Загружено записей: {{accountsCount}}</small>
       </div>
       <div class="container-fluid d-flex justify-content-center mb-3" id="getMoreItemsSection">
-        <button class="btn btn-outline-secondary" [disabled] = "allAccountsLoaded" (click)="getMoreItems()">Загрузить ещё<span class="fa fa-arrow-down ml-1"></span></button>
+        <button class="btn btn-outline-secondary" [disabled]="allAccountsLoaded" (click)="getMoreItems()">Загрузить
+          ещё<span class="fa fa-arrow-down ml-1"></span></button>
       </div>
     </div>
   </div>
@@ -95,15 +101,18 @@
 
 
 <ng-template #completePaid>
-  <span class="badge badge rounded-capsule badge-soft-success" style="width: 100%; max-width: 100px">Оплачен<span class="ml-1 fa fa-check" data-fa-transform="shrink-2"></span></span>
+  <span class="badge badge rounded-capsule badge-soft-success" style="width: 100%; max-width: 100px">Оплачен<span
+      class="ml-1 fa fa-check" data-fa-transform="shrink-2"></span></span>
 </ng-template>
 
 <ng-template #partialPaid>
-  <span class="badge badge rounded-capsule badge-soft-warning" style="width: 100%; max-width: 100px">Частично<span class="ml-1 fa fa-exclamation-circle" data-fa-transform="shrink-2"></span></span>
+  <span class="badge badge rounded-capsule badge-soft-warning" style="width: 100%; max-width: 100px">Частично<span
+      class="ml-1 fa fa-exclamation-circle" data-fa-transform="shrink-2"></span></span>
 </ng-template>
 
 <ng-template #notPaid>
-  <span class="badge badge rounded-capsule badge-soft-danger" style="width: 100%; max-width: 100px">Не оплачен<span class="ml-1 fa fa-times" data-fa-transform="shrink-2"></span></span>
+  <span class="badge badge rounded-capsule badge-soft-danger" style="width: 100%; max-width: 100px">Не оплачен<span
+      class="ml-1 fa fa-times" data-fa-transform="shrink-2"></span></span>
 </ng-template>
 
 <ng-template #sort>
