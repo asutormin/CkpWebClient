@@ -122,39 +122,51 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     };
 
     const loadAndBindTariffs = () => {
-      this.tSub = this.supplierService.getTariffs(this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(
-        tariffs => {
-          if (
-            this.orderPositionData.formatData.id &&
-            this.orderPositionData.formatData.version &&
-            this.orderPositionData.priceId) {
-            this.ctSub = this.supplierService
-              .getTariffVersion(this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
+      // Получаем список тарифов
+      this.tSub = this.supplierService.getTariffs(
+        this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(tariffs => {
+          // Если позиция новая
+          if (this.orderPositionData.orderPositionId == 0) {
+            let currentTariff;
+            // Если тариф задан - находим его в списке
+            if (this.orderPositionData.formatData.id && this.orderPositionData.priceId) {
+              let filteredTariffsByFormat = tariffs.filter(t => t.format.id === this.orderPositionData.formatData.id);
+              if (filteredTariffsByFormat && filteredTariffsByFormat.length > 0) {
+                let filteredTariffsByPrice = filteredTariffsByFormat.filter(t => t.price.id === this.orderPositionData.priceId);
+                currentTariff = filteredTariffsByPrice && filteredTariffsByPrice.length > 0
+                  ? filteredTariffsByPrice[0]
+                  : filteredTariffsByFormat[0];
+              }
+            }
+            // Устанавливаем список тарифов
+            this.placementComponent.setTariffs(tariffs);
+            // Устанавливаем найденный тариф            
+            this.placementComponent.setCurrentTariff(currentTariff);
+          } else {
+            // Если позиция старая - получаем версию тарифа
+            this.ctSub = this.supplierService.getTariffVersion(
+              this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
                 tariff => {
+                  // Ищем версию тарифа в загруженном списке тарифов
                   let currentTariff = tariffs.find(
                     t =>
                       t.format.id === tariff.format.id &&
                       t.format.version.getTime() === tariff.format.version.getTime() &&
                       t.price.id === tariff.price.id);
-                  if (currentTariff) {
-                    this.placementComponent.setCurrentTariff(currentTariff);
-                  } else {
+                  // Если тариф не найден
+                  if (!currentTariff) {
                     tariffs = [];
                     currentTariff = tariff;
                     tariffs.push(currentTariff);
                   }
+                  // Устанавливаем список тарифов
+                   this.placementComponent.setTariffs(tariffs);
+                  // Устанавливаем найденный тариф
+                  this.placementComponent.setCurrentTariff(currentTariff);
                 });
-          } else {
-            this.placementComponent.setCurrentTariff(undefined);
+            this.placementComponent.selectEnabled = false;
           }
-          this.placementComponent.setTariffs(tariffs);
-        });
-
-      // Если объявление не новое - запрещаем редактировать
-      // информацию о размещении
-      if (this.orderPositionData.orderPositionId !== 0) {
-        this.placementComponent.selectEnabled = false;
-      }
+        })
     };
 
     const loadAndBindRubrics = () => {
