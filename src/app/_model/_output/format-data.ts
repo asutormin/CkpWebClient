@@ -6,4 +6,5 @@ export class FormatData {
   secondSize: number;
   version: Date;
   formatTypeId: number;
+  description: string;
 }
