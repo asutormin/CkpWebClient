@@ -23,12 +23,12 @@ export class GraphicsStringifyPipe implements PipeTransform {
 
     for (const graphicGroup of graphicGroups.values()) {
       const graphicArray = graphicGroup as GraphicInfo[];
-      const count = graphicArray.length;
+      const number = graphicArray[0].number;
       const outDate = new Date(graphicArray[0].outDate);
 
       const formattedOutDate = showYear
-      ? ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '.' + outDate.getFullYear() + '(' + count + ')'
-      : ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '(' + count + ')';
+      ? ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '.' + outDate.getFullYear() + '(№' + number + ')'
+      : ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '(№' + number + ')';
       formattedOutDates.push(formattedOutDate);
     }
 
