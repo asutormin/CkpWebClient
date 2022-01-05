@@ -15,4 +15,10 @@ export class AccountSettingsService {
             .pipe(
                 map(response => response as boolean ));
     }
+
+    public getInteractionBusinessUnitId(): Observable<number> {
+        return this.http.get(`${environment.apiUrl}/account-settings/interaction-business-unit-id`)
+        .pipe(
+            map(response => response as number ));
+    }
 }

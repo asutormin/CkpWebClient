@@ -20,6 +20,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
   private aSub: Subscription;
   private sSub: Subscription;
   private pSub: Subscription;
+  private iSub: Subscription;
   private dSub: Subscription;
   private imSub: Subscription[] = new Array();
   private orderPositions: OrderPositionInfo[];
@@ -114,6 +115,9 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     if (this.pSub) {
       this.pSub.unsubscribe();
     }
+    if (this.iSub) {
+      this.iSub.unsubscribe();
+    }
     if (this.dSub) {
       this.dSub.unsubscribe();
     }
@@ -155,13 +159,16 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
         this.pSub = this.paymentService.getBalances().subscribe(balances => {
           const positions = this.getSelectedPositions();
           const sum = positions.reduce((sum, current) => sum + current.sum, 0);
-          const businessUnitId = positions[0].price.businessUnitId;
-          const balance = balances.filter(b => b.businessUnitId === businessUnitId)[0];
-          if (balance.balanceSum < sum) {
-            this.insufficientFunds = true;
-          } else {
-            createAccount();
-          }
+          
+          this.iSub = this.accountSettingsService.getInteractionBusinessUnitId().subscribe(interactionBuId => {
+            const businessUnitId = interactionBuId === 0 ? positions[0].price.businessUnitId : interactionBuId;
+            const balance = balances.filter(b => b.businessUnitId === businessUnitId)[0];
+            if (balance.balanceSum < sum) {
+              this.insufficientFunds = true;
+            } else {
+              createAccount();
+            }
+          })
         })
       } else {
         createAccount();
