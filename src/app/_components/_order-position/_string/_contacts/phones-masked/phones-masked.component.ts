@@ -25,7 +25,9 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
   public submitted = false;
 
   public get Valid(): boolean {
-    return this.submitted && !this.requiredError && !this.lengthError  && !this.numberError;
+    this.checkErrors();
+
+    return this.submitted && !this.requiredError && !this.lengthError && !this.numberError;
   }
 
   constructor(
@@ -43,104 +45,104 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
     this.phone2Component.setPhoneData(this.phonesData[2]);
     this.phone3Component.setPhoneData(this.phonesData[3]);
   }
-  
+
   public getMaxLength(name: string): any {
     return this.stringConfigService.getLength(this.supplierId, this.formatData.id, name);
   }
 
   public getTotalLength(): number {
-      const isPhone0Set = this.phone0Component && this.phone0Component.getLength() > 0;
-      const isPhone1Set = this.phone1Component && this.phone1Component.getLength() > 0;
-      const isPhone2Set = this.phone2Component && this.phone2Component.getLength() > 0;
-      const isPhone3Set = this.phone3Component && this.phone3Component.getLength() > 0;
+    const isPhone0Set = this.phone0Component && this.phone0Component.getLength() > 0;
+    const isPhone1Set = this.phone1Component && this.phone1Component.getLength() > 0;
+    const isPhone2Set = this.phone2Component && this.phone2Component.getLength() > 0;
+    const isPhone3Set = this.phone3Component && this.phone3Component.getLength() > 0;
 
     let totalLength = (isPhone0Set ? this.phone0Component.getLength() : 0) +
       (isPhone1Set ? this.phone1Component.getLength() : 0) +
       (isPhone2Set ? this.phone2Component.getLength() : 0) +
       (isPhone3Set ? this.phone3Component.getLength() : 0);
 
-      // Разделитель между телефонами ', ' - 2 символа
-      if (!isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
-        // 0000
-        totalLength += 0;
-      } else if (!isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
-        // 0001
-        totalLength += 0
-      } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
-        // 0010
-        totalLength += 0;
-      } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
-        // 0011
-        totalLength += 2;
-      } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
-        // 0100
-        totalLength += 0;
-      } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
-        // 0101
-        totalLength += 2;
-      } else if (!isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
-        // 0110
-        totalLength += 2;
-      } else if (!isPhone0Set && isPhone1Set && isPhone2Set && isPhone3Set) {
-        // 0111
-        totalLength += 4;
-      } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
-        // 1000
-        totalLength += 0;
-      } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
-        // 1001
-        totalLength += 2;
-      } else if (isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
-        // 1010
-        totalLength += 2
-      } else if (isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
-        // 1011
-        totalLength += 4;
-      } else if (isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
-        // 1100
-        totalLength += 2;
-      } else if (isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
-        // 1101
-        totalLength += 4;
-      } else if (isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
-        // 1110
-        totalLength += 4;
-      } else {
-        // 1111
-        totalLength += 6;
-      }
+    // Разделитель между телефонами ', ' - 2 символа
+    if (!isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
+      // 0000
+      totalLength += 0;
+    } else if (!isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
+      // 0001
+      totalLength += 0
+    } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
+      // 0010
+      totalLength += 0;
+    } else if (!isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
+      // 0011
+      totalLength += 2;
+    } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
+      // 0100
+      totalLength += 0;
+    } else if (!isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
+      // 0101
+      totalLength += 2;
+    } else if (!isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
+      // 0110
+      totalLength += 2;
+    } else if (!isPhone0Set && isPhone1Set && isPhone2Set && isPhone3Set) {
+      // 0111
+      totalLength += 4;
+    } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && !isPhone3Set) {
+      // 1000
+      totalLength += 0;
+    } else if (isPhone0Set && !isPhone1Set && !isPhone2Set && isPhone3Set) {
+      // 1001
+      totalLength += 2;
+    } else if (isPhone0Set && !isPhone1Set && isPhone2Set && !isPhone3Set) {
+      // 1010
+      totalLength += 2
+    } else if (isPhone0Set && !isPhone1Set && isPhone2Set && isPhone3Set) {
+      // 1011
+      totalLength += 4;
+    } else if (isPhone0Set && isPhone1Set && !isPhone2Set && !isPhone3Set) {
+      // 1100
+      totalLength += 2;
+    } else if (isPhone0Set && isPhone1Set && !isPhone2Set && isPhone3Set) {
+      // 1101
+      totalLength += 4;
+    } else if (isPhone0Set && isPhone1Set && isPhone2Set && !isPhone3Set) {
+      // 1110
+      totalLength += 4;
+    } else {
+      // 1111
+      totalLength += 6;
+    }
 
-/*
-      // Разделитель между телефонами ', ' - 2 символа
-      if (!isPhone0Set && !isPhone1Set && !isPhone2Set) {
-        // 000
-        totalLength += 0;
-      } else if (!isPhone0Set && !isPhone1Set && isPhone2Set) {
-        // 001
-        totalLength += 0;
-      } else if (!isPhone0Set && isPhone1Set && !isPhone2Set) {
-        // 010
-        totalLength += 0;
-      } else if (!isPhone0Set && isPhone1Set && isPhone2Set) {
-        // 011
-        totalLength += 2;
-      } else if (isPhone0Set && !isPhone1Set && !isPhone2Set) {
-        // 100
-        totalLength += 0;
-      } else if (isPhone0Set && !isPhone1Set && isPhone2Set) {
-        // 101
-        totalLength += 2;
-      } else if (isPhone0Set && isPhone1Set && !isPhone2Set) {
-        // 110
-        totalLength += 2;
-      } else if (isPhone0Set && isPhone1Set && isPhone2Set) {
-        // 111
-        totalLength += 4;
-      }
-*/
+    /*
+          // Разделитель между телефонами ', ' - 2 символа
+          if (!isPhone0Set && !isPhone1Set && !isPhone2Set) {
+            // 000
+            totalLength += 0;
+          } else if (!isPhone0Set && !isPhone1Set && isPhone2Set) {
+            // 001
+            totalLength += 0;
+          } else if (!isPhone0Set && isPhone1Set && !isPhone2Set) {
+            // 010
+            totalLength += 0;
+          } else if (!isPhone0Set && isPhone1Set && isPhone2Set) {
+            // 011
+            totalLength += 2;
+          } else if (isPhone0Set && !isPhone1Set && !isPhone2Set) {
+            // 100
+            totalLength += 0;
+          } else if (isPhone0Set && !isPhone1Set && isPhone2Set) {
+            // 101
+            totalLength += 2;
+          } else if (isPhone0Set && isPhone1Set && !isPhone2Set) {
+            // 110
+            totalLength += 2;
+          } else if (isPhone0Set && isPhone1Set && isPhone2Set) {
+            // 111
+            totalLength += 4;
+          }
+    */
     return totalLength;
   }
-  
+
   public onPhoneChanged() {
     this.phonesData.length = 0;
 
@@ -177,9 +179,9 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
     const totalLength = this.getTotalLength();
 
     this.lengthError = maxLength < totalLength ? true : false;
-    this.requiredError = this.phonesData.length > 0 ? false : true;
+    this.requiredError = (this.phonesData && this.phonesData.length > 0) ? false : true;
     this.numberError = this.phonesData.findIndex(
-      pd => 
+      pd =>
         !pd.countryCode || (pd.countryCode && pd.countryCode === '') ||
         !pd.code || (pd.code && pd.code === '') ||
         !pd.number || (pd.number && pd.number === '')) > -1;
