@@ -383,6 +383,14 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
       } else {
         console.log('Данные введены корректно.');
         console.log(this.orderPositionData);
+
+        if (this.orderPositionData.stringData) {
+          if (!this.orderPositionData.stringData.phonesData || 
+            (this.orderPositionData.stringData.phonesData && this.orderPositionData.stringData.phonesData.length == 0)) {
+            alert("Не задано ни одного телефона.");
+            return;
+          }
+        } 
       }
     }
 
