@@ -164,6 +164,7 @@ export class PhonesMaskedComponent implements OnInit, AfterViewInit {
     if (phoneData2) {
       phoneData2.orderBy = orderBy;
       this.phonesData.push(phoneData2);
+      orderBy++;
     }
     const phoneData3 = this.phone3Component.getPhoneData();
     if (phoneData3) {
