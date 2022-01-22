@@ -172,23 +172,30 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     const loadAndBindRubrics = () => {
       this.rSub = this.supplierService.getRubrics(this.orderPositionData.priceId).subscribe(
         rubrics => {
+          // Если позиция изменяется либо создаётся на основе существующей (задана рубрика)
           if (this.orderPositionData.rubricData && this.orderPositionData.rubricData.id) {
-            this.crSub = this.supplierService
-              .getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
+            // Загружаем рубрику
+            this.crSub = this.supplierService.getRubricVersion(
+              this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
                 rubric => {
-                  let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());
-                  if (currentRubric) {
-                    this.placementComponent.setCurrentRubric(currentRubric);
-                  } else {
+                  let currentRubric = rubrics.find(r => r.id === rubric.id);
+                  // Если рубрики нет в списке рубрик 
+                  // очищаем список и добавляем в него загруженную рубрику
+                  if (!currentRubric) {
                     rubrics = [];
                     currentRubric = rubric;
                     rubrics.push(currentRubric);
                   }
+                  // Устанавливаем список рубрик и выбираем текущую
+                  this.placementComponent.setRubrics(rubrics);
+                  this.placementComponent.setCurrentRubric(currentRubric);
                 });
           } else {
+            // Если позиция новая - устанавливаем список рубрик
+            // Текущую рубрику не выбираем
+            this.placementComponent.setRubrics(rubrics);
             this.placementComponent.setCurrentRubric(undefined);
           }
-          this.placementComponent.setRubrics(rubrics);
         });
     };
 
