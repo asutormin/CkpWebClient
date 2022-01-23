@@ -49,6 +49,8 @@ export class WorkGraphicComponent implements OnInit, OnDestroy {
   }
 
   public onWorkGraphicChanged(): void {
-    this.workGraphicData.id = this.currentWorkGraphic.id;
+    this.workGraphicData.id = this.currentWorkGraphic
+      ? this.currentWorkGraphic.id
+      : this.undefinedWorkGraphic;
   }
 }
