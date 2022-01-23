@@ -3,7 +3,7 @@
     <div class="input-group-prepend"><span class="input-group-text">Образование</span></div>
     <select class="form-control" #education="ngModel" name="education"
             [(ngModel)]="currentEducation" (ngModelChange)="onEducationChanged($event)">
-      <option [ngValue]="undefinedEducation">Не выбрано</option>
+      <option class="text-muted" [ngValue]="undefinedEducation">Не выбрано...</option>
       <option *ngFor="let education of educations" [ngValue]="education">{{education.name}}</option>
     </select>
   </div>

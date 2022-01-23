@@ -5,7 +5,7 @@
         <select class="form-control" #experience="ngModel" name="experience"
                 [(ngModel)]="currentExperience" (ngModelChange)="onExperienceChanged()"
                 style="border-top-left-radius:0; border-bottom-left-radius:0">
-          <option [ngValue]="undefinedExperience">Не выбран</option>
+          <option class="text-muted" [ngValue]="undefinedExperience">Не выбран...</option>
           <option *ngFor="let experience of experiences" [ngValue]="experience">{{experience.name}}</option>
         </select>
       </div>
