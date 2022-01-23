@@ -48,7 +48,9 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   }
 
   public onExperienceChanged(): void {
-    this.experienceData.id = this.currentExperience.id;
+    this.experienceData.id = this.currentExperience
+      ? this.currentExperience.id
+      : this.undefinedExperience;
   }
 
 }
