@@ -7,7 +7,6 @@
                   required
                   [(ngModel)]="currentSalaryType" (ngModelChange)="onSalaryTypeChanged()"
                   [ngClass]="{ 'is-invalid': submitted && salaryType.errors }">
-            <option disabled [ngValue]="undefinedSalaryType">Не выбрана...</option>
             <option *ngFor="let salaryType of salaryTypes" [ngValue]="salaryType">{{salaryType.name}}</option>
           </select>
         </div>

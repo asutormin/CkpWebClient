@@ -26,14 +26,13 @@ export class SalaryComponent implements OnInit, OnDestroy {
   public submitted = false;
 
   public salaryTypes = [
+    { id: 5, name: 'Договорная' },
     { id: 1, name: 'Фиксированная' },
     { id: 2, name: 'От' },
     { id: 3, name: 'До' },
-    { id: 4, name: 'Диапазон' },
-    { id: 5, name: 'Договорная' }
+    { id: 4, name: 'Диапазон' }
   ];
   public currentSalaryType: BaseEntity;
-  public undefinedSalaryType: any;
 
   public currencies: CurrencyInfo[];
   public currentCurrency: CurrencyInfo;
@@ -91,12 +90,11 @@ export class SalaryComponent implements OnInit, OnDestroy {
     } else if (this.salaryData.from && this.salaryData.to) {
       this.currentSalaryType = this.salaryTypes.find(st => st.id === 4);
     } else if (!this.salaryData.from && !this.salaryData.to) {
-      if (this.orderPositionId !== 0) {
-        this.currentSalaryType = this.salaryTypes.find(st => st.id === 5);
-      } else {
+      this.currentSalaryType = this.salaryTypes.find(st => st.id === 5);
+    } else {
         this.currentSalaryType = undefined;
-      }
-    }
+    }     
+    
   }
 
   public ngOnDestroy(): void {
