@@ -48,7 +48,9 @@ export class EducationComponent implements OnInit, OnDestroy {
   }
 
   public onEducationChanged($event: any): void {
-    this.requirementsData.educationId = this.currentEducation.id;
+    this.requirementsData.educationId = this.currentEducation
+      ? this.currentEducation.id
+      : this.undefinedEducation;
   }
 
 }
