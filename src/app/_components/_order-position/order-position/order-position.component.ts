@@ -128,6 +128,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
           // Если позиция новая
           if (this.orderPositionData.orderPositionId == 0) {
             let currentTariff;
+
             // Если тариф задан - находим его в списке
             if (this.orderPositionData.formatData.id && this.orderPositionData.priceId) {
               let filteredTariffsByFormat = tariffs.filter(t => t.format.id === this.orderPositionData.formatData.id);
@@ -136,8 +137,18 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
                 currentTariff = filteredTariffsByPrice && filteredTariffsByPrice.length > 0
                   ? filteredTariffsByPrice[0]
                   : filteredTariffsByFormat[0];
+
+                this.orderPositionData.priceId = currentTariff.price.id;
+                this.orderPositionData.formatData.id = currentTariff.format.id;
+                this.orderPositionData.formatData.name = currentTariff.format.name;
+                this.orderPositionData.formatData.packageLength = currentTariff.format.packageLength;
+                this.orderPositionData.formatData.firstSize = currentTariff.format.firstSize;
+                this.orderPositionData.formatData.secondSize = currentTariff.format.secondSize;
+                this.orderPositionData.formatData.version = currentTariff.format.version;
+                this.orderPositionData.formatData.formatTypeId = currentTariff.format.type.id;
               }
             }
+
             // Устанавливаем список тарифов
             this.placementComponent.setTariffs(tariffs);
             // Устанавливаем найденный тариф            
@@ -160,7 +171,7 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
                     tariffs.push(currentTariff);
                   }
                   // Устанавливаем список тарифов
-                   this.placementComponent.setTariffs(tariffs);
+                  this.placementComponent.setTariffs(tariffs);
                   // Устанавливаем найденный тариф
                   this.placementComponent.setCurrentTariff(currentTariff);
                 });
@@ -392,12 +403,12 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
         console.log(this.orderPositionData);
 
         if (this.orderPositionData.stringData) {
-          if (!this.orderPositionData.stringData.phonesData || 
+          if (!this.orderPositionData.stringData.phonesData ||
             (this.orderPositionData.stringData.phonesData && this.orderPositionData.stringData.phonesData.length == 0)) {
             alert("Не задано ни одного телефона.");
             return;
           }
-        } 
+        }
       }
     }
 
