@@ -139,7 +139,7 @@ export class TariffComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.onFieldChanged();
   }
 
@@ -150,8 +150,8 @@ export class TariffComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.crSub) {
       this.crSub.unsubscribe();
     }
-    if (this.crSub) {
-      this.crSub.unsubscribe();
+    if (this.rcSub) {
+      this.rcSub.unsubscribe();
     }
   }
 
