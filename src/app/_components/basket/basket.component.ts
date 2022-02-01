@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { OrderPositionService } from '../../_services/order-position.service';
+import { OrderPositionApiService } from '../../_services/order-position.api.service';
 import { UserService } from '../../_services/user.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   public orderPositions = [];
 
   constructor(
-    private orderPositionService: OrderPositionService
+    private orderPositionService: OrderPositionApiService
   ) { }
 
   ngOnInit() {

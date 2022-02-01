@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import { OrderPositionInfo } from '../../../_model/_input/order-position-info';
 import { AccountService } from '../../../_services/account.service';
 import { Router } from '@angular/router';
-import { OrderPositionService } from '../../../_services/order-position.service';
+import { OrderPositionApiService } from '../../../_services/order-position.api.service';
 import { SharedService } from 'src/app/_services/shared.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { Subject, Subscription } from 'rxjs';
@@ -78,7 +78,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     private router: Router,
     private accountsService: AccountService,
     private accountSettingsService: AccountSettingsService,
-    private orderPositionService: OrderPositionService,
+    private orderPositionService: OrderPositionApiService,
     private paymentService: PaymentService,
     private moduleService: ModuleService,
     private stringService: StringService,

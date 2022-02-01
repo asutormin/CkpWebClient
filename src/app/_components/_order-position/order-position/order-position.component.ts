@@ -11,21 +11,17 @@ import { SupplierInfo } from '../../../_model/_input/supplier-info';
 import { RubricInfo } from 'src/app/_model/_input/rubric-info';
 import { TariffInfo } from 'src/app/_model/_input/tariff-info';
 import { FormatTypeInfo } from 'src/app/_model/_input/format-type-info';
-import { StringData } from '../../../_model/_output/_string/string-data';
 import { OrderPositionData } from '../../../_model/_output/order-position-data';
-import { FormatData } from '../../../_model/_output/format-data';
-import { RubricData } from '../../../_model/_output/rubric-data';
 import { PlacementComponent } from '../placement/placement.component';
 import { SupplierService } from '../../../_services/supplier.service';
 import { Subscription } from 'rxjs';
-import { ContactData } from '../../../_model/_output/_string/contact-data';
-import { ModuleData } from '../../../_model/_output/_module/module-data';
-import { OrderPositionService } from '../../../_services/order-position.service';
-import { OccurrenceData } from '../../../_model/_output/_string/occurrence-data';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { OrderPositionApiService } from '../../../_services/order-position.api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../_services/user.service';
 import { ApplyComponent } from '../apply/apply.component';
 import { SharedService } from 'src/app/_services/shared.service';
+import { OrderPositionService } from 'src/app/_services/order-position.service';
+import { LogoData } from 'src/app/_model/_output/_string/logo-data';
 
 @Component({
   selector: 'app-order-position',
@@ -39,21 +35,19 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
 
   private aSub: Subscription;
   private opSub: Subscription;
-
   private sSub: Subscription;
   private csSub: Subscription;
-
   private rSub: Subscription;
   private crSub: Subscription;
-
   private ftSub: Subscription;
   private cftSub: Subscription;
-
   private gSub: Subscription;
-
   private tSub: Subscription;
   private ctSub: Subscription;
 
+  private prevSupplierId: number; // Выбранный ранее поставщик
+  private prevFormatTypeId: number; // Выбранный ранее тип формата
+  private prevFormatName: string; // Выбранное ранее название формата
 
   public orderPositionData: OrderPositionData;
   public submitted: boolean;
@@ -64,192 +58,53 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     private authService: UserService,
     private supplierService: SupplierService,
     private orderPositionService: OrderPositionService,
+    private orderPositionApiService: OrderPositionApiService,
     private sharedService: SharedService,
     private cdRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
-
-    const loadAndBindClientInfo = () => {
-      this.aSub = this.authService.currentUser.subscribe(cu => {
-        this.orderPositionData.clientId = cu.clientId;
-        this.orderPositionData.clientLegalPersonId = cu.clientLegalPersonId;
-      });
-    };
-
-    const loadAndBindSuppliers = () => {
-      this.sSub = this.supplierService.getSuppliers().subscribe(
-        suppliers => {
-          if (this.orderPositionData.supplierId) {
-            this.csSub = this.supplierService.getSupplier(this.orderPositionData.supplierId).subscribe(
-              supplier => {
-                let currentSupplier = suppliers.find(s => s.id === supplier.id);
-                if (currentSupplier) {
-                  this.placementComponent.setCurrentSupplier(currentSupplier);
-                } else {
-                  suppliers = [];
-                  currentSupplier = supplier;
-                  suppliers.push(currentSupplier);
-                }
-              });
-          } else {
-            this.placementComponent.setCurrentSupplier(undefined);
-          }
-          this.placementComponent.setSuppliers(suppliers);
-        });
-    };
-
-    const loadAndBindFormatTypes = () => {
-      this.ftSub = this.supplierService.getFormatTypes(this.orderPositionData.supplierId).subscribe(
-        formatTypes => {
-          if (this.orderPositionData.formatData.formatTypeId) {
-            this.cftSub = this.supplierService.getFormatType(this.orderPositionData.formatData.formatTypeId).subscribe(
-              formatType => {
-                let currentFormatType = formatTypes.find(ft => ft.id === formatType.id);
-                if (currentFormatType) {
-                  this.placementComponent.setCurrentFormatType(currentFormatType);
-                } else {
-                  formatTypes = [];
-                  currentFormatType = formatType;
-                  formatTypes.push(currentFormatType);
-                }
-              });
-          } else {
-            this.placementComponent.setCurrentFormatType(undefined);
-          }
-          this.placementComponent.setFormatTypes(formatTypes);
-        });
-    };
-
-    const loadAndBindTariffs = () => {
-      // Получаем список тарифов
-      this.tSub = this.supplierService.getTariffs(
-        this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(tariffs => {
-          // Если позиция новая
-          if (this.orderPositionData.orderPositionId == 0) {
-            let currentTariff;
-
-            // Если тариф задан - находим его в списке
-            if (this.orderPositionData.formatData.id && this.orderPositionData.priceId) {
-              let filteredTariffsByFormat = tariffs.filter(t => t.format.id === this.orderPositionData.formatData.id);
-              if (filteredTariffsByFormat && filteredTariffsByFormat.length > 0) {
-                let filteredTariffsByPrice = filteredTariffsByFormat.filter(t => t.price.id === this.orderPositionData.priceId);
-                currentTariff = filteredTariffsByPrice && filteredTariffsByPrice.length > 0
-                  ? filteredTariffsByPrice[0]
-                  : filteredTariffsByFormat[0];
-
-                this.orderPositionData.priceId = currentTariff.price.id;
-                this.orderPositionData.formatData.id = currentTariff.format.id;
-                this.orderPositionData.formatData.name = currentTariff.format.name;
-                this.orderPositionData.formatData.packageLength = currentTariff.format.packageLength;
-                this.orderPositionData.formatData.firstSize = currentTariff.format.firstSize;
-                this.orderPositionData.formatData.secondSize = currentTariff.format.secondSize;
-                this.orderPositionData.formatData.version = currentTariff.format.version;
-                this.orderPositionData.formatData.formatTypeId = currentTariff.format.type.id;
-              }
-            }
-
-            // Устанавливаем список тарифов
-            this.placementComponent.setTariffs(tariffs);
-            // Устанавливаем найденный тариф            
-            this.placementComponent.setCurrentTariff(currentTariff);
-          } else {
-            // Если позиция старая - получаем версию тарифа
-            this.ctSub = this.supplierService.getTariffVersion(
-              this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
-                tariff => {
-                  // Ищем версию тарифа в загруженном списке тарифов
-                  let currentTariff = tariffs.find(
-                    t =>
-                      t.format.id === tariff.format.id &&
-                      t.format.version.getTime() === tariff.format.version.getTime() &&
-                      t.price.id === tariff.price.id);
-                  // Если тариф не найден
-                  if (!currentTariff) {
-                    tariffs = [];
-                    currentTariff = tariff;
-                    tariffs.push(currentTariff);
-                  }
-                  // Устанавливаем список тарифов
-                  this.placementComponent.setTariffs(tariffs);
-                  // Устанавливаем найденный тариф
-                  this.placementComponent.setCurrentTariff(currentTariff);
-                });
-            this.placementComponent.selectEnabled = false;
-          }
-        })
-    };
-
-    const loadAndBindRubrics = () => {
-      this.rSub = this.supplierService.getRubrics(this.orderPositionData.priceId).subscribe(
-        rubrics => {
-          // Если позиция изменяется либо создаётся на основе существующей (задана рубрика)
-          if (this.orderPositionData.rubricData && this.orderPositionData.rubricData.id) {
-            // Загружаем рубрику
-            this.crSub = this.supplierService.getRubricVersion(
-              this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
-                rubric => {
-                  let currentRubric = rubrics.find(r => r.id === rubric.id);
-                  // Если рубрики нет в списке рубрик 
-                  // очищаем список и добавляем в него загруженную рубрику
-                  if (!currentRubric) {
-                    rubrics = [];
-                    currentRubric = rubric;
-                    rubrics.push(currentRubric);
-                  }
-                  // Устанавливаем список рубрик и выбираем текущую
-                  this.placementComponent.setRubrics(rubrics);
-                  this.placementComponent.setCurrentRubric(currentRubric);
-                });
-          } else {
-            // Если позиция новая - устанавливаем список рубрик
-            // Текущую рубрику не выбираем
-            this.placementComponent.setRubrics(rubrics);
-            this.placementComponent.setCurrentRubric(undefined);
-          }
-        });
-    };
-
-    const resetIds = (opd: OrderPositionData) => {
-      opd.orderId = 0;
-      opd.orderPositionId = 0;
-      opd.childs.forEach(c => resetIds(c));
-    }
-
-    const resetGraphics = (opd: OrderPositionData) => {
-      opd.graphicsData = [];
-      opd.childs.forEach(c => resetGraphics(c));
-    }
-
     if (this.route.snapshot.params.id) {
       // Происходит изменение позиции
-      this.opSub = this.orderPositionService.get(this.route.snapshot.params.id).subscribe(
+      this.opSub = this.orderPositionApiService.get(this.route.snapshot.params.id).subscribe(
         opd => {
           this.orderPositionData = opd;
-          loadAndBindSuppliers();
-          loadAndBindFormatTypes();
-          loadAndBindTariffs();
-          loadAndBindRubrics();
+          this.fillSuppliers();
+          this.fillFormatTypes();
+          this.fillTariffs();
+          this.fillRubrics();
+
+          this.fixCurrentSupplierId();
+          this.fixCurrentFormatTypeId();
+          this.fixCurrentFormatName();
         });
     } else if (this.sharedService.OrderPositionId) {
       // Происходит создание новой позиции на основе существующей
-      this.opSub = this.orderPositionService.get(this.sharedService.OrderPositionId).subscribe(
+      this.opSub = this.orderPositionApiService.get(this.sharedService.OrderPositionId).subscribe(
         opd => {
           // Сбрасываем буфер
           this.sharedService.OrderPositionId = 0;
-          resetIds(opd);
-          resetGraphics(opd);
+          this.orderPositionService.clearOrderPositionIds(opd);
+          this.orderPositionService.clearOrderPositionGraphics(opd);
           this.orderPositionData = opd;
-          loadAndBindSuppliers();
-          loadAndBindFormatTypes();
-          loadAndBindTariffs();
-          loadAndBindRubrics();
+          this.fillSuppliers();
+          this.fillFormatTypes();
+          this.fillTariffs();
+          this.fillRubrics();
+
+          this.fixCurrentSupplierId();
+          this.fixCurrentFormatTypeId();
+          this.fixCurrentFormatName();
         });
     } else {
       // Создаём полностью новую позицию
       this.orderPositionData = new OrderPositionData();
-      loadAndBindClientInfo();
-      loadAndBindSuppliers();
+      this.fillClient();
+      this.fillSuppliers();
+
+      this.fixCurrentSupplierId();
+      this.fixCurrentFormatTypeId();
+      this.fixCurrentFormatName();
     }
   }
 
@@ -294,34 +149,36 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   }
 
   public onSupplierChanged($event: SupplierInfo): void {
-    if (this.placementComponent !== undefined) {
+    if (this.placementComponent)
       this.placementComponent.Submitted = false;
-    }
-    if (this.tariffComponent !== undefined) {
-      this.tariffComponent.Submitted = false;
-    }
 
-    this.orderPositionData.supplierId = $event.id;
-    this.orderPositionData.stringData = undefined;
-    this.orderPositionData.moduleData = undefined;
+    if (this.tariffComponent)
+      this.tariffComponent.Submitted = false;
+
+    // Запоминаем текущий идентификатор поставщика
+    this.fixCurrentSupplierId();
+
+    this.orderPositionService.setSupplierId(this.orderPositionData, $event.id);
+    this.orderPositionService.clearContentData(this.orderPositionData);
 
     this.onFormatTypeChanged(undefined);
   }
 
   public onFormatTypeChanged($event: FormatTypeInfo) {
-    if (this.placementComponent !== undefined) {
+    if (this.placementComponent)
       this.placementComponent.Submitted = false;
-    }
-    if (this.tariffComponent !== undefined) {
-      this.tariffComponent.Submitted = false;
-    }
 
-    this.orderPositionData.formatData = new FormatData();
-    this.orderPositionData.priceId = 0;
-    this.orderPositionData.childs = [];
-    this.orderPositionData.stringData = undefined;
-    this.orderPositionData.moduleData = undefined;
-    this.orderPositionData.graphicsData = [];
+    if (this.tariffComponent)
+      this.tariffComponent.Submitted = false;
+
+    // Запоминаем текущий идентификатор типа формата
+    this.fixCurrentFormatTypeId();
+
+    this.orderPositionService.clearPriceId(this.orderPositionData);
+    this.orderPositionService.createFormatData(this.orderPositionData);
+    this.orderPositionService.clearGraphics(this.orderPositionData);
+    this.orderPositionService.clearContentData(this.orderPositionData);
+    this.orderPositionService.clearChilds(this.orderPositionData);
 
     this.placementComponent.setCurrentFormatType($event);
 
@@ -329,52 +186,48 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
   }
 
   public onTariffChanged($event: TariffInfo): void {
-    if (this.placementComponent !== undefined) {
+
+    if (this.placementComponent)
       this.placementComponent.Submitted = false;
-    }
-    if (this.tariffComponent !== undefined) {
+
+    if (this.tariffComponent)
       this.tariffComponent.Submitted = false;
-    }
+
+    this.fixCurrentFormatName();
 
     this.onRubricChanged(undefined);
 
-    this.orderPositionData.formatData = new FormatData();
-    this.orderPositionData.priceId = 0;
-    this.orderPositionData.childs = [];
+    this.orderPositionService.clearPriceId(this.orderPositionData);
+    this.orderPositionService.createFormatData(this.orderPositionData);
+    this.orderPositionService.clearChilds(this.orderPositionData);
 
-    if ($event === undefined) {
-      return;
+    if ($event === undefined) return;
+
+    // Перезаписываем информацию о цене и формате
+    this.orderPositionService.setPriceId(this.orderPositionData, $event.price.id);
+    this.orderPositionService.setFormatData(this.orderPositionData, $event.format);
+
+    // Пересоздаём контент если первое изменение тарифа, либо изменены поставщик или тип формата
+    if (this.orderPositionService.canReCreateContentData(this.orderPositionData, this.prevSupplierId, this.prevFormatTypeId)) {
+      this.orderPositionService.clearContentData(this.orderPositionData);
+      this.orderPositionService.createContentData(this.orderPositionData, $event.format);
+    }
+    
+    // Сбрасываем логотип
+    if (this.orderPositionService.canReCreateLogo(this.orderPositionData, this.prevFormatName, $event))
+      this.orderPositionService.createLogo(this.orderPositionData.stringData);
+
+    // Сбрасываем обязанности и условия
+    if (this.orderPositionService.canClearResponsibilityAndCondition(this.orderPositionData, this.prevFormatName, $event)) {
+      this.orderPositionService.clearResponsibility(this.orderPositionData.stringData);
+      this.orderPositionService.clearConditionsValue(this.orderPositionData.stringData);
     }
 
-    this.orderPositionData.priceId = $event.price.id;
-    this.orderPositionData.formatData.id = $event.format.id;
-    this.orderPositionData.formatData.name = $event.format.name;
-    this.orderPositionData.formatData.packageLength = $event.format.packageLength;
-    this.orderPositionData.formatData.firstSize = $event.format.firstSize;
-    this.orderPositionData.formatData.secondSize = $event.format.secondSize;
-    this.orderPositionData.formatData.version = $event.format.version;
-    this.orderPositionData.formatData.formatTypeId = $event.format.type.id;
+    this.orderPositionService.createOrderPositionChilds(this.orderPositionData, $event);
 
-    this.orderPositionData.moduleData = undefined;
-    this.orderPositionData.stringData = undefined;
-
-    if ($event.format.type.id === 1) {
-      this.orderPositionData.stringData = new StringData();
-      this.orderPositionData.stringData.contactData = new ContactData();
-      this.orderPositionData.stringData.phonesData = [];
-      this.orderPositionData.stringData.emailsData = [];
-      this.orderPositionData.stringData.occurrencesData = [];
-      this.orderPositionData.stringData.occurrencesData.push(new OccurrenceData());
-    }
-    if ($event.format.type.id === 2) {
-      this.orderPositionData.moduleData = new ModuleData();
-    }
-
-    $event.packageTariffs.forEach(pt => {
-      const child = this.createChildAdvertisement(
-        this.orderPositionData.orderId, this.orderPositionData.clientId, this.orderPositionData.clientLegalPersonId, pt);
-      this.orderPositionData.childs.push(child);
-    });
+    this.fixCurrentSupplierId();
+    this.fixCurrentFormatTypeId();
+    this.fixCurrentFormatName();
   }
 
   public onRubricChanged($event: RubricInfo): void {
@@ -413,46 +266,142 @@ export class OrderPositionComponent implements OnInit, OnDestroy, AfterContentCh
     }
 
     if (this.orderPositionData.orderPositionId === 0) {
-      this.orderPositionService.create(this.orderPositionData).subscribe(
+      this.orderPositionApiService.create(this.orderPositionData).subscribe(
         () => this.router.navigate(['/basket']));
     } else {
-      this.orderPositionService.update(this.orderPositionData).subscribe(
+      this.orderPositionApiService.update(this.orderPositionData).subscribe(
         () => this.router.navigate(['/basket']));
     }
   }
 
-  private createChildAdvertisement(orderId: number, clientId: number, clientLegalPersonId: number, tariff: TariffInfo): OrderPositionData {
-    const advertisement = new OrderPositionData();
-    advertisement.orderId = orderId;
-    advertisement.supplierId = tariff.supplier.id;
-    advertisement.priceId = tariff.price.id;
-    advertisement.formatData.id = tariff.format.id;
-    advertisement.formatData.name = tariff.supplier.name + ': ' + tariff.format.name;
-    advertisement.formatData.packageLength = tariff.format.packageLength;
-    advertisement.formatData.firstSize = tariff.format.firstSize;
-    advertisement.formatData.secondSize = tariff.format.secondSize;
-    advertisement.formatData.version = tariff.format.version;
-    advertisement.formatData.formatTypeId = tariff.format.type.id;
-    advertisement.rubricData = new RubricData();
-    advertisement.clientId = clientId;
-    advertisement.clientLegalPersonId = clientLegalPersonId;
+  private fillClient(): void {
+    this.aSub = this.authService.currentUser.subscribe(cu => {
+      this.orderPositionData.clientId = cu.clientId;
+      this.orderPositionData.clientLegalPersonId = cu.clientLegalPersonId;
+    });
+  };
 
-    this.orderPositionData.stringData = undefined;
-    this.orderPositionData.moduleData = undefined;
+  private fillSuppliers(): void {
+    this.sSub = this.supplierService.getSuppliers().subscribe(
+      suppliers => {
+        if (this.orderPositionData.supplierId) {
+          this.csSub = this.supplierService.getSupplier(this.orderPositionData.supplierId).subscribe(
+            supplier => {
+              let currentSupplier = suppliers.find(s => s.id === supplier.id);
+              if (currentSupplier) {
+                this.placementComponent.setCurrentSupplier(currentSupplier);
+              } else {
+                suppliers = [];
+                currentSupplier = supplier;
+                suppliers.push(currentSupplier);
+              }
+            });
+        } else {
+          this.placementComponent.setCurrentSupplier(undefined);
+        }
+        this.placementComponent.setSuppliers(suppliers);
+      });
+  }
 
-    if (tariff.format.type.id === 1) {
-      advertisement.stringData = new StringData();
-      advertisement.stringData.contactData = new ContactData();
-      advertisement.stringData.phonesData = [];
-      advertisement.stringData.emailsData = [];
-      advertisement.stringData.occurrencesData = [];
-      advertisement.stringData.occurrencesData.push(new OccurrenceData());
-      advertisement.stringData.addressesData = [];
-    }
-    if (tariff.format.type.id === 2) {
-      advertisement.moduleData = new ModuleData();
-    }
+  private fillFormatTypes(): void {
+    this.ftSub = this.supplierService.getFormatTypes(this.orderPositionData.supplierId).subscribe(
+      formatTypes => {
+        if (this.orderPositionData.formatData.formatTypeId) {
+          this.cftSub = this.supplierService.getFormatType(this.orderPositionData.formatData.formatTypeId).subscribe(
+            formatType => {
+              let currentFormatType = formatTypes.find(ft => ft.id === formatType.id);
+              if (currentFormatType) {
+                this.placementComponent.setCurrentFormatType(currentFormatType);
+              } else {
+                formatTypes = [];
+                currentFormatType = formatType;
+                formatTypes.push(currentFormatType);
+              }
+            });
+        } else {
+          this.placementComponent.setCurrentFormatType(undefined);
+        }
+        this.placementComponent.setFormatTypes(formatTypes);
+      });
+  }
 
-    return advertisement;
+  private fillTariffs(): void {
+    // Получаем список тарифов
+    this.tSub = this.supplierService.getTariffs(
+      this.orderPositionData.supplierId, this.orderPositionData.formatData.formatTypeId).subscribe(tariffs => {
+        // Если позиция новая
+        if (this.orderPositionData.orderPositionId == 0) {
+          let currentTariff = this.orderPositionService.getCurrentTariff(this.orderPositionData, tariffs);
+          // Устанавливаем список тарифов
+          this.placementComponent.setTariffs(tariffs);
+          // Устанавливаем найденный тариф            
+          this.placementComponent.setCurrentTariff(currentTariff);
+        } else {
+          // Если позиция старая - получаем версию тарифа
+          this.ctSub = this.supplierService.getTariffVersion(
+            this.orderPositionData.formatData.id, this.orderPositionData.formatData.version, this.orderPositionData.priceId).subscribe(
+              tariff => {
+                // Ищем версию тарифа в загруженном списке тарифов
+                let currentTariff = tariffs.find(
+                  t =>
+                    t.format.id === tariff.format.id &&
+                    t.format.version.getTime() === tariff.format.version.getTime() &&
+                    t.price.id === tariff.price.id);
+                // Если тариф не найден
+                if (!currentTariff) {
+                  tariffs = [];
+                  currentTariff = tariff;
+                  tariffs.push(currentTariff);
+                }
+                // Устанавливаем список тарифов
+                this.placementComponent.setTariffs(tariffs);
+                // Устанавливаем найденный тариф
+                this.placementComponent.setCurrentTariff(currentTariff);
+              });
+          this.placementComponent.selectEnabled = false;
+        }
+      })
+  }
+
+  private fillRubrics(): void {
+    this.rSub = this.supplierService.getRubrics(this.orderPositionData.priceId).subscribe(
+      rubrics => {
+        // Если позиция изменяется либо создаётся на основе существующей (задана рубрика)
+        if (this.orderPositionData.rubricData && this.orderPositionData.rubricData.id) {
+          // Загружаем рубрику
+          this.crSub = this.supplierService.getRubricVersion(
+            this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
+              rubric => {
+                let currentRubric = rubrics.find(r => r.id === rubric.id);
+                // Если рубрики нет в списке рубрик 
+                // очищаем список и добавляем в него загруженную рубрику
+                if (!currentRubric) {
+                  rubrics = [];
+                  currentRubric = rubric;
+                  rubrics.push(currentRubric);
+                }
+                // Устанавливаем список рубрик и выбираем текущую
+                this.placementComponent.setRubrics(rubrics);
+                this.placementComponent.setCurrentRubric(currentRubric);
+              });
+        } else {
+          // Если позиция новая - устанавливаем список рубрик
+          // Текущую рубрику не выбираем
+          this.placementComponent.setRubrics(rubrics);
+          this.placementComponent.setCurrentRubric(undefined);
+        }
+      });
+  }
+
+  private fixCurrentSupplierId(): void {
+    this.prevSupplierId = this.orderPositionService.getSupplierId(this.orderPositionData);
+  }
+
+  private fixCurrentFormatTypeId(): void {
+    this.prevFormatTypeId = this.orderPositionService.getFormatTypeId(this.orderPositionData);
+  }
+
+  private fixCurrentFormatName(): void {
+    this.prevFormatName = this.orderPositionService.getFormatName(this.orderPositionData);
   }
 }
