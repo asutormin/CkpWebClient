@@ -23,7 +23,7 @@ export class ResponsibilitiesComponent implements OnInit {
   public submitted = false;
 
   public get Length() {
-    return this.stringData.responsibility.length;
+    return this.stringData.responsibility ? this.stringData.responsibility.length : 0;
   }
 
   public get Valid(): boolean {
