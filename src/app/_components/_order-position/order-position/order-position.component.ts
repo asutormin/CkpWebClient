@@ -21,7 +21,6 @@ import { UserService } from '../../../_services/user.service';
 import { ApplyComponent } from '../apply/apply.component';
 import { SharedService } from 'src/app/_services/shared.service';
 import { OrderPositionService } from 'src/app/_services/order-position.service';
-import { LogoData } from 'src/app/_model/_output/_string/logo-data';
 
 @Component({
   selector: 'app-order-position',
