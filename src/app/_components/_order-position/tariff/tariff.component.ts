@@ -120,11 +120,11 @@ export class TariffComponent implements OnInit, OnDestroy {
         this.rcSub = this.rubricsComponent.rubricChanged.subscribe(
           rubric => this.onPackageRubricChanged(rubric));
 
-        if (this.orderPositionData.rubricData.id !== undefined) {
+        if (this.orderPositionData.rubricData.id) {
           this.crSub = this.supplierService.getRubricVersion(this.orderPositionData.rubricData.id, this.orderPositionData.rubricData.version).subscribe(
             rubric => {
-              let currentRubric = rubrics.find(r => r.id === rubric.id && r.version.getTime() === rubric.version.getTime());
-              if (currentRubric === undefined) {
+              let currentRubric = rubrics.find(r => r.id === rubric.id);
+              if (!currentRubric) {
                 rubrics = [];
                 currentRubric = rubric;
                 rubrics.push(currentRubric);
