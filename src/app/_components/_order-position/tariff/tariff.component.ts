@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Input, OnDestroy,
   OnInit,
@@ -26,7 +27,7 @@ import { ModuleComponent } from '../../_order-position/_module/module/module.com
   templateUrl: './tariff.component.html',
   styleUrls: ['./tariff.component.scss']
 })
-export class TariffComponent implements OnInit, OnDestroy {
+export class TariffComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('rubrics') private rubricsComponent: RubricsComponent;
   @ViewChild('graphics') private graphicsComponent: GraphicsComponent;
@@ -136,6 +137,10 @@ export class TariffComponent implements OnInit, OnDestroy {
         }
         this.rubricsComponent.setRubrics(rubrics);
       });
+  }
+
+  ngAfterViewInit(): void {
+    this.onFieldChanged();
   }
 
   public ngOnDestroy(): void {
