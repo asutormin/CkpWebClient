@@ -5,6 +5,7 @@ import {GraphicInfo} from './graphic-info';
 import { PriceInfo } from './price-info';
 import { ImageInfo } from './image-info';
 import { StringInfo } from './string-info';
+import { AccountInfoLight } from './account-info';
 
 export class OrderPositionInfo {
   id: number;
@@ -20,6 +21,7 @@ export class OrderPositionInfo {
   sum: number;
   graphics: GraphicInfo[];
   rubrics: RubricInfo[];
+  account: AccountInfoLight[];
   isChecked: boolean;
   module: ImageInfo;
   string: StringInfo;
