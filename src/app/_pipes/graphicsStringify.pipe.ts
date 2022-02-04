@@ -27,8 +27,8 @@ export class GraphicsStringifyPipe implements PipeTransform {
       const outDate = new Date(graphicArray[0].outDate);
 
       const formattedOutDate = showYear
-      ? ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '.' + outDate.getFullYear() + '(№' + number + ')'
-      : ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '(№' + number + ')';
+      ? ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + '.' + outDate.getFullYear() + ' (№' + number + ')'
+      : ('00' + outDate.getDate()).slice(-2) + '.' + ('00' + (outDate.getMonth() + 1)).slice(-2) + ' (№' + number + ')';
       formattedOutDates.push(formattedOutDate);
     }
 
