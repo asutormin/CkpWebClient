@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
 import { StringInfo } from 'src/app/_model/_input/string-info';
 
 @Component({
