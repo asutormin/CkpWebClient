@@ -4,6 +4,9 @@ export class StringInfo {
     requirements: string;
     responsibilities: string;
     conditions: string;
+    salary: string;
+    isHousing: boolean;
+    isFood: boolean;
     occurrences: string;
     address: string;
     contactPerson: string;
@@ -16,6 +19,9 @@ export class StringInfo {
         this.requirements = '';
         this.responsibilities = '';
         this.conditions = '';
+        this.salary = '';
+        this.isHousing = false;
+        this.isFood = false;
         this.occurrences = '';
         this.address = '';
         this.contactPerson = '';

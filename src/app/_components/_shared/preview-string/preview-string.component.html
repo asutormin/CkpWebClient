@@ -1,31 +1,28 @@
-<div *ngIf="string; else noContentBlock" >
-    <div class="d-flex text-right justify-content-end text-dark mb-3">
+<div *ngIf="string; else noContentBlock">
+    <div *ngIf="string.company" class="mb-0 d-flex text-right justify-content-start text-dark">
         <span>{{string.company}}</span>
     </div>
-    <div class="text-uppercase text-left mb-3" [ngClass]="fontColor">
-        <strong>{{string.name}}</strong>
-    </div>
-    <div *ngIf="string.requirements" class="text-justify mb-1">
-        <strong>Требования</strong> {{string.requirements}}
-    </div>
-    <div *ngIf="string.responsibilities" class="text-justify mb-1">
-        <strong>Обязанности</strong> {{string.responsibilities}}
-    </div>
-    <div *ngIf="string.conditions" class="text-justify mb-1">
-        <strong>Условия</strong> {{string.conditions}}
-    </div>
-    <div class="mb-1" *ngIf="string.address">{{string.address}}</div>
-    <div class="row no-gutters">
-        <strong *ngIf="string.occurrences" class="mr-auto">{{string.occurrences}}</strong>
-        <div class="ml-auto text-right">
-            <div *ngIf="string.contactPerson" class="d-flex justify-content-end">
-                <strong>{{string.contactPerson}}</strong>
-            </div>
-            <div *ngIf="string.phones" class="d-flex justify-content-end">
-                <strong>тел. {{string.phones}}</strong>
-            </div>
-        </div>
-    </div>
+    <strong class="mb-0 d-flex justify-content-between">
+        <span *ngIf="string.name" class="text-uppercase">{{string.name}}</span>
+        <p class="mb-0">
+            <span *ngIf="string.isHousing" class="fa fa-home"></span>
+            <span *ngIf="string.isFood" class="ml-2 fa fa-coffee"></span>
+            <span *ngIf="string.salary" class="ml-2">{{string.salary}}</span>
+        </p>
+    </strong>
+    <p class="text-justify mb-0">
+        <span>
+            <small>
+                <strong *ngIf="string.occurrences" class="text-uppercase">{{string.occurrences}}</strong>
+            </small>
+        </span>
+        <span *ngIf="string.address">{{string.address}}</span>
+        <span *ngIf="string.requirements">{{string.requirements}}</span>
+        <span *ngIf="string.responsibilities">{{string.responsibilities}}</span>
+        <span *ngIf="string.conditions">{{string.conditions}}</span>
+        <span *ngIf="string.contactPerson">{{string.contactPerson}}</span>
+        <span *ngIf="string.phones"><strong>{{string.phones}}</strong></span>
+    </p>
 </div>
 
 <ng-template #noContentBlock>
