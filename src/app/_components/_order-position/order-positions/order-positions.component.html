@@ -20,9 +20,8 @@
                 </div>
               </th>
             </div>
-            <th class="border-0 text-left">Издание</th>
-            <th class="border-0 text-left">Формат</th>
-            <th class="border-0 text-left">Выходы</th>
+            <th class="border-0 text-left" style="max-width: 300px;">Вакансия</th>
+            <th class="border-0 text-left">Размещение</th>
             <th class="border-0 text-right">Цена</th>
             <th class="border-0 text-right" style="min-width: 70px;">Кол-во</th>
             <th class="border-0 text-right">НДС</th>
@@ -37,30 +36,43 @@
                 <div class="custom-control custom-checkbox"
                   [attr.title]="isPositionEnabled(position.orderId, position.price.businessUnitId) ? '' : 'Позиция реализуется другим юр. лицом и не может быть включена в счёт вместе с выбранными позициями.'">
                   <input class="custom-control-input" type="checkbox" id="{{ 'checkbox-' + position.id }}"
-                    [disabled]="!isPositionEnabled(position.orderId, position.price.businessUnitId)" [(ngModel)]="position.isChecked"
-                    (change)="onPositionCheckChanged()"
-                    >
+                    [disabled]="!isPositionEnabled(position.orderId, position.price.businessUnitId)"
+                    [(ngModel)]="position.isChecked" (change)="onPositionCheckChanged()">
                   <label class="custom-control-label" for="{{ 'checkbox-' + position.id }}"></label>
                 </div>
               </td>
             </div>
-            <td class="align-middle">
-              <h6 class="mb-0 text-nowrap">{{position.supplier.name}}</h6>
-              <p class="mb-0">{{position.rubrics | rubricsStringified}}</p>
+            <td style="max-width: 300px;">
+              <div *ngIf="position.format.type.id == 1">
+                <app-preview-string class="fs fs--2" [string]="position.string" [fontColor]="'text-primary'">
+                </app-preview-string>
+              </div>
+              <div *ngIf="position.format.type.id == 2">
+                <app-preview-module [module]="position.module"></app-preview-module>
+              </div>
+              <div *ngIf="position.format.type.id == 26" class="p-0">
+                <app-preview-package [orderPositions]="position.childs"
+                  [rubricClass]="'fs--1'" [formatClass]="'fs--2'" [stringClass]="'fs--2'">
+                </app-preview-package>
+              </div>
             </td>
-            <td class="align-middle">
-              <h6 class="mb-0 text-nowrap">{{position.format.type.name}}</h6>
-              <a class="mb-0" [routerLink]="" data-toggle="modal" data-target="#vacancyModal"
-                (click)="onShowPreview(position)">{{position.format.name}}</a>
+            <td class="align-top">
+              <h6 class="mb-1">{{position.supplier.name}}</h6>
+              <p *ngIf="position.format.type.id !== 26" class="mb-1 text-dark">{{position.rubrics | rubricsStringified}}</p>
+              <div class="mb-1 d-flex flex-nowrap justify-content-between">
+                <p>{{position.format.type.name}}</p>
+                <a [routerLink]="" data-toggle="modal" data-target="#vacancyModal"
+                  (click)="onShowPreview(position)">{{position.format.name}}</a>
+              </div>
+              <p class="mb-0 d-flex justify-content-end"><i>{{position.graphics | graphicsStringified}}</i></p>
             </td>
-            <td class="align-middle text-left">{{position.graphics | graphicsStringified}}</td>
-            <td class="align-middle text-right">{{position.cost | number:'1.2-2': 'ru'}}</td>
-            <td class="align-middle text-right" style="min-width: 70px;">{{position.quantity}}</td>
-            <td class="align-middle text-right">{{position.nds | number:'1.2-2': 'ru'}}</td>
-            <td class="align-middle text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
+            <td class="align-top text-right">{{position.cost | number:'1.2-2': 'ru'}}</td>
+            <td class="align-top text-right" style="min-width: 70px;">{{position.quantity}}</td>
+            <td class="align-top text-right">{{position.nds | number:'1.2-2': 'ru'}}</td>
+            <td class="align-top text-right">{{position.sum | number:'1.2-2': 'ru'}}</td>
 
-            <td class="align-middle text-right p-0">
-              <div class="dropdown text-sans-serif p-0 mr-1">
+            <td class="align-top text-right p-0">
+              <div class="dropdown text-sans-serif p-0 mr-1 mt-2">
                 <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="dropdown0"
                   data-toggle="dropdown" data-boundary="html" aria-haspopup="true" aria-expanded="false">
                   <span class="fa fa-ellipsis-h fs--1"></span>
@@ -102,34 +114,36 @@
   </div>
 </div>
 
-
 <div *ngIf="currentOrderPosition" class="modal fade" id="vacancyModal" tabindex="-1" role="dialog" aria-hidden="true"
   aria-labelledby="vacancyModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="w-100">
-          <div class="row no-gutters">
-            <h5 *ngIf="currentOrderPosition.supplier" class="modal-title mb-1" id="exampleModalLabel">{{currentOrderPosition.supplier.name}}</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          <div class="d-flex flex-nowrap justify-content-between ml-4">
+            <h5 *ngIf="currentOrderPosition.supplier" class="modal-title mb-1 mt-4" id="exampleModalLabel">
+              {{currentOrderPosition.supplier.name}}</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light"
+                aria-hidden="true">&times;</span></button>
           </div>
-          <h5 class="fs-0 text-dark" *ngIf="currentOrderPosition.rubrics.length > 0">{{currentOrderPosition.rubrics[0].number}} - {{currentOrderPosition.rubrics[0].name}}</h5>
-          <div class="row no-gutters fs--1 text-500">
+          <h5 class="fs-0 text-dark mx-4" *ngIf="currentOrderPosition.format.type.id !== 26">
+            {{currentOrderPosition.rubrics[0].number}} - {{currentOrderPosition.rubrics[0].name}}</h5>
+          <div class="d-flex flex-nowrap justify-content-between fs--1 text-500 mx-4">
             <p class="mb-0">{{currentOrderPosition.format.type.name}}</p>
             <p class="ml-auto mb-0">{{currentOrderPosition.format.name}}</p>
           </div>
         </div>
-        
+
       </div>
       <div class="modal-body">
-        <div *ngIf="currentOrderPosition.format.type.id == 1">
+        <div *ngIf="currentOrderPosition.format.type.id == 1" class="mx-4">
           <app-preview-string [string]="currentOrderPosition.string" [fontColor]="'text-primary'">
           </app-preview-string>
         </div>
-        <div *ngIf="currentOrderPosition.format.type.id == 2">
+        <div *ngIf="currentOrderPosition.format.type.id == 2" class="mx-4">
           <app-preview-module [module]="currentOrderPosition.module"></app-preview-module>
         </div>
-        <div *ngIf="currentOrderPosition.format.type.id == 26">
+        <div *ngIf="currentOrderPosition.format.type.id == 26" class="ml-4">
           <app-preview-package [orderPositions]="currentOrderPosition.childs"></app-preview-package>
         </div>
       </div>
