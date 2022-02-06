@@ -32,7 +32,7 @@
                                 </span>
                             </div>
 
-                            <h5 class="fs-0" *ngIf="orderPosition.rubrics.length > 0">
+                            <h5 class="fs-0" *ngIf="orderPosition.format.type.id !== 26">
                                 <a class="text-dark">{{orderPosition.rubrics[0].number}} -
                                     {{orderPosition.rubrics[0].name}}</a>
                             </h5>
@@ -49,12 +49,12 @@
                                 <app-preview-module [module]="orderPosition.module"></app-preview-module>
                             </div>
                             <div *ngIf="orderPosition.format.type.id == 26">
-                                <app-preview-package [orderPositions]="orderPosition.childs"></app-preview-package>
+                                <app-preview-package [orderPositions]="orderPosition.childs" [stringClass]="'fs fs--1'"></app-preview-package>
                             </div>
                         </div>
                     </div>
                     <div class="px-3">
-                        <h5 class="fs-2 text-500 mb-0 d-flex justify-content-end">
+                        <h5 class="fs-2 text-500 mb-3 d-flex justify-content-end">
                             <span class="fa fa-ruble mt-1 mr-1"></span>
                             <span>{{orderPosition.cost}}</span>
                         </h5>

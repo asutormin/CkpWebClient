@@ -1,15 +1,15 @@
-<div *ngIf="orderPositions; else noContentBlock">
+<div *ngIf="orderPositions; else noContentBlock" class="p-0">
     <owl-carousel [options]="slideOptions" [carouselClasses]="['owl-theme', 'sliding', 'owl-dots-inner']" >  
-        <div class="item p-1" *ngFor="let orderPosition of orderPositions">
-            <h5 class="fs-0" *ngIf="orderPosition.rubrics.length > 0">
+        <div class="item mr-4" *ngFor="let orderPosition of orderPositions">
+            <h5 [ngClass]="rubricClass ? rubricClass : 'fs-0'" *ngIf="orderPosition.rubrics.length > 0">
                 <a class="text-dark">{{orderPosition.rubrics[0].number}} - {{orderPosition.rubrics[0].name}}</a>
             </h5>
-            <div class="row no-gutters fs--1 text-500 mb-3">
-                <p class="mb-0">{{orderPosition.format.type.name}}</p>
-                <p class="ml-auto mb-0">{{orderPosition.format.name}}</p>
+            <div class="d-flex flex-nowrap justify-content-between text-500 mb-3" [ngClass]="formatClass ? formatClass : 'fs--1'">
+                <span class="mb-0">{{orderPosition.format.type.name}}</span>
+                <span class="ml-auto mb-0">{{orderPosition.format.name}}</span>
             </div>  
             <div *ngIf="orderPosition.format.type.id == 1">
-                <app-preview-string class="fs--1"
+                <app-preview-string [ngClass]="stringClass"
                     [string]="orderPosition.string"
                     [fontColor]="orderPosition.price.businessUnitId == 3 ? 'color-ckp' : 'color-rdv'">
                 </app-preview-string>

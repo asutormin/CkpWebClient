@@ -8,6 +8,9 @@ import { OrderPositionInfo } from 'src/app/_model/_input/order-position-info';
 })
 export class PreviewPackageComponent implements OnInit {
   @Input() public orderPositions: OrderPositionInfo[];
+  @Input() public rubricClass: string;
+  @Input() public formatClass: string;
+  @Input() public stringClass: string;
   
   public slideOptions = { items: 1, dots: false, nav: true, autoplay: true, loop: true };  
 
