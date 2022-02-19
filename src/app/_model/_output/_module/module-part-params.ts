@@ -1,7 +1,7 @@
 export class ModulePartParams {
   fontFamilyName: string;
   fontSize: number;
-  fontStyleId: number;
+  fontStyleName: number;
   horizontalAlignmentId: number;
   verticalAlignmentId: number;
   text: string;

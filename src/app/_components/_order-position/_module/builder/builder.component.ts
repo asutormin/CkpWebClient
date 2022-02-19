@@ -20,6 +20,10 @@ export class BuilderComponent implements OnInit {
   public sample: any;
   public moduleParamsStandard: ModuleParamsStandard;
 
+  public get Valid(): boolean {
+    return this.sample;
+  }
+
   constructor(
     private sanitizer: DomSanitizer,
     private modulesService: ModuleService
@@ -34,8 +38,9 @@ export class BuilderComponent implements OnInit {
     this.moduleParamsStandard.heightMM = this.orderPositionData.formatData.secondSize;
     this.modulesService.buildSampleStandard(this.moduleParamsStandard).subscribe(s => {
       const sampleURL = 'data:image/jpeg;base64,' + s.base64String;
-      this.sample = this.sanitizer.bypassSecurityTrustUrl(sampleURL);
-      this.orderPositionData.moduleData = this.sample;
+      this.sample = (this.sanitizer.bypassSecurityTrustResourceUrl(sampleURL) as any).changingThisBreaksApplicationSecurity;
+      this.orderPositionData.moduleData.base64String = this.sample;
+      this.orderPositionData.moduleData.name = "Sample.tif"
     });
   }
 

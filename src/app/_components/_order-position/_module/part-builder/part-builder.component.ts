@@ -15,10 +15,10 @@ export class PartBuilderComponent implements OnInit {
   @Output() public modulePartCahnged = new EventEmitter();
 
   public fontFamilies: string[] = [
-    'Times New Roman',
-    'Arial',
-    'Tahoma',
-    'Courier New'
+    'Abbat',
+    'AbbatExtra',
+    'AbbatNew',
+    'AbbatNewExtra'
   ];
   public currentFontFamily: string;
 
@@ -26,10 +26,10 @@ export class PartBuilderComponent implements OnInit {
   public currentFontSize: number;
 
   public fontStyles: any[] = [
-    { id: 0, name: 'Нормальный' },
-    { id: 1, name: 'Жирный' },
-    { id: 2, name: 'Курсив' },
-    { id: 3, name: 'Жирный курсив' }
+    { id: 0, name: 'Normal' },
+    { id: 1, name: 'Bold' },
+    { id: 2, name: 'Italic' },
+    { id: 3, name: 'BoldItalic' }
   ];
   public currentFontStyle: any;
 
@@ -87,7 +87,7 @@ export class PartBuilderComponent implements OnInit {
     this.ModulePartParams.fontSize = this.currentFontSize;
 
     this.currentFontStyle = this.fontStyles[0];
-    this.ModulePartParams.fontStyleId = this.currentFontStyle.id;
+    this.ModulePartParams.fontStyleName = this.currentFontStyle.name;
 
     this.currentVerticalAlignment = this.verticalAlignments[0];
     this.ModulePartParams.verticalAlignmentId = this.currentVerticalAlignment.id;
@@ -128,7 +128,7 @@ export class PartBuilderComponent implements OnInit {
   }
 
   public onFontStyleChanged(): void {
-    this.ModulePartParams.fontStyleId = this.currentFontStyle.id;
+    this.ModulePartParams.fontStyleName = this.currentFontStyle.name;
     this.onModulePartChanged();
   }
 

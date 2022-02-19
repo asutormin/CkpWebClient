@@ -26,7 +26,9 @@ export class ModuleComponent implements OnInit {
 
   public get Valid() {
     return this.submitted &&
-      (this.uploadComponent === undefined ? true : this.uploadComponent.Valid);
+      (
+        (this.uploadComponent ? this.uploadComponent.Valid : false) || 
+        (this.builderComponent ? this.builderComponent.Valid : false));
   }
 
   constructor(
