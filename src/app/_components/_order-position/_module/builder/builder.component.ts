@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModuleParamsStandard } from '../../../../_model/_output/_module/module-params-standard';
-import { ModuleService } from '../../../../_services/module.service';
+import { ModuleApiService } from '../../../../_services/module.api.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModuleData } from '../../../../_model/_output/_module/module-data';
 import { OrderPositionData } from '../../../../_model/_output/order-position-data';
@@ -26,7 +26,7 @@ export class BuilderComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private modulesService: ModuleService
+    private moduleApiService: ModuleApiService
   ) { }
 
   public ngOnInit(): void {
@@ -36,7 +36,7 @@ export class BuilderComponent implements OnInit {
   public onBuildSample(): void {
     this.moduleParamsStandard.widthMM = this.orderPositionData.formatData.firstSize;
     this.moduleParamsStandard.heightMM = this.orderPositionData.formatData.secondSize;
-    this.modulesService.buildSampleStandard(this.moduleParamsStandard).subscribe(s => {
+    this.moduleApiService.buildSampleStandard(this.moduleParamsStandard).subscribe(s => {
       const sampleURL = 'data:image/jpeg;base64,' + s.base64String;
       this.sample = (this.sanitizer.bypassSecurityTrustResourceUrl(sampleURL) as any).changingThisBreaksApplicationSecurity;
       this.orderPositionData.moduleData.base64String = this.sample;

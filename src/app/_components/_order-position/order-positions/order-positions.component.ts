@@ -7,7 +7,7 @@ import { SharedService } from 'src/app/_services/shared.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { Subject, Subscription } from 'rxjs';
 import { AccountSettingsService } from 'src/app/_services/account-settings.service';
-import { ModuleService } from 'src/app/_services/module.service';
+import { ModuleApiService } from 'src/app/_services/module.api.service';
 import { StringService } from 'src/app/_services/string.service';
 
 @Component({
@@ -80,7 +80,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
     private accountSettingsService: AccountSettingsService,
     private orderPositionService: OrderPositionApiService,
     private paymentService: PaymentService,
-    private moduleService: ModuleService,
+    private moduleApiService: ModuleApiService,
     private stringService: StringService,
     private sharedService: SharedService
   ) { 
@@ -90,7 +90,7 @@ export class OrderPositionsComponent implements OnInit, OnDestroy {
           const sub = this.stringService.getString(op.id).subscribe(s => op.string = s);
           this.imSub.push(sub);
         } else if (op.format.type.id == 2) {
-          const sub = this.moduleService.getSample(op.id).subscribe(m => op.module = m);
+          const sub = this.moduleApiService.getSample(op.id).subscribe(m => op.module = m);
           this.imSub.push(sub);
         } else if (op.format.type.id == 26) {
           loadIms(op.childs);

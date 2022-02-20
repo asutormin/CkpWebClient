@@ -1,57 +1,56 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
-import { ImageInfo } from '../_model/_input/image-info';
-import { ModuleParamsStandard } from '../_model/_output/_module/module-params-standard';
+import { Injectable } from "@angular/core";
+import { ImageInfo } from "../_model/_input/image-info";
+import { FormatData } from "../_model/_output/format-data";
+import { ModuleData } from "../_model/_output/_module/module-data";
 
 @Injectable({ providedIn: 'root' })
 export class ModuleService {
-  constructor(
-    private http: HttpClient) {
+  constructor() {
   }
 
-  public createSample(module: File): Observable<ImageInfo> {
-    const formData = new FormData();
-    formData.append('module', module, module.name);
+  public checkSizeIsCorrect(image: ImageInfo, formatData: FormatData): boolean {
+    const width = formatData.firstSize;
+    const height = formatData.secondSize;
+    const delta = 5;
 
-    return this.http.post<ImageInfo>(`${environment.apiUrl}/modules/create/sample`, formData)
-      .pipe(
-        map(response => response as ImageInfo)
-      );
+    return (Math.abs(image.width - width) <= delta) && (Math.abs(image.height - height) <= delta)
   }
 
-  public saveModule(module: File): Observable<string> {
-    const formData = new FormData();
-    formData.append('module', module);
-
-    return this.http.post<string>(`${environment.apiUrl}/modules/save`, formData, { responseType: 'text' as 'json' })
-      .pipe(
-        map(response => response as string)
-      );
+  public recalculateDimension(dimension: number, resolution: number): number {
+    return Math.round((dimension / resolution * 25.4 + Number.EPSILON) * 100) / 100;
   }
 
-  public deleteModule(fileId: string): Observable<void> {
-    console.log(fileId);
-    // { headers: { 'Content-Type': 'application/x-www-form-urlencoded'}}
-    return this.http.post<void>(`${environment.apiUrl}/modules/delete/${fileId}`, null);
+  public createSampleFile(base64String: string, fileName: string): File {
+    const blob = this.dataURItoBlob(base64String);
+    const file = new File([blob], fileName, { type: 'image/jpeg' });
+    return file;
   }
 
-  public buildSampleStandard(params: ModuleParamsStandard): Observable<ImageInfo> {
-    return this.http.post<ImageInfo>(`${environment.apiUrl}/modules/build/sample/standard`, params)
-      .pipe(
-        map(response => {
-          console.log(response);
-          return response as ImageInfo;
-        })
-      );
+  public createFile(moduleData: ModuleData): File {
+    const blob = this.dataURItoBlob(moduleData.base64String);
+    const file = new File([blob], moduleData.name);
+
+    return file;
   }
 
-  public getSample(orderPositionId: number): Observable<ImageInfo> {
-    return this.http.get(`${environment.apiUrl}/modules/sample/${orderPositionId}`)
-    .pipe(
-        map(response => response as ImageInfo)
-    )
+  public fillImage(image: ImageInfo, name: string): void {
+    image.file = this.createSampleFile(image.base64String, name);
+    image.width = this.recalculateDimension(image.width, image.hResolution);
+    image.height = this.recalculateDimension(image.height, image.vResolution);
+  }
+
+  public resetModuleData(moduleData: ModuleData): void {
+    moduleData = new ModuleData();
+  }
+
+  private dataURItoBlob(dataURI): Blob {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    return blob;
   }
 }

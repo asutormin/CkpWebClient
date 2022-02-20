@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { OrderPositionInfo } from 'src/app/_model/_input/order-position-info';
-import { ModuleService } from 'src/app/_services/module.service';
+import { ModuleApiService } from 'src/app/_services/module.api.service';
 import { SearchService } from 'src/app/_services/search.service';
 import { SharedService } from 'src/app/_services/shared.service';
 import { StringService } from 'src/app/_services/string.service';
@@ -28,7 +28,7 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private searchService: SearchService,
     private stringService: StringService,
-    private moduleService: ModuleService,
+    private moduleApiService: ModuleApiService,
     private sharedService: SharedService
   ) {
     this.search$
@@ -92,7 +92,7 @@ export class HistoryComponent implements OnInit, AfterViewInit, OnDestroy {
         const sub = this.stringService.getString(op.id).subscribe(s => op.string = s);
         this.imSub.push(sub);
       } else if (op.format.type.id == 2) {
-        const sub = this.moduleService.getSample(op.id).subscribe(m => op.module = m);
+        const sub = this.moduleApiService.getSample(op.id).subscribe(m => op.module = m);
         this.imSub.push(sub);
       } else if (op.format.type.id == 26) {
         this.loadIms(op.childs);
