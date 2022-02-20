@@ -4,6 +4,7 @@ import { ImageInfo } from '../../../../_model/_input/image-info';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { OrderPositionData } from 'src/app/_model/_output/order-position-data';
 import { ModuleData } from '../../../../_model/_output/_module/module-data';
+import { ImageParamService } from 'src/app/_services/image-param.service';
 
 @Component({
   selector: 'app-upload',
@@ -22,7 +23,8 @@ export class UploadComponent implements OnInit {
   }
 
   constructor(
-    private modulesService: ModuleService
+    private modulesService: ModuleService,
+    private imageParamService: ImageParamService
   ) { }
 
   public ngOnInit(): void {
@@ -46,6 +48,7 @@ export class UploadComponent implements OnInit {
   public onSelect($event: NgxDropzoneChangeEvent): void {
 
     const module = $event.addedFiles[0];
+    console.log(module);
 
     this.modulesService.createSample(module).subscribe(
       sample => {
@@ -57,8 +60,11 @@ export class UploadComponent implements OnInit {
         sample.width = this.recalculateDimension(sample.width, sample.hResolution);
         sample.height = this.recalculateDimension(sample.height, sample.vResolution);
 
-        this.checkImageSize(sample);
-        this.samples.push(sample);
+        if (this.imageParamService.checkSizeIsCorrect(sample, this.orderPositionData.formatData)) {
+          this.samples.push(sample);
+        } else {
+          this.showWrongSizeMessage(sample)
+        }
 
         const reader = new FileReader();
         reader.readAsDataURL(module);
@@ -66,7 +72,11 @@ export class UploadComponent implements OnInit {
           this.orderPositionData.moduleData.base64String = reader.result as string;
           this.orderPositionData.moduleData.name = module.name;
         };
-      });
+      }, 
+     err => {
+        alert(err.error.message);
+      }
+      );
   }
 
   public onRemove(sample: any): void {
@@ -78,13 +88,12 @@ export class UploadComponent implements OnInit {
     this.samples = [];
   }
 
-  private checkImageSize(image: ImageInfo): void {
-    if (
-      image.width !== this.orderPositionData.formatData.firstSize ||
-      image.height !== this.orderPositionData.formatData.secondSize) {
-      // tslint:disable-next-line:max-line-length
-      alert('Размер подгруженного макета (' + image.width + ' x ' + image.height + ') не совпадает с требованием формата (' + this.orderPositionData.formatData.firstSize + ' x ' + this.orderPositionData.formatData.secondSize + ').');
-    }
+  private showWrongSizeMessage(image: ImageInfo): void {
+    const width = this.orderPositionData.formatData.firstSize;
+    const height = this.orderPositionData.formatData.secondSize;
+    alert(
+      'Размер подгруженного макета (' + image.width + ' x ' + image.height + ') не совпадает с требованием формата (' + 
+      width + ' x ' + height + '). Подгрузка не возможна. Допустимое отклонение - 5мм.');
   }
 
   private recalculateDimension(dimension: number, resolution: number): number {
