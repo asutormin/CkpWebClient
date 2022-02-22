@@ -1,18 +1,23 @@
 <div class="row no-gutters">
-    <div class="col-lg-3 p-0" style="position: relative;" (mouseover)="mouseOverCountryCode = true"
-        (mouseleave)="mouseOverCountryCode = false">
-        <select id="{{ 'selectCountryCode-' + elementIndex }}" [disabled]="!isCountryCodeEnabled()"
-            (change)="onCountryCodeChanged($event)"
-            style="position: absolute; top: 7px; left: 10px; border: none; outline: none; width: 50px; text-align: center;">
-            <option value="+7">+7</option>
-            <option value="8">&nbsp;8</option>
-        </select>
-        <input class="form-control pl-6 pr-5" type="text" [attr.maxlength]="15" placeholder="(000) 000 00 00"
-            [ngModel]="phoneNumber" (ngModelChange)="onPhoneChanged($event)">
-        <span *ngIf="isPhoneReady()" class="fa fa-check"
-            style="position: absolute; top: 10px; right: 20px; color: lightgreen;"></span>
+    <div class="col-lg-5 md-12 p-0 d-flex flex-nowrap">
+        <div class="w-100" style="position: relative;" (mouseover)="mouseOverCountryCode = true"
+            (mouseleave)="mouseOverCountryCode = false">
+            <select id="{{ 'selectCountryCode-' + elementIndex }}" [disabled]="!isCountryCodeEnabled()"
+                (change)="onCountryCodeChanged($event)"
+                style="position: absolute; top: 7px; left: 10px; border: none; outline: none; width: 50px; text-align: center;">
+                <option value="+7">+7</option>
+                <option value="8">&nbsp;8</option>
+            </select>
+            <input class="form-control pl-6 pr-5" type="text" [attr.maxlength]="15" placeholder="(000) 000 00 00"
+                [ngModel]="phoneNumber" (ngModelChange)="onPhoneChanged($event)">
+            <span *ngIf="isPhoneReady()" class="fa fa-check"
+                style="position: absolute; top: 10px; right: 20px; color: lightgreen;"></span>
+        </div>
+        <input class="form-control" style="max-width: 120px;" type="text" placeholder="доб." [disabled]="!isPhoneReady()"
+                [ngModel]="additionalNumber" (ngModelChange)="onAdditionalNumberChanged($event)"/>
     </div>
-    <div class="col-lg-9 p-0">
+
+    <div class="col-lg-7 p-0">
         <input class="form-control" type="text" placeholder="Дополнительно" [disabled]="!isPhoneReady()"
             [ngModel]="phoneDescription" (ngModelChange)="onPhoneDescriptionChanged($event)">
     </div>

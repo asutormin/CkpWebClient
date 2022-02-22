@@ -11,6 +11,7 @@ export class PhoneMaskedComponent implements OnInit {
   @Output() public phoneChanged = new EventEmitter();
   
   public phoneNumber: string = '';
+  public additionalNumber: string = '';
   public phoneDescription: string = '';
   public mouseOverCountryCode: boolean;
   public phoneData: PhoneData;
@@ -33,6 +34,9 @@ export class PhoneMaskedComponent implements OnInit {
       const phoneNumber = phoneData.code.concat(phoneData.number);
       this.onFormatPhone(phoneNumber);
 
+      const additionalNumber = phoneData.additionalNumber;
+      this.onFormatAdditionalNumber(additionalNumber);
+
       this.phoneDescription = phoneData.description;
      }
   }
@@ -44,6 +48,11 @@ export class PhoneMaskedComponent implements OnInit {
     if (length > 0)
       length += this.getCountryCode().length 
     
+    // Если задан добавочный номер - учитываем пробел между телефоном, 
+    // фразой "доб." и непосредственно добавочным номером
+    if (this.getAdditionalNumber && this.additionalNumber.length > 0)
+      length += this.additionalNumber.length + 1;
+
     // Если задано описание - учитываем пробел между телефоном и описанием
     if (this.phoneDescription && this.phoneDescription.length > 0)
       length += this.phoneDescription.length + 1;
@@ -77,6 +86,15 @@ export class PhoneMaskedComponent implements OnInit {
       this.createPhoneData();
     else
       this.resetPhoneData();
+
+      this.phoneChanged.emit();
+  }
+
+  public onAdditionalNumberChanged($event: string): void {
+    this.onFormatAdditionalNumber($event);
+
+    if (this.phoneData)
+      this.phoneData.additionalNumber = this.getAdditionalNumber($event);
 
       this.phoneChanged.emit();
   }
@@ -122,6 +140,12 @@ export class PhoneMaskedComponent implements OnInit {
     this.phoneNumber = result;
   }
 
+  private onFormatAdditionalNumber($event: string): void {
+    let additionaNumber = this.getAdditionalNumber($event);
+    let result = additionaNumber ? 'доб. ' + additionaNumber : '';
+    this.additionalNumber = result;
+  }
+
   private createPhoneData(): void {
     this.phoneData = new PhoneData();
     this.phoneData.countryCode = this.getCountryCode();
@@ -144,5 +168,9 @@ export class PhoneMaskedComponent implements OnInit {
   private setCountryCode(value: string): void {
     const element = (document.getElementById(`selectCountryCode-${this.elementIndex}`) as HTMLSelectElement);
     element.value = value;
+  }
+
+  private getAdditionalNumber($event: string): string {
+    return $event.trim().replace(/[^0-9]/g, '');
   }
 }
