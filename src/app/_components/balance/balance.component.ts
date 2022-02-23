@@ -116,8 +116,9 @@ export class BalanceComponent implements OnInit, OnDestroy {
     this.totalBalanceCountUp = new CountUp('total-balance', 0);
     if (!this.totalBalanceCountUp.error) {
       this.totalBalanceCountUp.options.separator = ' ';
+      this.totalBalanceCountUp.options.decimalPlaces = 2;
       this.totalBalanceCountUp.options.decimal = ',';
-      this.totalBalanceCountUp.options.prefix = ' ';
+      this.totalBalanceCountUp.options.prefix = '&nbsp;';
       this.totalBalanceCountUp.start();
     } else {
       console.error(this.totalBalanceCountUp.error);
@@ -126,8 +127,9 @@ export class BalanceComponent implements OnInit, OnDestroy {
     this.rdvBalanceCountUp = new CountUp('rdv-balance', 0);
     if (!this.rdvBalanceCountUp.error) {
       this.rdvBalanceCountUp.options.separator = ' ';
+      this.rdvBalanceCountUp.options.decimalPlaces = 2;
       this.rdvBalanceCountUp.options.decimal = ',';
-      this.rdvBalanceCountUp.options.prefix = ' ';
+      this.rdvBalanceCountUp.options.prefix = '&nbsp;';
       this.rdvBalanceCountUp.start();
     } else {
       console.error(this.rdvBalanceCountUp.error);
@@ -136,8 +138,9 @@ export class BalanceComponent implements OnInit, OnDestroy {
     this.ckpBalanceCountUp = new CountUp('ckp-balance', 0);
     if (!this.ckpBalanceCountUp.error) {
       this.ckpBalanceCountUp.options.separator = ' ';
+      this.rdvBalanceCountUp.options.decimalPlaces = 2;
       this.ckpBalanceCountUp.options.decimal = ',';
-      this.ckpBalanceCountUp.options.prefix = ' ';
+      this.ckpBalanceCountUp.options.prefix = '&nbsp;';
       this.ckpBalanceCountUp.start();
     } else {
       console.error(this.ckpBalanceCountUp.error);
@@ -166,7 +169,6 @@ export class BalanceComponent implements OnInit, OnDestroy {
             value: balance.balanceSum
           }
         }
-
         this.option && this.myChart.setOption(this.option);
   });
 }
