@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SupplierService } from '../../../../../_services/supplier.service'
 import { FormatData } from '../../../../../_model/_output/format-data';
 import { NgForm } from '@angular/forms';
+import { number } from 'echarts';
 
 @Component({
   selector: 'app-experience',
@@ -51,6 +52,12 @@ export class ExperienceComponent implements OnInit, OnDestroy {
     this.experienceData.id = this.currentExperience
       ? this.currentExperience.id
       : this.undefinedExperience;
+  }
+
+  public onExperienceValueChanged($event: KeyboardEvent): void {
+    if ($event.key == ',' || $event.key == '.') {
+       $event.preventDefault();
+    }
   }
 
 }
